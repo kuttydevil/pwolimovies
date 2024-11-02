@@ -1,26 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Start Torrent</title>
-    <script defer="defer" src="js/chunk-vendors.5a9be8c7.js"></script>
-    <script defer="defer" src="js/app.61cfa291.js"></script>
-    <link href="css/app.7dd50e58.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie List</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* ... (Your CSS styles) ... */
+    </style>
 </head>
-
 <body>
-  <button id="start-torrent-button">Start Torrent</button>
+    <button id="mainButton">Show Movie List</button>
+    <div id="content" style="display: none;">
+        <input type="text" id="search-bar" placeholder="Search for movies...">
+        <div class="container" id="movieContainer"></div>
+        <div id="movieDetails"></div>
+        <button id="backButton">Back to Movie List</button>
+        <div class="pagination" id="pagination">
+            <button id="prevButton">« Previous</button>
+            <span id="currentPageSpan">1</span>
+            <button id="nextButton">Next »</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const movieContainer = document.getElementById('movieContainer');
+            const searchBar = document.getElementById('search-bar');
+            const movieDetails = document.getElementById('movieDetails');
+            const backButton = document.getElementById('backButton');
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+            const currentPageSpan = document.getElementById('currentPageSpan');
+            const paginationDiv = document.getElementById('pagination');
+            const mainButton = document.getElementById('mainButton');
+            const contentDiv = document.getElementById('content');
 
-  <script>
-    document.getElementById('start-torrent-button').addEventListener('click', () => {
-      const magnetLink = "magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent";
+            let currentPage = 1;
+            let currentSearchTerm = '';
+            let totalPages = 1;
+            const moviesPerPage = 40;
 
-      // Open uTorrent Lite in a new tab (or window) with the magnet link
-      window.open('/player?m=' + btoa(magnetLink), '_blank');
-    });
-  </script>
+            function searchMovies(searchTerm = '', page = 1) {
+                const apiUrl = `https://yts.mx/api/v2/list_movies.json?query_term=${searchTerm}&page=${page}&limit=${moviesPerPage}`;
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.data && data.data.movies) {
+                            currentSearchTerm = searchTerm;
+                            totalPages = Math.ceil(data.data.movie_count / data.data.limit);
+                            currentPage = page;
+                            displayMovies(data.data.movies);
+                            updatePagination();
+                        } else {
+                            movieContainer.innerHTML = '<p>No movies found.</p>';
+                            totalPages = 1;
+                            currentPage = 1;
+                            updatePagination();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching data:', error);
+                        movieContainer.innerHTML = '<p>An error occurred while loading movies.</p>';
+                    });
+            }
+
+            function displayMovies(movies) {
+                movieContainer.innerHTML = '';
+                movies.forEach(movie => {
+                    const movieCard = document.createElement('div');
+                    movieCard.classList.add('movie-card');
+                    const posterUrl = movie.medium_cover_image ? movie.medium_cover_image : 'https://via.placeholder.com/300x450?text=No+Poster+Available';
+                    movieCard.innerHTML = `
+                        <img src="${posterUrl}" alt="${movie.title} Poster">
+                        <h2 class="movie-title">${movie.title}</h2>
+                        <p class="movie-year">(${movie.year})</p>
+                        <p class="movie-rating">⭐ ${movie.rating}</p>
+                        <p class="movie-genres">${movie.genres.join(', ')}</p>
+                    `;
+                    movieCard.addEventListener('click', () => {
+                        showMovieDetails(movie);
+                    });
+                    movieContainer.appendChild(movieCard);
+                });
+            }
+
+            function showMovieDetails(movie) {
+                movieDetails.innerHTML = '';
+                const posterUrl = movie.medium_cover_image ? movie.medium_cover_image : 'https://via.placeholder.com/300x450?text=No+Poster+Available';
+
+                movieDetails.innerHTML = `
+                    <h2>${movie.title_long}</h2>
+                    <img src="${posterUrl}" alt="${movie.title} Poster" width="300">
+                    <p><strong>IMDb Code:</strong> ${movie.imdb_code || 'N/A'}</p>
+                    <p><strong>Year:</strong> ${movie.year || 'N/A'}</p>
+                    <p><strong>Rating:</strong> ⭐ ${movie.rating || 'N/A'}</p>
+                    <p><strong>Runtime:</strong> ${movie.runtime ? movie.runtime + ' minutes' : 'N/A'}</p>
+                    <p><strong>Genres:</strong> ${movie.genres ? movie.genres.join(', ') : 'N/A'}</p>
+                    <p><strong>Language:</strong> ${movie.language || 'N/A'}</p>
+                    <p><strong>MPA Rating:</strong> ${movie.mpa_rating || 'N/A'}</p>
+                    <p><strong>Summary:</strong> ${movie.description_full || 'No summary available.'}</p>
+                    <p><strong>Synopsis:</strong> ${movie.synopsis || 'No synopsis available.'}</p>
+                    <h3>Torrents:</h3>
+                    <div id="torrentsContainer"></div> 
+                `;
+
+                const torrentsContainer = document.getElementById('torrentsContainer');
+                if (movie.torrents && movie.torrents.length > 0) {
+                    movie.torrents.forEach(torrent => {
+                        const torrentLink = document.createElement('a');
+                        torrentLink.href = torrent.url;
+                        torrentLink.textContent = `${torrent.quality} - ${torrent.type} (${torrent.size})`;
+                        torrentLink.classList.add('torrent-link');
+                        torrentsContainer.appendChild(torrentLink);
+
+                        const playButton = document.createElement('button');
+                        playButton.classList.add('copy-button');
+                        playButton.textContent = 'Play';
+                        playButton.dataset.link = generateMagnetLink(torrent);
+                        playButton.dataset.title = `${movie.title} ${torrent.quality}`;
+                        playButton.addEventListener('click', () => {
+                            const movieData = {
+                                link: playButton.dataset.link,
+                                title: playButton.dataset.title
+                            };
+                            const redirectUrl = generateRedirectUrl(movieData);
+                            window.open(redirectUrl, '_blank');
+                            contentDiv.style.display = 'none';
+                            mainButton.style.display = 'block';
+                        });
+                        torrentsContainer.appendChild(playButton);
+                    });
+                } else {
+                    torrentsContainer.innerHTML = '<p>No torrents available.</p>';
+                }
+
+                movieContainer.style.display = 'none';
+                searchBar.style.display = 'none';
+                movieDetails.style.display = 'block';
+                backButton.style.display = 'block';
+                paginationDiv.style.display = 'none';
+            }
+
+            function generateMagnetLink(torrent) {
+                // ... (Your existing magnet link generation code) ...
+            }
+
+            function generateRedirectUrl(movieData) {
+                const base64EncodedMagnet = btoa(movieData.link);
+                return `https://pwolimovies.vercel.app/player?m=${base64EncodedMagnet}&i=5&utm_source=btl&utm_medium=modal`;
+            }
+
+            function updatePagination() {
+                currentPageSpan.textContent = currentPage;
+                prevButton.disabled = currentPage === 1;
+                nextButton.disabled = currentPage === totalPages;
+            }
+
+            function handlePlayButtonClick(event) {
+                const movieData = {
+                    link: event.target.dataset.link,
+                    title: event.target.dataset.title
+                };
+                const redirectUrl = generateRedirectUrl(movieData);
+                window.open(redirectUrl, '_blank');
+                contentDiv.style.display = 'none';
+                mainButton.style.display = 'block';
+            }
+
+            prevButton.addEventListener('click', () => {
+                searchMovies(currentSearchTerm, currentPage - 1);
+            });
+
+            nextButton.addEventListener('click', () => {
+                searchMovies(currentSearchTerm, currentPage + 1);
+            });
+
+            mainButton.addEventListener('click', () => {
+                contentDiv.style.display = 'block';
+                mainButton.style.display = 'none';
+                searchMovies();
+            });
+
+            searchMovies(); 
+        });
+    </script>
 </body>
-
 </html>
