@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample Torrent Player</title>
+  <script src="https://cdn.jsdelivr.net/npm/webtorrent@latest/dist/webtorrent.min.js"></script>  </head>
+<body>
+  <div id="app">
+    <button @click="loadSampleTorrent">Load Sample Torrent</button>
+    <div id="player" style="width: 640px; height: 480px;"></div> <!-- Player container -->
+  </div>
+
+
+  <script>
+    const sampleMagnetURI = 'magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent';
+
+    new Vue({
+      el: '#app',
+      data: {
+          client: new WebTorrent(),
+          torrent: null
+      },
+      methods: {
+        loadSampleTorrent() {
+          this.client.add(sampleMagnetURI, (torrent) => {
+            this.torrent = torrent;
+            torrent.on('done', () => {
+              console.log('Torrent download finished');
+              // Render the file, select the first file for now
+              const file = torrent.files[0];
+              file.appendTo('#player'); 
+            });
+
+            torrent.on('error', (err) => {
+              console.error('WebTorrent error:', err);
+            });
+
+
+          });
+        }
+      }
+    })
+
+
+  </script>
+</body>
+</html>
