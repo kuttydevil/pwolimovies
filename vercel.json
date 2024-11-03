@@ -1,12 +1,15 @@
 {
-  "rewrites": [
+  "redirects": [
     {
       "source": "/",
-      "destination": "/movie.html"
-    },
+      "destination": "/movie.html",
+      "permanent": true // Or false for a temporary redirect
+    }
+  ],
+    "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/index.html" 
+      "destination": "/index.html"
     }
   ]
 }
