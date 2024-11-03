@@ -1,11 +1,11 @@
 {
   "rewrites": [
     {
-      "source": "/", // Specifically match the root path
+      "source": "/",
       "destination": "/movie.html"
     },
     {
-      "source": "/(.*)", // Match all other paths
+      "source": "/(.*)",
       "destination": "/index.html" 
     }
   ]
