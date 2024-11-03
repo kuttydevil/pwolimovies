@@ -3,7 +3,7 @@
     {
       "source": "/",
       "destination": "/movie.html",
-      "permanent": true // Or false for a temporary redirect
+      "permanent": true
     }
   ],
     "rewrites": [
