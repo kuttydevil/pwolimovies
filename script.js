@@ -26,6 +26,7 @@ let currentPage = 1;
 let totalPages = 1;
 let searchQuery = '';
 
+
 function generateMagnetLink(movie, torrent) {
     let encodedTitle = encodeURIComponent(movie.title_long);
     let magnetUrl = `magnet:?xt=urn:btih:${torrent.hash}&dn=${encodedTitle}`;
@@ -62,12 +63,7 @@ function fetchMovies(page = 1, query = '') {
                     const playButton = document.createElement('div');
                     playButton.classList.add('play-button');
                     playButton.innerHTML = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" /></svg>';
-                    playButton.addEventListener('click', () => {
-                        const magnetLink = generateMagnetLink(movie, movie.torrents[0]);
-                        const redirectUrl = generateRedirectUrl(magnetLink);
-                        window.location.href = redirectUrl;
-                        window.close();
-                    });
+                    playButton.addEventListener('click', () => showMovieDetails(movie));
                     card.appendChild(playButton);
                     container.appendChild(card);
                 });
@@ -81,23 +77,60 @@ function fetchMovies(page = 1, query = '') {
 }
 
 function showMovieDetails(movie) {
-    popup.style.display = 'block';
     popupContent.innerHTML = '';
 
+    const title = document.createElement('h2');
+    title.textContent = movie.title_long;
+    popupContent.appendChild(title);
+
     const img = document.createElement('img');
-    img.src = movie.medium_cover_image;
+    img.src = movie.large_cover_image;
     img.alt = movie.title;
+    img.style.maxWidth = '300px';
+    img.style.height = 'auto';
     popupContent.appendChild(img);
 
-    const details = document.createElement('div');
-    details.innerHTML = `
-        <h2>${movie.title}</h2>
-        <p><strong>Year:</strong> ${movie.year}</p>
-        <p><strong>Genre:</strong> ${movie.genres.join(', ')}</p>
-        <p><strong>Synopsis:</strong> ${movie.synopsis}</p>
-    `;
-    popupContent.appendChild(details);
+    const detailsList = document.createElement('ul');
+
+    addDetailItem(detailsList, 'Rating', movie.rating);
+    addDetailItem(detailsList, 'Year', movie.year);
+    addDetailItem(detailsList, 'Runtime', `${movie.runtime} minutes`);
+    addDetailItem(detailsList, 'Genres', movie.genres.join(', '));
+    addDetailItem(detailsList, 'Language', movie.language);
+    addDetailItem(detailsList, 'Synopsis', movie.synopsis || movie.description_full || 'No synopsis available.');
+
+    popupContent.appendChild(detailsList);
+
+
+    const torrentButtonsContainer = document.createElement('div');
+    torrentButtonsContainer.classList.add('torrent-buttons');
+    movie.torrents.forEach(torrent => {
+        const torrentButton = document.createElement('button');
+        torrentButton.classList.add('torrent-button');
+        torrentButton.textContent = `${torrent.quality} (${torrent.size})`;
+        torrentButton.addEventListener('click', () => {
+            const magnetLink = generateMagnetLink(movie, torrent);
+            const redirectUrl = generateRedirectUrl(magnetLink);
+            window.location.href = redirectUrl;
+        });
+        torrentButtonsContainer.appendChild(torrentButton);
+    });
+    popupContent.appendChild(torrentButtonsContainer);
+
+    popup.style.display = 'block';
 }
+
+
+
+function addDetailItem(list, label, value) {
+    if (value) {
+        const item = document.createElement('li');
+        item.textContent = `${label}: ${value}`;
+        list.appendChild(item);
+    }
+}
+
+
 
 function updatePaginationButtons() {
     prevPageBtn.disabled = currentPage === 1;
