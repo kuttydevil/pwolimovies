@@ -6,6 +6,44 @@ const currentPageDisplay = document.getElementById('current-page');
 const totalPagesDisplay = document.getElementById('total-pages');
 const searchInput = document.getElementById('search-input');
 
+// Enhanced Keyword List
+const keywords = [
+    "free movies online", "watch free movies", "stream free movies", "free tv shows online", 
+    "free movie streaming sites", "watch movies online free", "free hd movies", "free 1080p movies", 
+    "pwolimovies", "free movie downloads", "download free movies", "watch movies online", 
+    "free movie torrents", "latest movie torrents", "new release movies free online", 
+    "watch movies without registration", "free movie websites", "watch free tv series",
+    "free tv series online", "online movie streaming free", "1080p movies free", "hd movies free",
+    "free movies no sign up", "watch movies without signing up", "free online movies" // Added more keywords
+];
+
+// Function to inject keywords into various elements
+function injectKeywords(element, keyword) {
+    if (element) {
+        if (element.textContent) {
+            element.textContent += ` ${keyword}`;
+        } else if (element.alt) {
+            element.alt += ` ${keyword}`;
+        }
+    }
+}
+
+
+function updatePageTitle(query = '') {
+    let title = "Pwolimovies - Watch Free Movies & TV Shows Online";
+    if (query) {
+        title = `Pwolimovies - Search Results for "${query}"`;
+    }
+    const randomKeyword = keywords[Math.floor(Math.random() * keywords.length)];
+    document.title = `${title} - ${randomKeyword}`;
+
+    // Inject keywords into meta description
+    const metaDescription = document.querySelector("meta[name='description']");
+    if (metaDescription) {
+        metaDescription.content = `${title} - ${randomKeyword}. ${metaDescription.content}`;
+    }
+}
+
 // Popup elements
 const popup = document.getElementById('movie-popup');
 const closePopupBtn = document.getElementById('close-popup');
@@ -44,36 +82,52 @@ function fetchMovies(page = 1, query = '') {
     fetch(url)
         .then(res => res.json())
         .then(data => {
-            if (data.status === 'ok') {
-                totalPages = Math.ceil(data.data.movie_count / 20);
-                totalPagesDisplay.textContent = totalPages;
-                currentPageDisplay.textContent = currentPage;
+            try { // Error handling
+                if (data.status === 'ok') {
+                    totalPages = Math.ceil(data.data.movie_count / 20);
+                    totalPagesDisplay.textContent = totalPages;
+                    currentPageDisplay.textContent = currentPage;
 
-                container.innerHTML = '';
+                    container.innerHTML = '';
 
-                data.data.movies.forEach(movie => {
-                    const card = document.createElement('div');
-                    card.classList.add('movie-card');
+                    data.data.movies.forEach(movie => {
+                        const card = document.createElement('div');
+                        card.classList.add('movie-card');
 
-                    const img = document.createElement('img');
-                    img.src = movie.medium_cover_image;
-                    img.alt = movie.title;
-                    card.appendChild(img);
+                        const img = document.createElement('img');
+                        img.src = movie.medium_cover_image;
+                        img.alt = movie.title;
+                        injectKeywords(img, keywords[Math.floor(Math.random() * keywords.length)]); // Inject keywords into image alt
+                        card.appendChild(img);
 
-                    const playButton = document.createElement('div');
-                    playButton.classList.add('play-button');
-                    playButton.innerHTML = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" /></svg>';
-                    playButton.addEventListener('click', () => showMovieDetails(movie));
-                    card.appendChild(playButton);
-                    container.appendChild(card);
-                });
+                        const playButton = document.createElement('div');
+                        playButton.classList.add('play-button');
+                        playButton.innerHTML = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" /></svg>';
+                        playButton.addEventListener('click', () => showMovieDetails(movie));
+                        card.appendChild(playButton);
 
-                updatePaginationButtons();
-            } else {
-                console.error("API Error:", data.status_message);
+                        const title = document.createElement('h3');
+                        title.textContent = movie.title_long;
+                        injectKeywords(title, keywords[Math.floor(Math.random() * keywords.length)]); // Inject keywords into movie title
+                        card.appendChild(title);
+
+                        container.appendChild(card);
+                    });
+
+                    updatePaginationButtons();
+                } else {
+                    console.error("API Error:", data.status_message);
+                    container.innerHTML = "<p>Error loading movies. Please try again later.</p>"; // User-friendly error message
+                }
+            } catch (error) {
+                console.error("Data Handling Error:", error);
+                container.innerHTML = "<p>Error loading movies. Please try again later.</p>"; // User-friendly error message
             }
         })
-        .catch(error => console.error("Fetch Error:", error));
+        .catch(error => {
+            console.error("Fetch Error:", error);
+            container.innerHTML = "<p>Error loading movies. Please try again later.</p>"; // User-friendly error message
+        });
 }
 
 function showMovieDetails(movie) {
@@ -100,7 +154,6 @@ function showMovieDetails(movie) {
     addDetailItem(detailsList, 'Synopsis', movie.synopsis || movie.description_full || 'No synopsis available.');
 
     popupContent.appendChild(detailsList);
-
 
     const torrentButtonsContainer = document.createElement('div');
     torrentButtonsContainer.classList.add('torrent-buttons');
@@ -151,10 +204,13 @@ searchInput.addEventListener('input', () => {
     searchQuery = searchInput.value;
     currentPage = 1;
     fetchMovies(currentPage, searchQuery);
+    updatePageTitle(searchQuery); // Update title on search
 });
 
 closePopupBtn.addEventListener('click', () => {
     popup.style.display = 'none';
 });
 
+// Initial setup
 fetchMovies();
+updatePageTitle(); // Set initial title

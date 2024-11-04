@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pwolimovies</title>
+    <title>Pwolimovies - Watch Free Movies & TV Shows Online</title>
+    <meta name="description" content="Pwolimovies: Watch free movies online, stream free movies, free TV series online, watch free TV shows, free movie streaming sites. Watch movies and TV shows online free in HD and 1080p. Download free movies and TV shows.">
     <link rel="stylesheet" href="/style.css">
-    <!-- Netflix Font -->
+    <script src="script.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="navbar-logo">
-            <img src="/img/ut-lite-logo.svg" alt="Netflix Logo">
+            <img src="/img/ut-lite-logo.svg" alt="Pwolimovies Logo - Watch Free Movies Online">
         </div>
         <div class="navbar-search">
-            <input type="text" id="search-input" placeholder="Titles, people, genres">
+            <input type="text" id="search-input" placeholder="Search Free Movies, TV Shows...">
             <svg class="search-icon" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20,18.5L18.5,20L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5A4.5,4.5 0 0,0 5,9.5A4.5,4.5 0 0,0 9.5,14A4.5,4.5 0 0,0 14,9.5A4.5,4.5 0 0,0 9.5,5Z" />
             </svg>
@@ -29,10 +29,11 @@
         </div>
     </nav>
 
-    <!-- Main Container -->
     <div class="main-container">
-        <h2 class="section-title">Trending Now</h2>
-        <div class="container" id="movie-container"></div>
+        <h2 class="section-title">Trending Now - Watch Free Movies and TV Shows Online</h2>
+        <div class="container" id="movie-container">
+           <div class="movie-grid"></div>
+        </div>
 
         <div class="pagination">
             <button id="prev-page" disabled>Previous</button>
@@ -41,17 +42,56 @@
         </div>
     </div>
 
-    <!-- Popup -->
+    <div class="about-section">  <!-- Start of new content -->
+        <h2>About Pwolimovies</h2>
+        <p>Pwolimovies is the best place to watch free movies and TV shows online. We have a massive library of content, including the latest releases, classics, and hidden gems. Stream free movies and TV shows in HD and 1080p, without any registration or sign-up.  Watch movies online free and without interruption.  At Pwolimovies, we believe everyone deserves free entertainment. Enjoy unlimited streaming with Pwolimovies!</p>
+    </div>
+
+    <div class="faq-section">
+        <h2>Frequently Asked Questions (FAQ)</h2>
+        <details>
+            <summary>How can I watch movies on Pwolimovies?</summary>
+            <p>Simply browse our catalog and click on the movie or TV show you want to watch. Start streaming instantly!</p>
+        </details>
+        <details>
+            <summary>Is Pwolimovies really free?</summary>
+            <p>Absolutely! Pwolimovies is completely free to use. No hidden fees, subscriptions, or sign-ups required.</p>
+        </details>
+        <details>
+            <summary>What quality are the movies and TV shows?</summary>
+            <p>We offer a variety of quality options, including HD and 1080p, to ensure the best viewing experience.</p>
+        </details>
+    </div>   <!-- End of new content -->
+
+
+    <div class="team-section">
+        <h2>Our Amazing Team</h2>
+        <p>Meet the passionate individuals behind Pwolimovies, dedicated to bringing you the best free streaming experience.</p>
+        <!-- Add team member profiles here -->
+    </div>
+
+    <div class="mission-vision-section">
+        <h2>Our Mission and Vision</h2>
+        <h3>Mission</h3>
+        <p>To provide unlimited access to free, high-quality movies and TV shows for everyone, everywhere.</p>
+        <h3>Vision</h3>
+        <p>To be the world's leading platform for free online movie and TV show streaming, offering an unparalleled viewing experience.</p>
+    </div>
+
+    <div class="content-section">
+        <h2>Explore Our Extensive Library</h2>
+        <p>Discover a universe of movies and TV shows across various genres, from action-packed thrillers to heartwarming romances. Stream free movies online, watch free TV shows, and explore free movie streaming sites. Experience the best in online movie streaming free, with free HD movies and free 1080p movies. Find free TV series online, watch free TV shows, and download free movies and TV shows. Pwolimovies offers the latest movie torrents, new release movies free online, and free movies with no sign-up. Watch movies without registration on free movie websites. Pwolimovies is your go-to source for movie torrents, free movie downloads, and free TV show torrents. Download free TV shows and enjoy the latest movie torrents. Watch new release movies free online and discover free movies without signing up. Watch movies without registration on free movie websites. Pwolimovies - Watch free movies & TV shows online!</p>
+    </div>
+
+
     <div class="popup" id="movie-popup">
         <span class="close-button" id="close-popup">×</span>
         <div class="popup-content" id="popup-content"></div>
     </div>
 
-    <!-- Footer -->
     <footer class="footer">
-        <p>&copy; 2024 Pwolimovies. All Rights Reserved.</p>
+        <p>© 2024 Pwolimovies. All Rights Reserved. Watch Free Movies and TV Shows Online.</p>
     </footer>
 
-    <script src="script.js"></script>
 </body>
 </html>
