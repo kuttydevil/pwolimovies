@@ -3483,14 +3483,14 @@
             );
           })(M);
         function H() {}
-        (Z.prototype.DEFAULT_ANNOUNCE_INTERVAL = 3e4),
+        (Z.prototype.DEFAULT_ANNOUNCE_INTERVAL = 1e4),
           (Z._socketPool = _),
           (t.exports = Z);
       },
       59248: (t, e, r) => {
         var n = r(41281)["hp"];
         (e.DEFAULT_ANNOUNCE_PEERS = 50),
-          (e.MAX_ANNOUNCE_PEERS = 82),
+          (e.MAX_ANNOUNCE_PEERS = 250),
           (e.binaryToHex = function (t) {
             return (
               "string" !== typeof t && (t = String(t)),
@@ -12533,7 +12533,7 @@
             }
             s = (C.then ? (await C)() : C)[0];
             var u = r(70861),
-              d = ["wss://wstracker.online", "wss://asdxwqw.com"];
+              d = ["wss://tracker.files.fm","wss://peertube.cpy.re","wss://tracker.webtorrent.dev","wss://wstracker.online","wss://asdxwqw.com","wss://tracker.openwebtorrent.com","wss://wstracker.online","wss://asdxwqw.com","wss://tracker.btorrent.xyz"];
             try {
               var p = JSON.parse(
                 localStorage.getItem("preferences.tracker.defaults")
@@ -17689,7 +17689,7 @@
                                 i.I.seed(
                                   n,
                                   {
-                                    announceList: [["wss://wstracker.online"]],
+                                    announceList: [["udp://tracker.opentrackr.org:1337/announce","udp://tracker.internetwarriors.net:1337","udp://p4p.arenabg.com:1337","wss://tracker.openwebtorrent.com","wss://wstracker.online","wss://asdxwqw.com","wss://tracker.btorrent.xyz"]],
                                   },
                                   function (t) {
                                     a.log(t);
@@ -37870,7 +37870,7 @@
                   "boolean" === typeof n["private"] &&
                     (o["private"] = n["private"]),
                   (o.strategy = n.strategy || "sequential"),
-                  (o.maxWebConns = n.maxWebConns || 4),
+                  (o.maxWebConns = n.maxWebConns || 10),
                   (o._rechokeNumSlots =
                     !1 === n.uploads || 0 === n.uploads ? 0 : +n.uploads || 10),
                   (o._rechokeOptimisticWire = null),

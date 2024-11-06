@@ -1,370 +1,81 @@
-/* General Styles */
-body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #141414;
-    color: #fff;
-    margin: 0;
-    overflow-x: hidden;
-}
-
-a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 15px;
-    font-weight: 500;
-}
-
-a:hover {
-    color: #e50914;
-}
-
-/* Navigation Bar */
-.navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: rgba(20, 20, 20, 0.9);
-    display: flex;
-    align-items: center;
-    padding: 10px 50px;
-    z-index: 1000;
-    transition: background-color 0.3s ease;
-}
-
-.navbar-logo img {
-    width: 100px;
-    cursor: pointer;
-}
-
-.navbar-search {
-    position: relative;
-    margin-left: auto;
-    margin-right: 30px;
-}
-
-.navbar-search input[type="text"] {
-    padding: 8px 40px 8px 15px;
-    border: none;
-    border-radius: 3px;
-    background-color: #333;
-    color: #fff;
-    font-size: 14px;
-    width: 200px;
-    transition: width 0.3s ease;
-}
-
-.navbar-search input[type="text"]:focus {
-    outline: none;
-    width: 300px;
-}
-
-.search-icon {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-    fill: #999;
-}
-
-.navbar-menu {
-    display: none;
-}
-
-@media (min-width: 768px) {
-    .navbar-menu {
-        display: flex;
-        margin-left: 30px;
-    }
-}
-
-/* Main Container */
-.main-container {
-    padding: 100px 50px 50px 50px;
-}
-
-.section-title {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-/* Movie Grid */
-.container {
+#movie-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-gap: 25px;
-}
-
-.movie-card {
-    position: relative;
-    border-radius: 5px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    width: 80%;
+    margin: 20px auto;
+  }
+  .movie-card {
+    border: 1px solid #ccc;
+    text-align: center;
     cursor: pointer;
-}
-
-.movie-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
-}
-
-.movie-card img {
-    width: 100%;
+    overflow: hidden;
+  }
+  .movie-card img {
+    max-width: 100%;
     height: auto;
     display: block;
-}
-
-/* Play Button */
-.play-button {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(229, 9, 20, 0.8);
-    border: none;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s ease, background-color 0.3s ease;
-}
-
-.play-button svg {
-    width: 24px;
-    height: 24px;
-    fill: #fff;
-}
-
-.movie-card:hover .play-button {
-    opacity: 1;
-}
-
-.play-button:hover {
-    background-color: #f6121d;
-}
-
-/* Pagination */
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
-}
-
-.pagination button {
-    padding: 10px 20px;
-    margin: 0 10px;
-    background-color: #e50914;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  .movie-card h3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-
-.pagination button:disabled {
-    background-color: #555;
-    cursor: not-allowed;
-}
-
-.pagination button:hover:not(:disabled) {
-    background-color: #f6121d;
-}
-
-.pagination span {
-    font-size: 16px;
-}
-
-/* Popup Styles */
-.popup {
+  }
+  #movie-details-popup {
     display: none;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #141414;
-    border-radius: 8px;
-    padding: 30px;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
-    z-index: 1001;
-    max-width: 90%;
-    max-height: 80vh;
-    overflow-y: auto;
-}
-
-.popup-content {
-    display: flex;
-    color: #fff;
-    flex-wrap: wrap;
-}
-
-.popup .close-button {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    cursor: pointer;
-    color: #fff;
-    font-size: 30px;
-    transition: color 0.3s ease;
-}
-
-.popup .close-button:hover {
-    color: #e50914;
-}
-
-.popup img {
-    max-width: 300px;
-    width: 100%;
+    width: auto;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 100;
     border-radius: 5px;
-    margin-right: 30px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-}
-
-.popup ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 10px;
-    line-height: 1.8;
-    font-size: 16px;
-    flex: 1;
-}
-
-.popup li {
-    margin-bottom: 10px;
-}
-
-.torrent-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 20px;
-    gap: 10px;
-}
-
-.torrent-button {
-    padding: 10px 20px;
-    background-color: #e50914;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;  /* Allow scrolling for long content */
+	max-height: 90%;   /* Limit maximum height of popup */
+  }
+  #movie-details-popup .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
     cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
+  }
+  #movie-details-popup .torrent-item {
+    margin-bottom: 5px;
+  }
+  #popup-torrents {
+    overflow-y: auto; /* Enable scrolling if content overflows */
+    max-height: 300px; /* Set a max height for the torrent list */
 }
 
-.torrent-button:hover {
-    background-color: #f6121d;
-}
-
-/* Footer */
-.footer {
-    background-color: #141414;
-    color: #757575;
-    text-align: center;
-    padding: 20px 0;
-    position: relative;
-    bottom: 0;
+#popup-torrents table {
     width: 100%;
-    margin-top: 50px;
+    border-collapse: collapse; /* Collapse cell borders */
+	margin-top: 10px;
 }
 
-/* Responsive Styles */
-@media (max-width: 1200px) {
-    .main-container {
-        padding: 100px 30px 30px 30px;
-    }
-
-    .popup-content {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .popup img {
-        margin-right: 0;
-        margin-bottom: 20px;
-    }
-
-    .navbar-search input[type="text"] {
-        width: 150px;
-    }
-
-    .navbar-search input[type="text"]:focus {
-        width: 200px;
-    }
+#popup-torrents th, #popup-torrents td {
+    border: 1px solid #ddd; /* Add borders to cells */
+    padding: 8px;
+    text-align: left; /* Align text to the left */
 }
 
-@media (max-width: 768px) {
-    .navbar {
-        padding: 10px 20px;
-    }
-
-    .navbar-menu {
-        display: none;
-    }
-
-    .navbar-search {
-        margin-right: 10px;
-    }
-
-    .navbar-logo img {
-        width: 200px;
-    }
-
-    .container {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        grid-gap: 15px;
-    }
-
-    .pagination button {
-        padding: 8px 16px;
-        margin: 0 5px;
-        font-size: 14px;
-    }
-
-    .section-title {
-        font-size: 20px;
-    }
-}
-
-@media (max-width: 480px) {
-    .navbar-search input[type="text"] {
-        display: none;
-    }
-
-    .navbar-menu {
-        display: none;
-    }
-
-    .navbar {
-        justify-content: space-between;
-    }
-
-    .container {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        grid-gap: 10px;
-    }
-
-    .popup-content {
-        padding: 10px;
-    }
-
-    .popup img {
-        max-width: 100%;
-        margin-bottom: 15px;
-    }
-
-    .popup ul {
-        font-size: 14px;
-    }
-
-    .torrent-button {
-        padding: 8px 16px;
-        font-size: 12px;
-    }
-    
+#popup-torrents button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 2px 0;
+    cursor: pointer;
+    border-radius: 4px;
 }

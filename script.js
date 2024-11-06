@@ -1,216 +1,123 @@
-const apiUrl = "https://yts.mx/api/v2/list_movies.json";
-const container = document.getElementById('movie-container');
-const prevPageBtn = document.getElementById('prev-page');
-const nextPageBtn = document.getElementById('next-page');
-const currentPageDisplay = document.getElementById('current-page');
-const totalPagesDisplay = document.getElementById('total-pages');
-const searchInput = document.getElementById('search-input');
-
-// Enhanced Keyword List
-const keywords = [
-    "free movies online", "watch free movies", "stream free movies", "free tv shows online", 
-    "free movie streaming sites", "watch movies online free", "free hd movies", "free 1080p movies", 
-    "pwolimovies", "free movie downloads", "download free movies", "watch movies online", 
-    "free movie torrents", "latest movie torrents", "new release movies free online", 
-    "watch movies without registration", "free movie websites", "watch free tv series",
-    "free tv series online", "online movie streaming free", "1080p movies free", "hd movies free",
-    "free movies no sign up", "watch movies without signing up", "free online movies" // Added more keywords
-];
-
-// Function to inject keywords into various elements
-function injectKeywords(element, keyword) {
-    if (element) {
-        if (element.textContent) {
-            element.textContent += ` ${keyword}`;
-        } else if (element.alt) {
-            element.alt += ` ${keyword}`;
-        }
-    }
-}
-
-
-function updatePageTitle(query = '') {
-    let title = "Pwolimovies - Watch Free Movies & TV Shows Online";
-    if (query) {
-        title = `Pwolimovies - Search Results for "${query}"`;
-    }
-    const randomKeyword = keywords[Math.floor(Math.random() * keywords.length)];
-    document.title = `${title} - ${randomKeyword}`;
-
-    // Inject keywords into meta description
-    const metaDescription = document.querySelector("meta[name='description']");
-    if (metaDescription) {
-        metaDescription.content = `${title} - ${randomKeyword}. ${metaDescription.content}`;
-    }
-}
-
-// Popup elements
-const popup = document.getElementById('movie-popup');
-const closePopupBtn = document.getElementById('close-popup');
-const popupContent = document.getElementById('popup-content');
-
-const trackers = [
-    "udp://open.demonii.com:1337/announce",
-    "udp://tracker.openbittorrent.com:80",
-    "udp://tracker.coppersurfer.tk:6969",
-    "udp://glotorrents.pw:6969/announce",
-    "udp://tracker.opentrackr.org:1337/announce",
-    "udp://torrent.gresille.org:80/announce",
-    "udp://p4p.arenabg.com:1337",
-    "udp://tracker.leechers-paradise.org:6969"
-];
+const apiLocation = 'https://api.themoviedb.org/3';
+const apiKey = 'e51447e837048930952e694908564da1'; // Replace with your TMDb API key
+const torrentSearchAPI = 'https://itorrentsearch.vercel.app/api/';
 
 let currentPage = 1;
 let totalPages = 1;
 let searchQuery = '';
 
-
-function generateMagnetLink(movie, torrent) {
-    let encodedTitle = encodeURIComponent(movie.title_long);
-    let magnetUrl = `magnet:?xt=urn:btih:${torrent.hash}&dn=${encodedTitle}`;
-    trackers.forEach(tracker => magnetUrl += `&tr=${tracker}`);
-    return magnetUrl;
+function closePopup() {
+    document.getElementById('movie-details-popup').style.display = 'none';
 }
 
-function generateRedirectUrl(magnetLink) {
-    return "https://pwolimovies.vercel.app/player?m=" + btoa(magnetLink);
+async function getMovieDetails(movieId) {
+    const movieDetailsUrl = `${apiLocation}/movie/${movieId}?api_key=${apiKey}`;
+    const response = await fetch(movieDetailsUrl);
+    return await response.json();
 }
 
-function fetchMovies(page = 1, query = '') {
-    const url = `${apiUrl}?page=${page}&limit=20${query ? `&query_term=${query}` : ''}`;
+async function getMovies() {
+    const movieList = document.getElementById('movie-list');
+    const response = await fetch(`${apiLocation}/movie/popular?api_key=${apiKey}`);
+    const data = await response.json();
 
-    fetch(url)
-        .then(res => res.json())
-        .then(data => {
-            try { // Error handling
-                if (data.status === 'ok') {
-                    totalPages = Math.ceil(data.data.movie_count / 20);
-                    totalPagesDisplay.textContent = totalPages;
-                    currentPageDisplay.textContent = currentPage;
+    if (data && data.results) {
+        data.results.forEach(movie => {
+            const movieCard = document.createElement('div');
+            movieCard.classList.add('movie-card');
+            movieCard.dataset.movieId = movie.id;
+            movieCard.dataset.movieTitle = movie.title;
 
-                    container.innerHTML = '';
+            movieCard.innerHTML = `
+                <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}">
+                <h3>${movie.title}</h3>
+            `;
 
-                    data.data.movies.forEach(movie => {
-                        const card = document.createElement('div');
-                        card.classList.add('movie-card');
-
-                        const img = document.createElement('img');
-                        img.src = movie.medium_cover_image;
-                        img.alt = movie.title;
-                        injectKeywords(img, keywords[Math.floor(Math.random() * keywords.length)]); // Inject keywords into image alt
-                        card.appendChild(img);
-
-                        const playButton = document.createElement('div');
-                        playButton.classList.add('play-button');
-                        playButton.innerHTML = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" /></svg>';
-                        playButton.addEventListener('click', () => showMovieDetails(movie));
-                        card.appendChild(playButton);
-
-                        const title = document.createElement('h3');
-                        title.textContent = movie.title_long;
-                        injectKeywords(title, keywords[Math.floor(Math.random() * keywords.length)]); // Inject keywords into movie title
-                        card.appendChild(title);
-
-                        container.appendChild(card);
-                    });
-
-                    updatePaginationButtons();
-                } else {
-                    console.error("API Error:", data.status_message);
-                    container.innerHTML = "<p>Error loading movies. Please try again later.</p>"; // User-friendly error message
-                }
-            } catch (error) {
-                console.error("Data Handling Error:", error);
-                container.innerHTML = "<p>Error loading movies. Please try again later.</p>"; // User-friendly error message
-            }
-        })
-        .catch(error => {
-            console.error("Fetch Error:", error);
-            container.innerHTML = "<p>Error loading movies. Please try again later.</p>"; // User-friendly error message
+            movieCard.addEventListener('click', () => {
+                let movieTitle = movieCard.dataset.movieTitle;
+                const encodedTitle = encodeURIComponent(movieTitle);
+                const queryUrl = `${torrentSearchAPI}1337x/${encodedTitle}/1`;
+                showMovieDetails(movieCard.dataset.movieId, encodedTitle);
+            });
+            movieList.appendChild(movieCard);
         });
-}
-
-function showMovieDetails(movie) {
-    popupContent.innerHTML = '';
-
-    const title = document.createElement('h2');
-    title.textContent = movie.title_long;
-    popupContent.appendChild(title);
-
-    const img = document.createElement('img');
-    img.src = movie.large_cover_image;
-    img.alt = movie.title;
-    img.style.maxWidth = '300px';
-    img.style.height = 'auto';
-    popupContent.appendChild(img);
-
-    const detailsList = document.createElement('ul');
-
-    addDetailItem(detailsList, 'Rating', movie.rating);
-    addDetailItem(detailsList, 'Year', movie.year);
-    addDetailItem(detailsList, 'Runtime', `${movie.runtime} minutes`);
-    addDetailItem(detailsList, 'Genres', movie.genres.join(', '));
-    addDetailItem(detailsList, 'Language', movie.language);
-    addDetailItem(detailsList, 'Synopsis', movie.synopsis || movie.description_full || 'No synopsis available.');
-
-    popupContent.appendChild(detailsList);
-
-    const torrentButtonsContainer = document.createElement('div');
-    torrentButtonsContainer.classList.add('torrent-buttons');
-    movie.torrents.forEach(torrent => {
-        const torrentButton = document.createElement('button');
-        torrentButton.classList.add('torrent-button');
-        torrentButton.textContent = `${torrent.quality} (${torrent.size})`;
-        torrentButton.addEventListener('click', () => {
-            const magnetLink = generateMagnetLink(movie, torrent);
-            const redirectUrl = generateRedirectUrl(magnetLink);
-            window.location.href = redirectUrl;
-        });
-        torrentButtonsContainer.appendChild(torrentButton);
-    });
-    popupContent.appendChild(torrentButtonsContainer);
-
-    popup.style.display = 'block';
-}
-
-
-
-function addDetailItem(list, label, value) {
-    if (value) {
-        const item = document.createElement('li');
-        item.textContent = `${label}: ${value}`;
-        list.appendChild(item);
     }
 }
 
+async function showMovieDetails(movieId, encodedMovieTitle) {
+    const popup = document.getElementById('movie-details-popup');
+    const poster = document.getElementById('popup-poster');
+    const title = document.getElementById('popup-title');
+    const torrentsDiv = document.getElementById('popup-torrents');
 
+    try {
+        const movie = await getMovieDetails(movieId);
+        poster.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+        title.textContent = movie.title;
 
-function updatePaginationButtons() {
-    prevPageBtn.disabled = currentPage === 1;
-    nextPageBtn.disabled = currentPage === totalPages;
+        const torrentSearchURL = `${torrentSearchAPI}piratebay/${encodedMovieTitle}/1`;
+        const response = await fetch(torrentSearchURL);
+
+        if (response.ok) {
+            const torrentData = await response.json();
+
+            // Sort torrents by seeders in descending order
+            torrentData.sort((a, b) => b.Seeders - a.Seeders);
+
+            torrentsDiv.innerHTML = '';
+            if (torrentData && torrentData.length > 0) {
+                const torrentsTable = document.createElement('table');
+                const headerRow = torrentsTable.insertRow();
+                headerRow.insertCell().textContent = "Title";
+                headerRow.insertCell().textContent = "Quality";
+                headerRow.insertCell().textContent = "Size";
+                headerRow.insertCell().textContent = "Seeders";
+                headerRow.insertCell().textContent = "Magnet";
+                headerRow.insertCell().textContent = "Play";
+
+                torrentData.forEach(torrent => {
+                    const row = torrentsTable.insertRow();
+                    row.insertCell().textContent = torrent['Name'] || "N/A";
+                    row.insertCell().textContent = torrent['Quality'] || "N/A";
+                    row.insertCell().textContent = torrent['Size'] || "N/A";
+                    row.insertCell().textContent = torrent['Seeders'] || "N/A";
+
+                    const magnetCell = row.insertCell();
+                    const magnetButton = document.createElement('button');
+                    magnetButton.textContent = "Copy Magnet";
+                    magnetButton.addEventListener('click', () => {
+                        navigator.clipboard.writeText(torrent['Magnet']).then(() => {
+                            alert("Magnet link copied!");
+                        }).catch(err => {
+                            console.error("Failed to copy: ", err);
+                            alert("Failed to copy Magnet link.");
+                        });
+                    });
+                    magnetCell.appendChild(magnetButton);
+
+                    const playCell = row.insertCell();
+                    const playButton = document.createElement('button');
+                    playButton.textContent = "Play";
+                    playButton.addEventListener('click', () => {
+                        const magnetLink = torrent['Magnet'];
+                        const redirectUrl = `https://pwolimovies.vercel.app/player?m=${btoa(magnetLink)}`; 
+                        window.location.href = redirectUrl;
+                    });
+                    playCell.appendChild(playButton);
+                });
+                torrentsDiv.appendChild(torrentsTable);
+            } else {
+                torrentsDiv.textContent = 'No torrents found.';
+            }
+        } else {
+            torrentsDiv.textContent = `Error fetching torrents: ${response.status} ${response.statusText}`;
+        }
+        popup.style.display = 'block';
+    } catch (error) {
+        console.error("Error:", error);
+        torrentsDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+        popup.style.display = 'block';
+    }
 }
 
-prevPageBtn.addEventListener('click', () => {
-    currentPage--;
-    fetchMovies(currentPage, searchQuery);
-});
-
-nextPageBtn.addEventListener('click', () => {
-    currentPage++;
-    fetchMovies(currentPage, searchQuery);
-});
-
-searchInput.addEventListener('input', () => {
-    searchQuery = searchInput.value;
-    currentPage = 1;
-    fetchMovies(currentPage, searchQuery);
-    updatePageTitle(searchQuery); // Update title on search
-});
-
-closePopupBtn.addEventListener('click', () => {
-    popup.style.display = 'none';
-});
-
-// Initial setup
-fetchMovies();
-updatePageTitle(); // Set initial title
+getMovies();
