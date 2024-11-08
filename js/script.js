@@ -14,7 +14,7 @@ const keywords = [
     "free movie torrents", "latest movie torrents", "new release movies free online", 
     "watch movies without registration", "free movie websites", "watch free tv series",
     "free tv series online", "online movie streaming free", "1080p movies free", "hd movies free",
-    "free movies no sign up", "watch movies without signing up", "free online movies" // Added more keywords
+    "free movies no sign up", "watch movies without signing up", "free online movies" 
 ];
 
 // Function to inject keywords into various elements
@@ -82,7 +82,7 @@ function fetchMovies(page = 1, query = '') {
     fetch(url)
         .then(res => res.json())
         .then(data => {
-            try { // Error handling
+            try { 
                 if (data.status === 'ok') {
                     totalPages = Math.ceil(data.data.movie_count / 20);
                     totalPagesDisplay.textContent = totalPages;
@@ -97,7 +97,7 @@ function fetchMovies(page = 1, query = '') {
                         const img = document.createElement('img');
                         img.src = movie.medium_cover_image;
                         img.alt = movie.title;
-                        injectKeywords(img, keywords[Math.floor(Math.random() * keywords.length)]); // Inject keywords into image alt
+                        injectKeywords(img, keywords[Math.floor(Math.random() * keywords.length)]); 
                         card.appendChild(img);
 
                         const playButton = document.createElement('div');
@@ -108,7 +108,7 @@ function fetchMovies(page = 1, query = '') {
 
                         const title = document.createElement('h3');
                         title.textContent = movie.title_long;
-                        injectKeywords(title, keywords[Math.floor(Math.random() * keywords.length)]); // Inject keywords into movie title
+                        injectKeywords(title, keywords[Math.floor(Math.random() * keywords.length)]); 
                         card.appendChild(title);
 
                         container.appendChild(card);
@@ -117,16 +117,16 @@ function fetchMovies(page = 1, query = '') {
                     updatePaginationButtons();
                 } else {
                     console.error("API Error:", data.status_message);
-                    container.innerHTML = "<p>Error loading movies. Please try again later.</p>"; // User-friendly error message
+                    container.innerHTML = "<p>Error loading movies. Please try again later.</p>"; 
                 }
             } catch (error) {
                 console.error("Data Handling Error:", error);
-                container.innerHTML = "<p>Error loading movies. Please try again later.</p>"; // User-friendly error message
+                container.innerHTML = "<p>Error loading movies. Please try again later.</p>"; 
             }
         })
         .catch(error => {
             console.error("Fetch Error:", error);
-            container.innerHTML = "<p>Error loading movies. Please try again later.</p>"; // User-friendly error message
+            container.innerHTML = "<p>Error loading movies. Please try again later.</p>"; 
         });
 }
 
@@ -204,7 +204,7 @@ searchInput.addEventListener('input', () => {
     searchQuery = searchInput.value;
     currentPage = 1;
     fetchMovies(currentPage, searchQuery);
-    updatePageTitle(searchQuery); // Update title on search
+    updatePageTitle(searchQuery); 
 });
 
 closePopupBtn.addEventListener('click', () => {
@@ -213,4 +213,19 @@ closePopupBtn.addEventListener('click', () => {
 
 // Initial setup
 fetchMovies();
-updatePageTitle(); // Set initial title
+updatePageTitle();
+
+// Add AdSense code AFTER the container element.  Remember to replace YOUR_AD_SLOT_ID
+container.insertAdjacentHTML('afterend', `
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5462048935840715"
+     crossorigin="anonymous"></script>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5462048935840715"
+         data-ad-slot="YOUR_AD_SLOT_ID"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+`);

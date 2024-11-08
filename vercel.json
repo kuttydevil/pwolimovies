@@ -2,7 +2,7 @@
   "redirects": [
     {
       "source": "/",
-      "destination": "/movie.html",
+      "destination": "/home.html",
       "permanent": true
     }
   ],

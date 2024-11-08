@@ -36,11 +36,56 @@ async function getMovies() {
             movieCard.addEventListener('click', () => {
                 let movieTitle = movieCard.dataset.movieTitle;
                 const encodedTitle = encodeURIComponent(movieTitle);
-                const queryUrl = `${torrentSearchAPI}1337x/${encodedTitle}/1`;
                 showMovieDetails(movieCard.dataset.movieId, encodedTitle);
             });
+
             movieList.appendChild(movieCard);
         });
+    }
+}
+
+async function searchMovies() {
+    const query = document.getElementById('search-input').value.trim();
+    const searchType = document.querySelector('input[name="search_type"]:checked').value;
+    const searchUrl = `${apiLocation}/search/${searchType}?api_key=${apiKey}&query=${encodeURIComponent(query)}`;
+
+    if (!query) {
+        alert("Please enter a search query.");
+        return;
+    }
+
+    try {
+        const response = await fetch(searchUrl);
+        const data = await response.json();
+
+        const movieList = document.getElementById('movie-list');
+        movieList.innerHTML = ''; // Clear previous results
+
+        if (data.results && data.results.length > 0) {
+            data.results.forEach(movie => {
+                const movieCard = document.createElement('div');
+                movieCard.classList.add('movie-card');
+                movieCard.dataset.movieId = movie.id;
+                movieCard.dataset.movieTitle = movie.title;
+
+                movieCard.innerHTML = `
+                    <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}">
+                    <h3>${movie.title}</h3>
+                `;
+
+                movieCard.addEventListener('click', () => {
+                    let movieTitle = movieCard.dataset.movieTitle;
+                    const encodedTitle = encodeURIComponent(movieTitle);
+                    showMovieDetails(movieCard.dataset.movieId, encodedTitle);
+                });
+
+                movieList.appendChild(movieCard);
+            });
+        } else {
+            movieList.innerHTML = '<p>No results found.</p>';
+        }
+    } catch (error) {
+        console.error("Error fetching search results:", error);
     }
 }
 
@@ -100,7 +145,7 @@ async function showMovieDetails(movieId, encodedMovieTitle) {
                     playButton.textContent = "Play";
                     playButton.addEventListener('click', () => {
                         const magnetLink = torrent['Magnet'];
-                        const redirectUrl = `https://pwolimovies.vercel.app/player?m=${btoa(magnetLink)}`; 
+                        const redirectUrl = `https://pwolimovies.vercel.app/player?m=${btoa(magnetLink)}`;
                         window.location.href = redirectUrl;
                     });
                     playCell.appendChild(playButton);
@@ -119,5 +164,12 @@ async function showMovieDetails(movieId, encodedMovieTitle) {
         popup.style.display = 'block';
     }
 }
+
+// Add event listener for Enter key in search input
+document.getElementById('search-input').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        searchMovies();
+    }
+});
 
 getMovies();
