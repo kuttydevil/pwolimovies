@@ -2553,23 +2553,13 @@
                         s(new Error("Invalid tracker port: ".concat(e))), null
                       );
                     var o = r.protocol;
-                    return ("http:" !== o && "https:" !== o) ||
-                      "function" !== typeof k
-                      ? "udp:" === o && "function" === typeof S
-                        ? new S(t, e)
-                        : ("ws:" !== o && "wss:" !== o) ||
-                          !a ||
-                          ("ws:" === o &&
-                            "undefined" !== typeof window &&
-                            "https:" === window.location.protocol)
-                        ? (s(
-                            new Error(
-                              "Unsupported tracker protocol: ".concat(e)
-                            )
-                          ),
-                          null)
-                        : new E(t, e)
-                      : new k(t, e);
+                    return "udp:" === o && "function" === typeof S && t._isIPv4(r.hostname)  // Prioritize UDP for IPv4
+  ? new S(t, e)
+  : ("http:" !== o && "https:" !== o) || "function" !== typeof k      // Then check for HTTP/HTTPS
+    ? ("ws:" !== o && "wss:" !== o) || !a || ("ws:" === o && "undefined" !== typeof window && "https:" === window.location.protocol)
+      ? (s(new Error("Unsupported tracker protocol: ".concat(e))), null) // Still unsupported
+      : new E(t, e)                                                       // Fallback to WebSockets
+    : new k(t, e);
                   })
                   .filter(Boolean)),
                 t
@@ -3490,7 +3480,7 @@
       59248: (t, e, r) => {
         var n = r(41281)["hp"];
         (e.DEFAULT_ANNOUNCE_PEERS = 50),
-          (e.MAX_ANNOUNCE_PEERS = 250),
+          (e.MAX_ANNOUNCE_PEERS = 5500),
           (e.binaryToHex = function (t) {
             return (
               "string" !== typeof t && (t = String(t)),
@@ -17689,7 +17679,35 @@
                                 i.I.seed(
                                   n,
                                   {
-                                    announceList: [["udp://tracker.opentrackr.org:1337/announce","udp://tracker.internetwarriors.net:1337","udp://p4p.arenabg.com:1337","wss://tracker.openwebtorrent.com","wss://wstracker.online","wss://asdxwqw.com","wss://tracker.btorrent.xyz"]],
+                                    announceList: [
+                                      [
+                                          "udp://tracker.opentrackr.org:1337/announce",
+                                          "udp://tracker.internetwarriors.net:1337",
+                                          "udp://p4p.arenabg.com:1337",
+                                          "wss://tracker.openwebtorrent.com",
+                                          "wss://wstracker.online",
+                                          "wss://asdxwqw.com",
+                                          "wss://tracker.btorrent.xyz",
+                                          "udp://47.ip-51-68-199.eu:6969/announce",
+                                          "udp://9.rarbg.me:2780/announce",
+                                          "udp://9.rarbg.to:2710/announce",
+                                          "udp://9.rarbg.to:2730/announce",
+                                          "udp://9.rarbg.to:2920/announce",
+                                          "udp://open.stealth.si:80/announce",
+                                          "udp://opentracker.i2p.rocks:6969/announce",
+                                          "udp://tracker.coppersurfer.tk:6969/announce",
+                                          "udp://tracker.cyberia.is:6969/announce",
+                                          "udp://tracker.dler.org:6969/announce",
+                                          "udp://tracker.leechers-paradise.org:6969/announce",
+                                          "udp://tracker.openbittorrent.com:6969/announce",
+                                          "udp://tracker.pirateparty.gr:6969/announce",
+                                          "udp://tracker.tiny-vps.com:6969/announce",
+                                          "udp://tracker.torrent.eu.org:451/announce",
+                                          "wss://tracker.files.fm",
+                                          "wss://peertube.cpy.re",
+                                          "wss://tracker.webtorrent.dev"        
+                                      ]
+                                  ],
                                   },
                                   function (t) {
                                     a.log(t);

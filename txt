@@ -56,3 +56,4 @@ const trackers = [
 ];
 
 var d = ["wss://wstracker.online", "wss://asdxwqw.com"];
+"udp://tracker.opentrackr.org:1337/announce","udp://tracker.internetwarriors.net:1337","udp://p4p.arenabg.com:1337","wss://tracker.openwebtorrent.com","wss://wstracker.online","wss://asdxwqw.com","wss://tracker.btorrent.xyz"
