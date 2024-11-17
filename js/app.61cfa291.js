@@ -3473,14 +3473,14 @@
             );
           })(M);
         function H() {}
-        (Z.prototype.DEFAULT_ANNOUNCE_INTERVAL = 1e4),
+        (Z.prototype.DEFAULT_ANNOUNCE_INTERVAL = 3e4),
           (Z._socketPool = _),
           (t.exports = Z);
       },
       59248: (t, e, r) => {
         var n = r(41281)["hp"];
         (e.DEFAULT_ANNOUNCE_PEERS = 50),
-          (e.MAX_ANNOUNCE_PEERS = 5500),
+          (e.MAX_ANNOUNCE_PEERS = 100),
           (e.binaryToHex = function (t) {
             return (
               "string" !== typeof t && (t = String(t)),
@@ -12523,7 +12523,20 @@
             }
             s = (C.then ? (await C)() : C)[0];
             var u = r(70861),
-              d = ["wss://tracker.files.fm","wss://peertube.cpy.re","wss://tracker.webtorrent.dev","wss://wstracker.online","wss://asdxwqw.com","wss://tracker.openwebtorrent.com","wss://wstracker.online","wss://asdxwqw.com","wss://tracker.btorrent.xyz"];
+              d = [
+                "wss://tracker.files.fm",
+                "wss://peertube.cpy.re",
+                "wss://tracker.webtorrent.dev",
+                "wss://wstracker.online",
+                "wss://asdxwqw.com",
+                "wss://tracker.openwebtorrent.com",
+                "wss://tracker.btorrent.xyz",
+                "wss://tracker.sloppyta.co", 
+                "wss://tracker.novage.com.ua",
+                "wss://tracker.bitsearch.to",
+                "wss://tracker.foreverpirates.co",
+                "wss://spacetradersapi-chatbox.herokuapp.com"
+              ];
             try {
               var p = JSON.parse(
                 localStorage.getItem("preferences.tracker.defaults")
@@ -17681,32 +17694,42 @@
                                   {
                                     announceList: [
                                       [
-                                          "udp://tracker.opentrackr.org:1337/announce",
-                                          "udp://tracker.internetwarriors.net:1337",
-                                          "udp://p4p.arenabg.com:1337",
-                                          "wss://tracker.openwebtorrent.com",
-                                          "wss://wstracker.online",
-                                          "wss://asdxwqw.com",
-                                          "wss://tracker.btorrent.xyz",
-                                          "udp://47.ip-51-68-199.eu:6969/announce",
-                                          "udp://9.rarbg.me:2780/announce",
-                                          "udp://9.rarbg.to:2710/announce",
-                                          "udp://9.rarbg.to:2730/announce",
-                                          "udp://9.rarbg.to:2920/announce",
-                                          "udp://open.stealth.si:80/announce",
-                                          "udp://opentracker.i2p.rocks:6969/announce",
-                                          "udp://tracker.coppersurfer.tk:6969/announce",
-                                          "udp://tracker.cyberia.is:6969/announce",
-                                          "udp://tracker.dler.org:6969/announce",
-                                          "udp://tracker.leechers-paradise.org:6969/announce",
-                                          "udp://tracker.openbittorrent.com:6969/announce",
-                                          "udp://tracker.pirateparty.gr:6969/announce",
-                                          "udp://tracker.tiny-vps.com:6969/announce",
-                                          "udp://tracker.torrent.eu.org:451/announce",
-                                          "wss://tracker.files.fm",
-                                          "wss://peertube.cpy.re",
-                                          "wss://tracker.webtorrent.dev"        
-                                      ]
+                                        "udp://tracker.opentrackr.org:1337/announce",
+                                        "udp://tracker.internetwarriors.net:1337",
+                                        "udp://p4p.arenabg.com:1337", 
+                                        "wss://tracker.openwebtorrent.com",
+                                        "wss://wstracker.online",
+                                        "wss://asdxwqw.com",
+                                        "wss://tracker.btorrent.xyz",
+                                        "udp://47.ip-51-68-199.eu:6969/announce",
+                                        "udp://9.rarbg.me:2780/announce",
+                                        "udp://9.rarbg.to:2710/announce",
+                                        "udp://9.rarbg.to:2730/announce",
+                                        "udp://9.rarbg.to:2920/announce",
+                                        "udp://open.stealth.si:80/announce", 
+                                        "udp://opentracker.i2p.rocks:6969/announce",
+                                        "udp://tracker.coppersurfer.tk:6969/announce",
+                                        "udp://tracker.cyberia.is:6969/announce",
+                                        "udp://tracker.dler.org:6969/announce",
+                                        "udp://tracker.leechers-paradise.org:6969/announce",
+                                        "udp://tracker.openbittorrent.com:6969/announce",
+                                        "udp://tracker.pirateparty.gr:6969/announce",
+                                        "udp://tracker.tiny-vps.com:6969/announce",
+                                        "udp://tracker.torrent.eu.org:451/announce",
+                                        "wss://tracker.files.fm",
+                                        "wss://peertube.cpy.re",
+                                        "wss://tracker.webtorrent.dev",
+                                        "http://p4p.arenabg.com:1337/announce", 
+                                        "udp://tracker.internetwarriors.net:1337/announce",
+                                        "udp://tracker.opentrackr.org:1337",
+                                        "udp://9.rarbg.com:2710/announce",
+                                        "udp://tracker.leechers-paradise.org:6969",
+                                        "udp://tracker.zer0day.to:1337/announce",
+                                        "udp://coppersurfer.tk:6969/announce",
+                                        "udp://p4p.arenabg.com:1337/announce",
+                                        "udp://ipv4.tracker.harry.lu:80/announce",
+                                        "https://opentracker.i2p.rocks:443/announce"
+                                    ]
                                   ],
                                   },
                                   function (t) {
@@ -19482,10 +19505,10 @@
                         ? "url"
                         : "external";
                       if ("external" === r) {
-                        var n = "./search_redirect.html",
+                        var n = "./home.html",
                           a = e.match(new RegExp("\\btorrent\\b", "i"))
                             ? e
-                            : "".concat(e, " torrent");
+                            : "".concat(e, "");
                         return (
                           window.open(
                             ""
@@ -20502,7 +20525,7 @@
                 (r._userAgent = t.userAgent),
                 (r.destroyed = !1),
                 (r._announce = t.announce || []),
-                (r._intervalMs = t.intervalMs || 9e5),
+                (r._intervalMs = t.intervalMs || 3e5),
                 (r._trackerOpts = null),
                 (r._dhtAnnouncing = !1),
                 (r._dhtTimeout = !1),
@@ -21532,7 +21555,7 @@
                         }),
                     (t._downloadSpeed = L()),
                     (t._uploadSpeed = L()),
-                    !1 !== n.dht && "function" === typeof p
+                    !0 !== n.dht && "function" === typeof p
                       ? ((t.dht = new p(
                           Object.assign({}, { nodeId: t.nodeId }, n.dht)
                         )),

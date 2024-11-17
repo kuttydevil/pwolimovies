@@ -1,48 +1,125 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" itemscope itemtype="http://schema.org/WebSite">
 <head>
-    <title>Movie Torrent Search</title>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5462048935840715" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css">
-    <!-- Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PwoliMovies - Watch Free Movies & TV Shows Online</title>
+    <meta name="description" content="PwoliMovies: Your ultimate source for free movies and TV shows online. Watch new releases, popular titles, and more!">
+    <meta name="keywords" content="PwoliMovies, movies, tv shows, free movies, free tv shows, watch online, streaming, new releases, popular, genres, Malayalam movies, torrent, download">
+
+    <!-- Open Graph tags -->
+    <meta property="og:title" content="PwoliMovies - Watch Free Movies & TV Shows Online"/>
+    <meta property="og:description" content="PwoliMovies: Your ultimate source for free movies and TV shows online. Watch new releases, popular titles, and more!"/>
+    <meta property="og:image" content="https://raw.githubusercontent.com/kuttydevil/pwolimovies/refs/heads/main/favicon-32x32.png"/> 
+    <meta property="og:url" content="https://pwolimovies.vercel.app"/>
+    <meta property="og:type" content="website"/>
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@your_twitter_handle">
+    <meta name="twitter:title" content="PwoliMovies - Watch Free Movies & TV Shows Online">
+    <meta name="twitter:description" content="PwoliMovies: Your ultimate source for free movies and TV shows online. Watch new releases, popular titles, and more!">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/kuttydevil/pwolimovies/refs/heads/main/favicon-32x32.png">
+
+    <link rel="canonical" href="https://pwolimovies.vercel.app/">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+     <!-- Google Tag Manager - I'm keeping this, it could be useful ;) -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-W42VJDLX');</script>
-    <!-- End Google Tag Manager -->
+
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "WebSite",
+            "name": "PwoliMovies",
+            "url": "https://pwolimovies.vercel.app",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://pwolimovies.vercel.app/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        }
+
+        {
+          "@context": "http://schema.org",
+          "@type": "VideoObject",  // Add VideoObject schema
+          "name": "Example Movie Title", // Replace with real movie titles dynamically
+          "description": "Short description of movie", // Replace dynamically
+          "thumbnailUrl": "https://pwolimovies.vercel.app/path/to/movie/thumbnail.jpg", // Replace dynamically
+          "uploadDate": "2024-12-02", // Replace dynamically
+        }
+    </script>
+
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W42VJDLX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
     <header>
-        <img src="/img/ut-lite-logo.svg" alt="Netflix Logo" id="netflix-logo">
-        <span class="header-text">MOVIES</span>
-        <span class="header-text">TV SERIES</span>
-        <input type="text" id="search-input" placeholder="Search...">
-        <button onclick="searchMovies()">Search</button> <!-- New Search Button -->
-        <div>
-            <label><input type="radio" name="search_type" value="movie" checked> Movies</label>
-            <label><input type="radio" name="search_type" value="tv"> TV Shows</label>
-        </div>
+        <nav>
+          <div class="header-content">  
+            <img src="/img/ut-lite-logo.svg" alt="PwoliMovies Logo" id="logo"> 
+            <div class="search-container">
+              <input type="text" id="search-input" placeholder="Titles, people, genres">
+              <button id="search-button" onclick="searchMovies()"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="filter-container">
+              <label><input type="radio" name="search_type" value="movie" checked> Movies</label>
+              <label><input type="radio" name="search_type" value="tv"> TV Shows</label>
+            </div>
+          </div>
+        </nav>
     </header>
 
     <main>
-        <div id="movie-list"></div> </main>
+        <h2 class="section-title">Popular Movies</h2>
+        <div id="movie-details" class="movie-grid">
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+            </div>
+            <!-- Movie cards will be loaded here -->
+        </div>
+        <div id="load-more-movies-container" class="movie-card load-more-button">
+            <p>Load More</p>
+        </div>
 
-    <div id="movie-details-popup">
-        <span class="close" onclick="closePopup()">X</span>
-        <img id="popup-poster">
-        <h3 id="popup-title"></h3>
-        <div id="popup-torrents"></div>
-    </div>
+        <h2 class="section-title">Malayalam Movies</h2>
+        <div id="malayalam-movies" class="movie-grid">
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+            </div>
+            <!-- Malayalam movie cards will be loaded here -->
+        </div>
+        <div id="load-more-malayalam-container" class="movie-card load-more-button">
+            <p>Load More</p>
+        </div>
+
+        <h2 class="section-title">Popular TV Shows</h2>
+        <div id="tv-series-details" class="movie-grid">
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+            </div>
+            <!-- TV series cards will be loaded here -->
+        </div>
+        <div id="load-more-tv-shows-container" class="movie-card load-more-button">
+            <p>Load More</p>
+        </div>
+    </main>
 
     <footer>
-        <p>© 2023 Movie Torrent Search</p>
+        <p>© 2023 PwoliMovies - Watch Movies & TV Shows Online</p>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- Modal for Movie Details -->
+    <div id="movieDetailsModal" class="modal">
+        <div class="modal-content">
+            <button class="close-button">Close</button>
+        </div>
+    </div>
+
+    <script src="/js/script.js"></script>
 </body>
 </html>

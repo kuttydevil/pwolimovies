@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/Movie">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch Movie Title Online Free - PwoliMovies</title>  <!-- This will be updated dynamically -->
+    <meta name="description" content="Watch Movie Title online for free at PwoliMovies. Stream high-quality movies and TV shows without limits."> <!-- This will be updated dynamically -->
+    <meta name="keywords" content="PwoliMovies, Movie Title, watch Movie Title online, free movies, free tv shows, online streaming, Movie Genre, Movie Director, Movie Actors, Year, torrent">
+
+    <!-- Open Graph tags (These will be updated dynamically) -->
+    <meta property="og:title" content="Watch Movie Title Online Free - PwoliMovies"/>
+    <meta property="og:description" content="Watch Movie Title online for free at PwoliMovies. Stream high-quality movies and TV shows without limits."/>
+    <meta property="og:image" content="https://raw.githubusercontent.com/kuttydevil/pwolimovies/refs/heads/main/favicon-32x32.png"/> 
+    <meta property="og:url" content="https://pwolimovies.vercel.app/movie-details.html"/>
+    <meta property="og:type" content="video.movie"/>
+
+    <!-- Twitter Card data (These will be updated dynamically) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@your_twitter_handle"> 
+    <meta name="twitter:title" content="Watch Movie Title Online Free - PwoliMovies">
+    <meta name="twitter:description" content="Watch Movie Title online for free at PwoliMovies. Stream high-quality movies and TV shows without limits.">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/kuttydevil/pwolimovies/refs/heads/main/favicon-32x32.png"/>
+
+    <link rel="canonical" href="https://pwolimovies.vercel.app/movie-details.html"/>
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtag/js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-W42VJDLX');</script>
+    <!-- End Google Tag Manager -->
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="header-content">
+                <img src="/img/ut-lite-logo.svg" alt="PwoliMovies Logo" id="logo">
+                <div class="back-button-container">
+                    <button id="back-button" onclick="window.history.back()">Back</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="movie-details-container">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+        </div>
+        <!-- Movie details will be loaded here -->
+    </main>
+
+    <footer>
+        <p>© 2023 PwoliMovies - Watch Movies & TV Shows Online</p>
+    </footer>
+
+    <!-- Modal for Movie Details -->
+    <div id="movieDetailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">×</span>
+        </div>
+    </div>
+    <script src="/js/details-script.js" defer></script> 
+</body>
+</html>

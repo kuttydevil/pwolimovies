@@ -1,370 +1,509 @@
 /* General Styles */
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #141414;
-    color: #fff;
-    margin: 0;
-    overflow-x: hidden;
+  background-color: #141414;
+  font-family: 'Arial', sans-serif;
+  color: #e5e5e5;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden; /* Prevent horizontal scrollbar */
 }
 
-a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 15px;
-    font-weight: 500;
+/* Header Styles */
+header {
+  background-color: #111; /* Slightly darker gray */
+  padding: 10px 20px;
+  display: flex;
+  align-items: center; /* Center vertically */
+  position: fixed;  /* Keep header at the top */
+  width: 100%;
+  z-index: 10; /* Ensure header is above other content */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-a:hover {
-    color: #e50914;
+.header-content { 
+  /* Container for all header elements */
+  display: flex; 
+  align-items: center; /* Center vertically */
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+  justify-content: space-around; /* Distribute items evenly */
 }
 
-/* Navigation Bar */
-.navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: rgba(20, 20, 20, 0.9);
-    display: flex;
-    align-items: center;
-    padding: 10px 50px;
-    z-index: 1000;
-    transition: background-color 0.3s ease;
+#logo {
+  height: 30px; /* Adjust height as needed */
+  margin-right: 10px; /* Add spacing between logo and search */
 }
 
-.navbar-logo img {
-    width: 100px;
-    cursor: pointer;
+.search-container {
+  display: flex;
+  background-color: #222; /* Slightly lighter gray */
+  border-radius: 20px; /* Rounded corners */
+  padding: 6px 12px;
+  transition: background-color 0.2s;
+  align-items: center; /* Align items vertically */
+  flex-grow: 1; /* Allow search bar to take up available space */
+  margin-right: 10px; /* Add spacing between search and filter */
 }
 
-.navbar-search {
-    position: relative;
-    margin-left: auto;
-    margin-right: 30px;
+.search-container:hover {
+  background-color: #333;
 }
 
-.navbar-search input[type="text"] {
-    padding: 8px 40px 8px 15px;
-    border: none;
-    border-radius: 3px;
-    background-color: #333;
-    color: #fff;
-    font-size: 14px;
-    width: 200px;
-    transition: width 0.3s ease;
+#search-input {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  flex-grow: 1;
+  font-size: 14px;
+  border-radius: 20px; /* Matching rounded corners */
+  padding: 6px 10px;
 }
 
-.navbar-search input[type="text"]:focus {
-    outline: none;
-    width: 300px;
+#search-input:focus {
+  outline: none;
 }
 
-.search-icon {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-    fill: #999;
+#search-button {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 20px; /* Matching rounded corners */
+  margin-left: 8px; /* Add some spacing */
 }
 
-.navbar-menu {
-    display: none;
+/* Filter Container Styles */
+.filter-container {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
 }
 
-@media (min-width: 768px) {
-    .navbar-menu {
-        display: flex;
-        margin-left: 30px;
-    }
+.filter-container label {
+  margin-right: 10px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
 }
 
-/* Main Container */
-.main-container {
-    padding: 100px 50px 50px 50px;
+.filter-container input[type="radio"] {
+  margin-right: 5px;
 }
 
+/* Main Content Styles */
+main {
+  flex-grow: 1;
+  padding: 15px;
+  margin-top: 60px; /* Account for header height */
+}
+
+/* Section Titles */
 .section-title {
-    font-size: 24px;
-    margin-bottom: 20px;
+  color: #e5e5e5; 
+  font-size: 20px; 
+  margin-bottom: 15px; 
+  font-weight: bold; /* Make title bold */
 }
 
-/* Movie Grid */
-.container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-gap: 25px;
-}
-
+/* Movie Card Styles */
 .movie-card {
-    position: relative;
-    border-radius: 5px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
+  width: 100%;
+  margin-bottom: 5px;
+  background-color: #222;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
 }
 
 .movie-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  transform: scale(1.03);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .movie-card img {
-    width: 100%;
-    height: auto;
-    display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover; /* Ensure image covers the entire area */
+  display: block;
 }
 
-/* Play Button */
-.play-button {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(229, 9, 20, 0.8);
-    border: none;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s ease, background-color 0.3s ease;
+.movie-card h3 {
+  padding: 5px;
+  margin: 0;
+  font-size: 12px;
+  text-align: center;
+  font-weight: normal; /* Make title normal weight */
 }
 
-.play-button svg {
-    width: 24px;
-    height: 24px;
-    fill: #fff;
+/* TV Series Grid Styles */
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Responsive grid */
+  gap: 5px;
+  margin-top: 15px;
 }
 
-.movie-card:hover .play-button {
-    opacity: 1;
+/* Movie Details Page Styles */
+#movie-details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  gap: 15px;
 }
 
-.play-button:hover {
-    background-color: #f6121d;
+.movie-details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  max-width: 80%;
+  margin: 0 auto;
 }
 
-/* Pagination */
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
+.movie-poster {
+  max-width: 250px;
+  max-height: 375px;
+  border-radius: 5px;
 }
 
-.pagination button {
-    padding: 10px 20px;
-    margin: 0 10px;
-    background-color: #e50914;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
+.movie-info {
+  color: #e5e5e5;
+  text-align: center;
 }
 
-.pagination button:disabled {
-    background-color: #555;
-    cursor: not-allowed;
+.movie-info h2 {
+  margin-top: 0;
+  font-size: 24px;
+  font-weight: bold; 
+  margin-bottom: 10px;
 }
 
-.pagination button:hover:not(:disabled) {
-    background-color: #f6121d;
+.movie-info p {
+  margin: 3px 0;
+  line-height: 1.3;
 }
 
-.pagination span {
-    font-size: 16px;
+.movie-info p:last-child {
+  margin-bottom: 15px; 
 }
 
-/* Popup Styles */
-.popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #141414;
-    border-radius: 8px;
-    padding: 30px;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
-    z-index: 1001;
-    max-width: 90%;
-    max-height: 80vh;
-    overflow-y: auto;
+.movie-details-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
 }
 
-.popup-content {
-    display: flex;
-    color: #fff;
-    flex-wrap: wrap;
+.movie-details-table th, 
+.movie-details-table td {
+  border: 1px solid #333;
+  padding: 6px;
+  text-align: left;
 }
 
-.popup .close-button {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    cursor: pointer;
-    color: #fff;
-    font-size: 30px;
-    transition: color 0.3s ease;
+.movie-details-table th {
+  background-color: #333;
+  font-weight: bold;
+  color: #e5e5e5; 
 }
 
-.popup .close-button:hover {
-    color: #e50914;
+/* Back Button Styles */
+.back-button-container {
+  /* Remove the margin-left that was pushing the button to the left */
+  margin-right: left; /* Push the button to the right */ 
 }
 
-.popup img {
-    max-width: 300px;
-    width: 100%;
-    border-radius: 5px;
-    margin-right: 30px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+#back-button {
+  background-color: transparent;
+  border: none;
+  color: #e5e5e5; 
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
 }
 
-.popup ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 10px;
-    line-height: 1.8;
-    font-size: 16px;
-    flex: 1;
+#back-button:hover {
+  background-color: rgba(255, 255, 255, 0.1); 
 }
 
-.popup li {
-    margin-bottom: 10px;
+/* Table Styles for Torrent Search Results */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
 }
 
-.torrent-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 20px;
-    gap: 10px;
+th, td {
+  border: 1px solid #333;
+  padding: 6px;
+  text-align: left;
 }
 
-.torrent-button {
-    padding: 10px 20px;
-    background-color: #e50914;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
+th {
+  background-color: #333;
+  font-weight: bold;
 }
 
-.torrent-button:hover {
-    background-color: #f6121d;
-}
-
-/* Footer */
-.footer {
-    background-color: #141414;
-    color: #757575;
-    text-align: center;
-    padding: 20px 0;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    margin-top: 50px;
-}
-
-/* Responsive Styles */
-@media (max-width: 1200px) {
-    .main-container {
-        padding: 100px 30px 30px 30px;
-    }
-
-    .popup-content {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .popup img {
-        margin-right: 0;
-        margin-bottom: 20px;
-    }
-
-    .navbar-search input[type="text"] {
-        width: 150px;
-    }
-
-    .navbar-search input[type="text"]:focus {
-        width: 200px;
-    }
-}
-
+/* Responsive Styles for Smaller Screens */
 @media (max-width: 768px) {
-    .navbar {
-        padding: 10px 20px;
-    }
+  .header-content {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+    align-items: flex-start; /* Align items to the start (left) */
+  }
 
-    .navbar-menu {
-        display: none;
-    }
+  .search-container {
+    width: 100%; /* Make search bar full width */
+    margin-bottom: 10px; /* Add spacing between search and filter */
+  }
 
-    .navbar-search {
-        margin-right: 10px;
-    }
+  .filter-container {
+    width: 100%; /* Make filter container full width */
+  }
 
-    .navbar-logo img {
-        width: 200px;
-    }
+  .movie-details-container {
+    flex-direction: column; /* Stack elements vertically on smaller screens */
+  }
 
-    .container {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        grid-gap: 15px;
-    }
+  .movie-poster {
+    width: 100%; /* Make the poster full width on smaller screens */
+  }
 
-    .pagination button {
-        padding: 8px 16px;
-        margin: 0 5px;
-        font-size: 14px;
-    }
+  .movie-details-table {
+    font-size: 12px; /* Reduce font size for better readability on smaller screens */
+  }
 
-    .section-title {
-        font-size: 20px;
-    }
+  #load-more-movies-container,
+  #load-more-malayalam-container,
+  #load-more-tv-shows-container {
+    width: 100%; /* Make the container the full width of the grid */
+    grid-column: 1 / -1; /* Span all columns in the grid */
+  }
 }
 
-@media (max-width: 480px) {
-    .navbar-search input[type="text"] {
-        display: none;
-    }
+/* Footer Styles */
+footer {
+  background-color: #000;
+  color: #999;
+  text-align: center;
+  padding: 10px;
+  margin-top: auto; /* Push footer to bottom */
+}
 
-    .navbar-menu {
-        display: none;
-    }
 
-    .navbar {
-        justify-content: space-between;
-    }
+/* Modal Styles (basic example) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
 
-    .container {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        grid-gap: 10px;
-    }
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 15px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  max-width: 500px;  /* Limit maximum width */
+}
 
-    .popup-content {
-        padding: 10px;
-    }
+.close-button {
+  color: #aaa;
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+}
 
-    .popup img {
-        max-width: 100%;
-        margin-bottom: 15px;
-    }
+.close-button:hover,
+.close-button:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
 
-    .popup ul {
-        font-size: 14px;
-    }
+/* Styles for Torrent Cards */
+.torrent-card-container {
+  display: flex;
+  flex-direction: column; /* Make cards stack vertically */
+  gap: 10px;
+}
 
-    .torrent-button {
-        padding: 8px 16px;
-        font-size: 12px;
-    }
-    
+.torrent-card {
+  width: 100%; /* Make card full width */
+  background-color: #222;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  color: #e5e5e5; 
+}
+
+.torrent-info {
+  margin-bottom: 5px;
+}
+
+.torrent-info h3 {
+  margin-top: 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.torrent-info p {
+  margin: 3px 0;
+}
+
+.torrent-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.copy-magnet, .play-torrent {
+  padding: 6px 8px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #333;
+  color: #e5e5e5; 
+  font-size: 12px;
+}
+
+.play-torrent {
+  background-color: #4CAF50; /* Green color for Play button */
+}
+
+/* Styles for Movie Details Card (updated layout) */
+.movie-details-card {
+  display: flex;
+  flex-direction: row; /* Align items horizontally */
+  width: 100%;
+  background-color: #222;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  color: #e5e5e5; 
+}
+
+.poster-container img {
+  /* Remove max-width and set width to 100% */
+  width: 200%; 
+  /* Remove height: auto; */
+  border-radius: 5px;
+}
+
+.movie-info {
+  /* No need to adjust padding here anymore */
+  flex-grow: 1; /* Allow movie info to take up remaining space */
+  text-align: left; /* Left-align the movie info text */ 
+  /* Add wrapping for movie info */
+  flex-wrap: wrap; /* Allow text to wrap */
+  padding-left: 20%;
+}
+
+.movie-info h2 {
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.movie-info p {
+  margin: 3px 0;
+  line-height: 1.3;
+  font-size: 14px;
+}
+
+/* Loading Spinner Styles */
+.loading-spinner {
+  display: none; /* Hidden by default */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10; /* Make sure the spinner is on top of other content */
+}
+
+.spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  border-top-color: #e5e5e5; /* White color for the spinner */
+  animation: spin 1s linear infinite; /* Add your animation */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Style for Load More Buttons */
+.load-more-button {
+    width: 100%;
+    background-color: #333;
+    color: #e5e5e5; 
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px; /* Add some spacing */
+    transition: background-color 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.load-more-button:hover {
+    background-color: #555;
+}
+
+.load-more-button p {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0; 
+}
+
+/* Style the containers of the Load More buttons */
+#load-more-movies-container,
+#load-more-malayalam-container,
+#load-more-tv-shows-container {
+  /* Inherit the styles from the movie-card class */
+  width: 100%; 
+  margin-bottom: 5px;
+  background-color: #222;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+#load-more-movies-container:hover,
+#load-more-malayalam-container:hover,
+#load-more-tv-shows-container:hover {
+  transform: scale(1.03);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Adjust Load More button size on mobile */
+@media (max-width: 768px) {
+  /* ... other media query styles ... */
+
+  #load-more-movies-container,
+  #load-more-malayalam-container,
+  #load-more-tv-shows-container {
+    width: 100%; /* Make the container the full width of the grid */
+    grid-column: 1 / -1; /* Span all columns in the grid */
+  }
 }
