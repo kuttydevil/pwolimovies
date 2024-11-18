@@ -69318,12 +69318,9 @@
         (g.config = {
           iceServers: [
             {
-              iceServers: [
-  {
-    urls: [
-      "stun:stun.l.google.com:19302",
-      "stun:global.stun.twilio.com:3478",
-      "stun:23.21.150.121:3478",
+              urls: [
+                "stun:stun.l.google.com:19302",
+                "stun:global.stun.twilio.com:3478",
       "stun:iphone-stun.strato-iphone.de:3478",
       "stun:numb.viagenie.ca:3478",
       "stun:s1.taraba.net:3478",
@@ -69593,11 +69590,10 @@
       "stun:stun.flashdance.cx:3478",
       "turn:124.64.206.224:8800?transport=udp",
       "turn:124.64.206.224:8800?transport=tcp",
-      "turn:relay.webwormhole.io"
-
-    ]
-  }
-],
+      "turn:relay.webwormhole.io",
+              ],
+            },
+          ],
           sdpSemantics: "unified-plan",
         }),
         (g.channelConfig = {}),
