@@ -16,7 +16,7 @@ async function fetchData(url) {
     return await response.json();
   } catch (error) {
     console.error("Fetch error:", error);
-    throw error; // Re-throw the error to be handled by the calling function
+    throw error; 
   }
 }
 
@@ -27,18 +27,17 @@ function createTorrentCard(torrent) {
 
   torrentCard.innerHTML = `
     <div class="torrent-info">
-      <h3>${torrent['Name'] || "N/A"}</h3>
-      <p>Quality: ${torrent['Quality'] || "N/A"}</p>
-      <p>Size: ${torrent['Size'] || "N/A"}</p>
-      <p>Seeders: ${torrent['Seeders'] || "N/A"}</p>
+      <h3>${torrent.Name || "N/A"}</h3>
+      <p>Quality: ${torrent.Quality || "N/A"}</p>
+      <p>Size: ${torrent.Size || "N/A"}</p>
+      <p>Seeders: ${torrent.Seeders || "N/A"}</p>
     </div>
     <div class="torrent-actions">
-      <button class="copy-magnet" data-magnet="${torrent['Magnet']}">Copy Magnet</button>
-      <a href="/player?m=${btoa(torrent['Magnet'])}" target="_blank" rel="noopener noreferrer" class="play-torrent">Play</a>
+      <button class="copy-magnet" data-magnet="${torrent.Magnet}">Copy Magnet</button>
+      <a href="/player?m=${btoa(torrent.Magnet)}" target="_blank" rel="noopener noreferrer" class="play-torrent">Play</a>
     </div>
   `;
 
-  // Add event listener for Copy Magnet button
   torrentCard.querySelector('.copy-magnet').addEventListener('click', async () => {
     const magnetLink = torrentCard.querySelector('.copy-magnet').dataset.magnet;
     try {
@@ -53,7 +52,7 @@ function createTorrentCard(torrent) {
   return torrentCard;
 }
 
-// Function to create the torrent card container (extracted for reusability)
+// Function to create the torrent card container 
 function createTorrentCardContainer(torrentData) {
   const torrentContainer = document.createElement('div');
   torrentContainer.classList.add('torrent-card-container');
@@ -66,21 +65,21 @@ function createTorrentCardContainer(torrentData) {
   return torrentContainer;
 }
 
-// Function to create a card for movie details (updated layout)
+// Function to create a card for movie details 
 function createMovieDetailsCard(movie) {
     const movieDetailsCard = document.createElement('div');
     movieDetailsCard.classList.add('movie-details-card');
   
     movieDetailsCard.innerHTML = `
       <div class="poster-container">
-        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path || '/path/to/default-poster.jpg'}" alt="${movie.title || movie.name}">
       </div>
       <div class="movie-info">
         <h2>${movie.title || movie.name}</h2>
         <p>Release Date: ${movie.release_date || movie.first_air_date}</p>
         <p>Overview: ${movie.overview}</p>
         <p>Rating: ${movie.vote_average}/10</p>
-      </div>
+        <p>Genres: ${movie.genres?.map(genre => genre.name).join(', ') || 'N/A'}</p> </div>
     `;
   
     return movieDetailsCard;
@@ -96,6 +95,39 @@ function hideLoading(element) {
   if (loadingSpinner) {
     loadingSpinner.style.display = 'none';
   }
+}
+
+// Function to update page title and metadata
+function updatePageMetadata(movie) {
+    const title = movie.title || movie.name;
+    document.title = `Watch ${title} Online Free - PwoliMovies`;
+    document.querySelector('meta[name="description"]').content = `Watch ${title} online for free at PwoliMovies. Stream high-quality movies and TV shows without limits.`;
+
+    // Update Open Graph tags
+    document.querySelector('meta[property="og:title"]').content = `Watch ${title} Online Free - PwoliMovies`;
+    document.querySelector('meta[property="og:description"]').content = `Watch ${title} online for free at PwoliMovies. Stream high-quality movies and TV shows without limits.`;
+    document.querySelector('meta[property="og:image"]').content = `https://image.tmdb.org/t/p/w500${movie.poster_path || '/path/to/default-poster.jpg'}`; 
+
+    // Update Twitter Card data
+    document.querySelector('meta[name="twitter:title"]').content = `Watch ${title} Online Free - PwoliMovies`;
+    document.querySelector('meta[name="twitter:description"]').content = `Watch ${title} online for free at PwoliMovies. Stream high-quality movies and TV shows without limits.`;
+    document.querySelector('meta[name="twitter:image"]').content = `https://image.tmdb.org/t/p/w500${movie.poster_path || '/path/to/default-poster.jpg'}`; 
+
+    // Add Schema.org structured data for Movie 
+    const movieSchema = {
+        "@context": "http://schema.org",
+        "@type": "Movie",
+        "name": title,
+        "description": movie.overview,
+        "image": `https://image.tmdb.org/t/p/w500${movie.poster_path || '/path/to/default-poster.jpg'}`,
+        "dateCreated": movie.release_date || movie.first_air_date,
+        "genre": movie.genres?.map(genre => genre.name) || [],
+    };
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(movieSchema);
+    document.head.appendChild(script);
+
 }
 
 // Function to load movie details on the details page
@@ -119,7 +151,7 @@ async function loadMovieDetails() {
     const torrentPromises = Object.entries(torrentSearchAPIs).map(
       async ([sourceName, apiUrl]) => {
         try {
-          const torrentData = await fetchData(`${apiUrl}${encodedMovieTitle}/1`);
+          const torrentData = await fetchData(`${apiUrl}${decodeURIComponent(encodedMovieTitle)}/1`); // Decode the title
           if (torrentData && Array.isArray(torrentData)) {
             return { source: sourceName, data: torrentData };
           } else {
@@ -144,6 +176,7 @@ async function loadMovieDetails() {
 
     movieDetailsContainer.innerHTML = '';
     movieDetailsContainer.appendChild(detailsContainer);
+    updatePageMetadata(movie); // Update metadata after fetching movie data
 
   } catch (error) {
     console.error("Error:", error);
@@ -151,6 +184,12 @@ async function loadMovieDetails() {
   } finally {
     hideLoading(movieDetailsContainer);
   }
+}
+
+function updateCanonicalAndOgUrl() {
+  const currentUrl = window.location.href;
+  document.querySelector('link[rel="canonical"]').href = currentUrl;
+  document.querySelector('meta[property="og:url"]').content = currentUrl;
 }
 
 // Load movie details when the page loads
