@@ -1,78 +1,30 @@
+// details-script.js
 const apiLocation = 'https://api.themoviedb.org/3';
 const apiKey = 'e51447e837048930952e694908564da1'; // **REPLACE WITH YOUR ACTUAL TMDB API KEY**
 const torrentSearchAPIs = {
-  piratebay: 'https://itorrentsearch.vercel.app/api/piratebay/',
-  torlock: 'https://itorrentsearch.vercel.app/api/torlock/',
-  yts: 'https://itorrentsearch.vercel.app/api/yts/',
+    piratebay: 'https://itorrentsearch.vercel.app/api/piratebay/',
+    torlock: 'https://itorrentsearch.vercel.app/api/torlock/',
+    yts: 'https://itorrentsearch.vercel.app/api/yts/',
+    // ... add more torrent search APIs as needed
 };
+const imageBaseUrl = 'https://image.tmdb.org/t/p/w500';
+const defaultPosterPath = '/images/default-poster.jpg'; // Replace with your default poster's relative path
 
-// Reusable fetch function with error handling
+
 async function fetchData(url) {
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      const message = `Network response was not ok ${response.status} ${response.statusText}`;
-      throw new Error(message);
-    }
-    return await response.json();
-  } catch (error) {
-    console.error("Fetch Error:", error);
-    //Consider throwing the error up to be handled by calling function for better error reporting.
-    return null; // Return null to signal failure
-  }
-}
-
-
-// Function to create a card for torrent data
-function createTorrentCard(torrent) {
-  const torrentCard = document.createElement('div');
-  torrentCard.classList.add('torrent-card');
-
-  torrentCard.innerHTML = `
-    <div class="torrent-info">
-      <h3>${torrent.Name || "N/A"}</h3>
-      <p>Quality: ${torrent.Quality || "N/A"}</p>
-      <p>Size: ${torrent.Size || "N/A"}</p>
-      <p>Seeders: ${torrent.Seeders || "N/A"}</p>
-    </div>
-    <div class="torrent-actions">
-      <button class="copy-magnet" data-magnet="${torrent.Magnet}">Copy Magnet</button>
-      <a href="/player?m=${btoa(torrent.Magnet)}" target="_blank" rel="noopener noreferrer" class="play-torrent">Play</a>
-    </div>
-  `;
-
-  torrentCard.querySelector('.copy-magnet').addEventListener('click', async () => {
-    const magnetLink = torrentCard.querySelector('.copy-magnet').dataset.magnet;
     try {
-      await navigator.clipboard.writeText(magnetLink);
-      alert("Magnet link copied!");
-    } catch (err) {
-      console.error("Failed to copy:", err);
-      alert("Failed to copy Magnet link. Check browser permissions.");
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("Fetch Error:", error);
+        return null;
     }
-  });
-
-  return torrentCard;
 }
 
-// Function to create the torrent card container
-function createTorrentCardContainer(torrentData) {
-  const torrentContainer = document.createElement('div');
-  torrentContainer.classList.add('torrent-card-container');
 
-  if (torrentData && torrentData.length > 0) {
-    torrentData.forEach(torrent => {
-      const torrentCard = createTorrentCard(torrent);
-      torrentContainer.appendChild(torrentCard);
-    });
-  } else {
-    torrentContainer.innerHTML = "<p>No torrent results found.</p>";
-  }
-
-  return torrentContainer;
-}
-
-// Function to create a card for movie/tv details
 function createMediaDetailsCard(media) {
     const mediaDetailsCard = document.createElement('div');
     mediaDetailsCard.classList.add('media-details-card');
@@ -80,11 +32,14 @@ function createMediaDetailsCard(media) {
     const title = media.title || media.name || "N/A";
     const type = media.title ? "Movie" : "TV Series";
     const releaseDate = media.release_date || media.first_air_date || "N/A";
-    const posterPath = media.poster_path || '/path/to/default-poster.jpg'; // Default poster
+    const posterPath = media.poster_path ? imageBaseUrl + media.poster_path : defaultPosterPath;
+    const backdropPath = media.backdrop_path ? imageBaseUrl + media.backdrop_path : defaultPosterPath;
+
+    mediaDetailsCard.style.backgroundImage = `url(${backdropPath})`;
 
     mediaDetailsCard.innerHTML = `
       <div class="poster-container">
-        <img src="https://image.tmdb.org/t/p/w500${posterPath}" alt="${title}" onerror="this.src='/path/to/default-poster.jpg';">
+        <img src="${posterPath}" alt="${title}" onerror="this.src='${defaultPosterPath}';">
       </div>
       <div class="media-info">
         <h2>${title}</h2>
@@ -93,122 +48,177 @@ function createMediaDetailsCard(media) {
         <p>Overview: ${media.overview || "N/A"}</p>
         <p>Rating: ${media.vote_average || "N/A"}/10</p>
         <p>Genres: ${media.genres?.map(genre => genre.name).join(', ') || "N/A"}</p>
+        <div id="trailer-container"></div> 
       </div>
     `;
+
+    if (media.videos && media.videos.results) {
+        const trailer = media.videos.results.find(video => video.type === "Trailer" && video.site === "YouTube");
+        if (trailer) {
+            const trailerContainer = mediaDetailsCard.querySelector('#trailer-container');
+            const iframe = document.createElement('iframe');
+            iframe.width = "560"; iframe.height = "315"; iframe.src = `https://www.youtube.com/embed/${trailer.key}`;
+            iframe.title = `${title} - Trailer`; iframe.frameborder = "0";
+            iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+            iframe.allowfullscreen = true; trailerContainer.appendChild(iframe);
+        }
+    }
 
     return mediaDetailsCard;
 }
 
-// Function to show/hide loading spinners
-function showLoading(element) {
-  element.querySelector('.loading-spinner').style.display = 'block';
-}
+// ... (rest of the functions: createTorrentCard, createTorrentCardContainer, showLoading, hideLoading)
 
-function hideLoading(element) {
-  const loadingSpinner = element.querySelector('.loading-spinner');
-  if (loadingSpinner) {
-    loadingSpinner.style.display = 'none';
-  }
-}
 
-// Function to update page metadata
 function updatePageMetadata(media) {
+
     const title = media.title || media.name || "N/A";
-    const type = media.title ? "Movie" : "TV Series";
+    const description = media.overview || "Watch " + title + " online for free at PwoliMovies.";
+    const imageUrl = media.poster_path ? imageBaseUrl + media.poster_path : defaultPosterPath;
+    const url = `https://pwolimovies.vercel.app/movie/${media.id}`; // Or construct appropriate URL
+    const type = media.title ? "video.movie" : "video.tv_show"; // Corrected property name
+
     document.title = `Watch ${title} Online Free - PwoliMovies`;
-    document.querySelector('meta[name="description"]').content = `Watch ${title} (${type}) online for free at PwoliMovies.`;
 
-    // Open Graph
+    document.querySelector('meta[name="description"]').content = description;
+    document.querySelector('meta[property="og:url"]').content = url;
+    document.querySelector('meta[property="og:image"]').content = imageUrl;
     document.querySelector('meta[property="og:title"]').content = `Watch ${title} Online Free - PwoliMovies`;
-    document.querySelector('meta[property="og:description"]').content = `Watch ${title} (${type}) online for free at PwoliMovies.`;
-    document.querySelector('meta[property="og:image"]').content = `https://image.tmdb.org/t/p/w500${media.poster_path || '/path/to/default-poster.jpg'}`;
+    document.querySelector('meta[property="og:description"]').content = description;
+    document.querySelector('meta[property="og:type"]').content = type; // Set correct Open Graph type
 
-    // Twitter Card
     document.querySelector('meta[name="twitter:title"]').content = `Watch ${title} Online Free - PwoliMovies`;
-    document.querySelector('meta[name="twitter:description"]').content = `Watch ${title} (${type}) online for free at PwoliMovies.`;
-    document.querySelector('meta[name="twitter:image"]').content = `https://image.tmdb.org/t/p/w500${media.poster_path || '/path/to/default-poster.jpg'}`;
-
-    // Schema.org
-    const schemaType = media.title ? "Movie" : "TVSeries";
-    const schema = {
-        "@context": "http://schema.org",
-        "@type": schemaType,
-        "name": title,
-        "description": media.overview || "N/A",
-        "image": `https://image.tmdb.org/t/p/w500${media.poster_path || '/path/to/default-poster.jpg'}`,
-        "dateCreated": media.release_date || media.first_air_date || "N/A",
-        "genre": media.genres?.map(genre => genre.name) || ["N/A"],
-    };
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(schema);
-    document.head.appendChild(script);
-}
+    document.querySelector('meta[name="twitter:description"]').content = description;
+    document.querySelector('meta[name="twitter:image"]').content = imageUrl;
+    document.querySelector('link[rel="canonical"]').href = url;
 
 
-// Function to load movie/tv details
-async function loadMovieDetails() {
-  const movieDetailsContainer = document.getElementById('movie-details-container');
-  showLoading(movieDetailsContainer);
-
-  const params = new URLSearchParams(window.location.search);
-  const mediaId = params.get('id');
-  const mediaType = params.get('type');
-  const encodedTitle = encodeURIComponent(params.get('title')); // Encode title for API
-
-  try {
-    let mediaData;
-    const apiUrl = mediaType === 'movie' ?
-      `${apiLocation}/movie/${mediaId}?api_key=${apiKey}` :
-      `${apiLocation}/tv/${mediaId}?api_key=${apiKey}`;
-
-    mediaData = await fetchData(apiUrl);
-
-    if (mediaData === null) {
-        throw new Error("Failed to fetch media data"); // Re-throw for better handling
+    // Schema.org (updated dynamically)
+    let existingSchema = document.querySelector('script[type="application/ld+json"]');
+    if (!existingSchema) {
+        existingSchema = document.createElement('script');
+        existingSchema.type = 'application/ld+json';
+        document.head.appendChild(existingSchema);
     }
 
 
-    const detailsContainer = document.createElement('div');
-    detailsContainer.classList.add('movie-details-container');
+    const schemaType = media.title ? "Movie" : "TVSeries"; // Or use more specific VideoObject if applicable
 
-    const mediaDetailsCard = createMediaDetailsCard(mediaData);
-    detailsContainer.appendChild(mediaDetailsCard);
+    const schema = {
+        "@context": "https://schema.org",
+        "@type": schemaType,
+        "name": title,
+        "description": description,
+        "image": imageUrl,
+        "dateCreated": media.release_date || media.first_air_date || "N/A",
+        "director": media.credits && media.credits.crew && media.credits.crew.find(member => member.job === "Director"), // Include if available
+        "actor": media.credits && media.credits.cast && media.credits.cast.map(actor => ({ "@type": "Person", "name": actor.name })),
+        "genre": media.genres && media.genres.map(genre => genre.name) || [],
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": media.vote_average,
+            "bestRating": "10",
+            "ratingCount": media.vote_count || "N/A"
+        },
 
-    const torrentPromises = Object.entries(torrentSearchAPIs).map(
-      async ([sourceName, apiUrl]) => {
-        try {
-            const torrentData = await fetchData(`${apiUrl}${encodedTitle}/1`);
-            if (torrentData && Array.isArray(torrentData)) {
-                return { source: sourceName, data: torrentData };
-            } else {
-                console.warn(`No torrents found on ${sourceName} for ${encodedTitle}`);
-                return null;
-            }
-        } catch (error) {
-          console.error(`Error fetching from ${sourceName}:`, error);
-          return null;
+        "potentialAction": {
+            "@type": "WatchAction",
+            "target": []
         }
-      }
-    );
+    };
 
-    const torrentResults = await Promise.all(torrentPromises);
-    const allTorrents = torrentResults.flatMap(result => result?.data || []);
-    allTorrents.sort((a, b) => b.Seeders - a.Seeders);
-    const torrentCardContainer = createTorrentCardContainer(allTorrents);
-    detailsContainer.appendChild(torrentCardContainer);
 
-    movieDetailsContainer.innerHTML = '';
-    movieDetailsContainer.appendChild(detailsContainer);
-    updatePageMetadata(mediaData);
 
-  } catch (error) {
-    console.error("Error loading details:", error);
-    movieDetailsContainer.innerHTML = `<p>Error: ${error.message}</p>`;
-  } finally {
-    hideLoading(movieDetailsContainer);
-  }
+    existingSchema.textContent = JSON.stringify(schema); // Update existing schema
+
 }
 
-// Load movie details when the page loads
+
+async function loadMovieDetails() {
+    const movieDetailsContainer = document.getElementById('movie-details-container');
+    const movieDetailsSection = document.getElementById('movie-details');
+    const torrentOptionsSection = document.getElementById('torrent-options');
+    const relatedMoviesSection = document.getElementById('related-movies');
+    const relatedMoviesGrid = document.getElementById('related-movies-grid');
+
+    showLoading(movieDetailsContainer);
+
+
+    try {
+        const params = new URLSearchParams(window.location.search);
+        const mediaId = params.get('id');
+        const mediaType = params.get('type') || 'movie'; // Default to 'movie' if not provided
+        const encodedTitle = encodeURIComponent(params.get('title'));
+
+        let mediaData;
+        let relatedMediaUrl;
+
+        if (mediaType === 'movie') {
+            const apiUrl = `${apiLocation}/movie/${mediaId}?api_key=${apiKey}&append_to_response=videos,credits,keywords,recommendations,similar`;
+            mediaData = await fetchData(apiUrl);
+            relatedMediaUrl = `${apiLocation}/movie/${mediaId}/similar?api_key=${apiKey}`;
+
+        } else { // Assuming 'tv' if not 'movie'
+            const apiUrl = `${apiLocation}/tv/${mediaId}?api_key=${apiKey}&append_to_response=videos,credits,keywords,recommendations,similar`;
+            mediaData = await fetchData(apiUrl);
+            relatedMediaUrl = `${apiLocation}/tv/${mediaId}/similar?api_key=${apiKey}`;
+        }
+
+
+
+        if (!mediaData) {
+            throw new Error("Could not fetch movie/TV show details.");
+        }
+
+
+        movieDetailsSection.appendChild(createMediaDetailsCard(mediaData));
+
+
+        const torrentPromises = Object.entries(torrentSearchAPIs).map(async ([sourceName, apiUrl]) => {
+            try {
+                const torrentData = await fetchData(`${apiUrl}${encodedTitle}/1`);
+                if (torrentData && Array.isArray(torrentData)) {
+                    return { source: sourceName, data: torrentData };
+                } else {
+                    console.warn(`No torrents found on ${sourceName} for ${encodedTitle}`);
+                    return null;
+                }
+            } catch (error) {
+                console.error(`Error fetching from ${sourceName}:`, error);
+                return null;
+            }
+        });
+
+        const torrentResults = await Promise.all(torrentPromises);
+        const allTorrents = torrentResults.flatMap(result => result?.data || []);
+
+        allTorrents.sort((a, b) => (b.Seeders || 0) - (a.Seeders || 0)); // Sort by seeders, handle missing Seeders
+
+
+        torrentOptionsSection.appendChild(createTorrentCardContainer(allTorrents));
+
+        updatePageMetadata(mediaData);
+
+
+        const relatedMediaData = await fetchData(relatedMediaUrl);
+        if (relatedMediaData && relatedMediaData.results.length > 0) {
+          relatedMediaData.results.forEach(relatedMedia => {
+              const relatedMediaCard = createMovieCard(relatedMedia);
+              relatedMoviesGrid.appendChild(relatedMediaCard);
+          });
+          relatedMoviesSection.style.display = 'block'; 
+      }
+
+
+    } catch (error) {
+        console.error("Error loading details:", error);
+        movieDetailsContainer.innerHTML = `<p>Error: ${error.message}</p>`;
+    } finally {
+        hideLoading(movieDetailsContainer);
+    }
+}
+
+
+
+
 window.addEventListener('DOMContentLoaded', loadMovieDetails);
