@@ -14,7 +14,7 @@ body {
 /* Header Styles */
 header {
   background-color: #111;
-  padding: 10px 20px;  /* Reduced padding */
+  padding: 10px 20px;
   display: flex;
   align-items: center;
   position: fixed;
@@ -32,7 +32,6 @@ header {
   flex-wrap: wrap;
   justify-content: space-between;
 }
-
 
 #logo {
   height: 30px;
@@ -56,16 +55,16 @@ header {
 
 .search-container .filter-container {
   display: flex;
-  flex-wrap: wrap; 
-  margin-top: 5px; 
-  justify-content: space-between; 
-  width: 100%; 
+  flex-wrap: wrap;
+  margin-top: 5px;
+  justify-content: space-between;
+  width: 100%;
   font-size: 12px;
 }
 
 .search-container .filter-container label {
   margin: 0 5px 0 0;
-  flex-grow: 1; 
+  flex-grow: 1;
 }
 
 .search-container:hover {
@@ -123,6 +122,8 @@ main {
   flex-grow: 1;
   padding: 15px;
   margin-top: 60px;
+  margin-right: 20px;
+  
 }
 
 /* Section Titles */
@@ -133,8 +134,8 @@ main {
   font-weight: bold;
 }
 
-/* Movie Card Styles */
-.movie-card {
+/* Media Card Styles (Movies and TV Shows) */
+.media-card {
   width: 100%;
   margin-bottom: 5px;
   background-color: #222;
@@ -143,35 +144,43 @@ main {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
+  margin-bottom: 5px;
+
 }
 
-.movie-card:hover {
+.media-card:hover {
   transform: scale(1.03);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.movie-card img {
+.media-card img {
   width: 100%;
   height: auto;
   object-fit: cover;
   display: block;
 }
 
-.movie-card h3 {
+.media-card h3 {
   padding: 5px;
   margin: 0;
-  font-size: auto;
+  font-size: 16px; /* Slightly larger font size */
   text-align: center;
   font-weight: normal;
   color: #e5e5e5;
   font-family: Arial, sans-serif;
+  overflow: hidden; /* Prevents title from overflowing */
+  text-overflow: ellipsis; /* Adds ellipsis (...) for long titles */
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limits title to 2 lines */
+  -webkit-box-orient: vertical;
 }
 
-/* TV Series Grid Styles */
-.movie-grid {
+
+/* Media Grid Styles */
+.media-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 5px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusted minmax */
+  gap: 0;
   margin-top: 15px;
 }
 
@@ -184,7 +193,7 @@ main {
   gap: 15px;
 }
 
-.movie-details-container {
+.media-details-container { /* Renamed for clarity */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -194,16 +203,17 @@ main {
   margin: 0 auto;
 }
 
-.movie-details-card {
+.media-details-card { /* Renamed for clarity */
   display: flex;
   flex-direction: row;
   width: 100%;
   background-color: #222;
-  padding: 15px;
+  padding: 10px;
   border-radius: 5px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   color: #e5e5e5;
   gap: 20px;
+  margin-bottom: 10px;
 }
 
 .poster-container {
@@ -217,19 +227,19 @@ main {
   display: block;
 }
 
-.movie-info {
+.media-info { /* Renamed for clarity */
   flex: 1;
   text-align: left;
 }
 
-.movie-info h2 {
+.media-info h2 {
   margin-top: 0;
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 8px;
 }
 
-.movie-info p {
+.media-info p {
   margin: 3px 0;
   line-height: 1.3;
   font-size: 14px;
@@ -260,13 +270,13 @@ main {
 
 /* Back Button Styles */
 .back-button-container {
-  margin-right: 0; /*remove unnecessary margin*/
+  margin-right: 0;
 }
 
 #back-button {
-  position: fixed; /* Position the button relative to the viewport */
-  top: 10px; /* Adjust top position as needed */
-  right: 10px; /* Adjust right position as needed */
+  position: fixed;
+  top: 10px;
+  right: 10px;
   background-color: transparent;
   border: none;
   color: #e5e5e5;
@@ -275,31 +285,13 @@ main {
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.2s;
-  z-index: 100; /* Ensure button is on top of other elements */
+  z-index: 100;
 }
 
 #back-button:hover {
   background-color: rgb(255, 0, 0);
 }
 
-/* Table Styles for Torrent Search Results */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
-}
-
-th,
-td {
-  border: 1px solid #333;
-  padding: 6px;
-  text-align: left;
-}
-
-th {
-  background-color: #333;
-  font-weight: bold;
-}
 
 /* Footer Styles */
 footer {
@@ -310,40 +302,113 @@ footer {
   margin-top: auto;
 }
 
-/* Modal Styles */
-.modal {
+/* Loading Spinner Styles */
+.loading-spinner {
   display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  border-top-color: #e5e5e5;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Style for Load More Buttons */
+.load-more-button {
   width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 15px;
-  border: 1px solid #888;
-  width: 80%;
-  max-width: 500px;
-}
-
-.close-button {
-  color: #aaa;
-  float: right;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.close-button:hover,
-.close-button:focus {
-  color: black;
-  text-decoration: none;
+  background-color: #333;
+  color: #e5e5e5;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.load-more-button:hover {
+  background-color: #555;
+}
+
+.load-more-button p {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  header {
+    padding: 5px 10px;
+  }
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  #logo {
+    margin-bottom: 5px;
+    margin-right: 0;
+  }
+  .search-container,
+  .filter-container {
+    width: 100%;
+    margin-bottom: 5px;
+    justify-content: flex-start;
+  }
+  .filter-container {
+    width: calc(100% - 20px);
+    margin: 5px 0;
+    justify-content: space-around;
+  }
+  .media-details-card {
+    flex-direction: column;
+    align-items: center;
+  }
+  .poster-container {
+    flex: 0 0 auto;
+    max-width: 100%;
+    margin-bottom: 15px;
+  }
+  .media-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+  .torrent-actions {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .media-grid {
+    grid-template-columns: 1fr;
+  }
+  .torrent-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .torrent-actions {
+    margin-top: 10px;
+  }
 }
 
 /* Styles for Torrent Cards */
@@ -382,123 +447,49 @@ footer {
 .play-torrent {
   background-color: #4CAF50;
 }
-
-/* Loading Spinner Styles */
-.loading-spinner {
-  display: none;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
+/* Movie Card Styles */
+.movie-card {
+width: 100%;
+margin-bottom: 5px; /* Added margin for spacing */
+background-color: #222;
+border-radius: 5px;
+overflow: hidden;
+box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+transition: transform 0.2s, box-shadow 0.2s;
+cursor: pointer;
 }
 
-.spinner {
-  width: 30px;
-  height: 30px;
-  border: 3px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  border-top-color: #e5e5e5;
-  animation: spin 1s linear infinite;
+.movie-card:hover {
+transform: scale(1.03);
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-@keyframes spin {
-  0% {
-      transform: rotate(0deg);
-  }
-
-  100% {
-      transform: rotate(360deg);
-  }
+.movie-card img {
+width: 100%;
+height: auto;
+object-fit: cover;
+display: block;
 }
 
-/* Style for Load More Buttons */
-.load-more-button {
-  width: 100%;
-  background-color: #333;
-  color: #e5e5e5;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: background-color 0.2s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.movie-card h3 {
+padding: 5px;
+margin: 0;
+font-size: 16px; /* Added a specific font size */
+text-align: center;
+font-weight: normal;
+color: #e5e5e5;
+font-family: Arial, sans-serif;
+overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
 }
 
-.load-more-button:hover {
-  background-color: #555;
-}
-
-.load-more-button p {
-  font-size: 14px;
-  font-weight: bold;
-  margin: 0;
-}
-
-
-/* Media Queries for Responsiveness */
-@media (max-width: 768px) {
-  header {
-      padding: 5px 10px; /* Even smaller padding on mobile */
-  }
-
-  .header-content {
-      flex-direction: column; /* Stack header elements vertically */
-      align-items: flex-start; /* Align to the left on mobile */ 
-  }
-
-  #logo {
-      margin-bottom: 5px; /* Small bottom margin on mobile */
-      margin-right: 0; /* Remove right margin on mobile */
-  }
-
-  .search-container, .filter-container {
-      width: 100%;
-      margin-bottom: 5px; /* Add bottom margin on mobile */
-      justify-content: flex-start; /* Align search/filter to left */
-  }
-
-  .filter-container {
-      width: calc(100% - 20px); /* Adjust for padding */
-      margin: 5px 0;
-      justify-content: space-around;
-  }
-
-  .movie-details-card {
-      flex-direction: column;
-      align-items: center;
-  }
-
-  .poster-container {
-      flex: 0 0 auto;
-      max-width: 100%;
-      margin-bottom: 15px;
-  }
-
-  .movie-grid {
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  }
-
-  .torrent-actions {
-      margin-left: 0;
-      margin-top: 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  .movie-grid {
-      grid-template-columns: 1fr;
-  }
-
-  .torrent-card {
-      flex-direction: column;
-      align-items: flex-start;
-  }
-
-  .torrent-actions {
-      margin-top: 10px;
-  }
+/* Grid Styles for Home Page Movie Sections */
+.movie-grid { /* Reusing this class for home page grid */
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjust minmax as needed */
+gap: 10px; /* Added gap between cards */
+margin-top: 15px;
 }

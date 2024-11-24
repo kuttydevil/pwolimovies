@@ -126,7 +126,7 @@ async function getPopularTVSeries(page = 1, resetPage = false) {
                 tvSeriesList.innerHTML = '';
             }
 
-            const response = await fetch(`${apiLocation}/tv/popular?api_key=${apiKey}&page=${currentPageTVShows}`);
+            const response = await fetch(`${apiLocation}/tv/top_rated?api_key=${apiKey}&page=${currentPageTVShows}`);
             if (!response.ok) {
                 throw new Error(`HTTP error fetching popular TV series! status: ${response.status}`);
             }
@@ -154,14 +154,14 @@ async function getPopularTVSeries(page = 1, resetPage = false) {
 }
 
 // Create a movie card
-function createMovieCard(movie) {
+function createMovieCard(media) {
     const movieCardLink = document.createElement('a');
-    movieCardLink.href = `movie-details.html?id=${movie.id}&title=${encodeURIComponent(movie.title || movie.name)}`;
+    movieCardLink.href = `movie-details.html?id=${media.id}&title=${encodeURIComponent(media.title || media.name)}&type=${media.title ? 'movie' : 'tv'}`; 
     movieCardLink.classList.add('movie-card');
 
     movieCardLink.innerHTML = `
-        <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title || movie.name}">
-        <h3>${movie.title || movie.name}</h3>
+        <img src="https://image.tmdb.org/t/p/w300${media.poster_path}" alt="${media.title || media.name}" onerror="this.src='/img/404.jpg';">
+        <h3>${media.title || media.name}</h3>
     `;
 
     return movieCardLink;
