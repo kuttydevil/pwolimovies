@@ -15778,7 +15778,7 @@
                   setVolume: function (t) {
                     if (null === this.player) return this.playerNotInitlized();
                     this.setVolumeState(t),
-                      (this.player.volume = t * 5)
+                      (this.player.volume = t*5)
                       (this.player.muted = 0 === t);
                   },
                   isFullscreen: function () {
