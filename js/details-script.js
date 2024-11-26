@@ -135,7 +135,7 @@ function updatePageMetadata(media) {
         "@type": schemaType,
         "name": title,
         "description": media.overview || "N/A",
-        "image": `https://image.tmdb.org/t/p/w500${media.poster_path || '/path/to/default-poster.jpg'}`,
+        "image": `https://image.tmdb.org/t/p/w500${media.poster_path || '/img/404.jpg'}`,
         "dateCreated": media.release_date || media.first_air_date || "N/A",
         "genre": media.genres?.map(genre => genre.name) || ["N/A"],
     };
