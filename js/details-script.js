@@ -84,7 +84,7 @@ function createMediaDetailsCard(media) {
 
     mediaDetailsCard.innerHTML = `
       <div class="poster-container">
-        <img src="https://image.tmdb.org/t/p/w500${posterPath}" alt="${title}" onerror="this.src='/path/to/default-poster.jpg';">
+        <img src="https://image.tmdb.org/t/p/w500${posterPath}" alt="${title}" onerror="this.src='/img/404.jpg';">
       </div>
       <div class="media-info">
         <h2>${title}</h2>
