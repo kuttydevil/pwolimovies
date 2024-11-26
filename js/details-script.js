@@ -80,7 +80,7 @@ function createMediaDetailsCard(media) {
     const title = media.title || media.name || "N/A";
     const type = media.title ? "Movie" : "TV Series";
     const releaseDate = media.release_date || media.first_air_date || "N/A";
-    const posterPath = media.poster_path || '/path/to/default-poster.jpg'; // Default poster
+    const posterPath = media.poster_path || '/img/404.jpg'; // Default poster
 
     mediaDetailsCard.innerHTML = `
       <div class="poster-container">
