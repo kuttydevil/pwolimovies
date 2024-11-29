@@ -62,7 +62,8 @@
     <header>
       <nav>
           <div class="header-content">
-              <a href="/"><img src="/img/ut-lite-logo.svg" alt="PwoliMovies Logo" id="logo"></a> <div class="search-container">
+              <a href="/"><img src="/img/ut-lite-logo.svg" alt="PwoliMovies Logo" id="logo"></a>
+              <div class="search-container">
                   <input type="text" id="search-input" placeholder="Search Movies and TV Shows">
                   <div class="filter-container">
                       <label><input type="radio" name="search_type" value="movie" checked> Movies</label>
@@ -74,29 +75,17 @@
       </nav>
   </header>
 
-    <main>
-        <h2 class="section-title">Popular Movies</h2>
+    <main>  <!-- No longer initially hidden -->
+        <h2 class="section-title" id="resultsTitle">Popular Movies</h2>
         <div id="movie-details" class="movie-grid">
             <div class="loading-spinner">
                 <div class="spinner"></div>
             </div>
             <!-- Movie cards will be loaded here -->
         </div>
-        <a id="load-more-movies-link" href="#" class="movie-card load-more-button">
+        <a id="load-more-movies-link" href="#" class="movie-card load-more-button" style="display: none;">
             <p>Load More</p>
         </a>
-
-
-        <h2 class="section-title">Latest Malayalam Movies</h2>
-        <div id="malayalam-movies" class="movie-grid">
-          <div class="loading-spinner">
-              <div class="spinner"></div>
-          </div>
-          <!-- Malayalam movie cards will be loaded here -->
-      </div>
-      <a id="load-more-malayalam-link" href="#" class="movie-card load-more-button">
-          <p>Load More</p>
-      </a>
 
         <h2 class="section-title">Popular TV Shows</h2>
         <div id="tv-series-details" class="movie-grid">
@@ -105,9 +94,20 @@
             </div>
             <!-- TV series cards will be loaded here -->
         </div>
-        <a id="load-more-tv-shows-link" href="#" class="movie-card load-more-button">
+        <a id="load-more-tv-shows-link" href="#" class="movie-card load-more-button" style="display: none;">
             <p>Load More</p>
         </a>
+
+        <h2 class="section-title">Latest Malayalam Movies</h2>
+        <div id="malayalam-movies" class="movie-grid">
+          <div class="loading-spinner">
+              <div class="spinner"></div>
+          </div>
+          <!-- Malayalam movie cards will be loaded here -->
+      </div>
+      <a id="load-more-malayalam-link" href="#" class="movie-card load-more-button" style="display: none;">
+          <p>Load More</p>
+      </a>
 
         <div class="about-section">
             <h2>About Pwolimovies</h2>
@@ -137,7 +137,7 @@
 
         <div class="content-section">
             <h2>Explore Our Extensive Library</h2>
-            <p>Discover a universe of movies and TV shows across various genres, from action-packed thrillers to heartwarming romances.  Stream free movies online, watch free TV shows, and explore endless possibilities. PwoliMovies is your one-stop shop for all your entertainment needs. Experience the best in online movie streaming, with options for HD and 1080p quality. Find free TV series online, catch up on your favorite shows, and download free movies and TV shows. Pwolimovies offers the latest movie torrents, new release movies free online, and free movies with no sign-up required. Watch movies without registration on free movie websites. Pwolimovies is your go-to source for movie torrents, free movie downloads, and free TV show torrents. Download free TV shows and enjoy the newest movie releases. Watch new release movies free online and discover free movies without signing up. Watch movies without registration on free movie websites. Pwolimovies - Your premier destination to watch free movies & TV shows online!</p>
+            <p>Discover a universe of movies and TV shows across various genres, from action-packed thrillers to heartwarming romances.  Stream free movies online, watch free TV shows, and explore endless possibilities. PwoliMovies is your one-stop shop for all your entertainment needs. Experience the best in online movie streaming, with options for HD and 1080p quality. Find free TV series online, catch up on your favorite shows, and download free movies and TV shows. PwoliMovies offers the latest movie torrents, new release movies free online, and free movies with no sign-up required. Watch movies without registration on free movie websites. Pwolimovies is your go-to source for movie torrents, free movie downloads, and free TV show torrents. Download free TV shows and enjoy the newest movie releases. Watch new release movies free online and discover free movies without signing up. Watch movies without registration on free movie websites. Pwolimovies - Your premier destination to watch free movies & TV shows online!</p>
         </div>
 
 
@@ -153,8 +153,7 @@
         <p>© 2024 Pwolimovies. All Rights Reserved. Watch Free Movies and TV Shows Online.</p>
     </footer>
 
-
-    <script src="/js/script.js"></script>
+    <script src="/js/script.js"></script>  
 </body>
 
 </html>

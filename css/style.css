@@ -35,36 +35,37 @@ header {
 
 #logo {
   height: 30px;
-  order: 1;
-  margin-bottom: 10px;
+  margin-bottom: 0; /* Remove bottom margin */
+  white-space: nowrap; 
 }
 
 .search-container {
-  display: flex;
+  display: -webkit-inline-flex ;
   background-color: #222;
   border-radius: 20px;
   padding: 6px 12px;
   transition: background-color 0.2s;
-  align-items: center;
-  flex-grow: 1;
-  margin-right: 10px;
-  width: 100%;
-  order: 3;
-  margin: 0;
+  align-items: right;
+  margin: 10px 0;
+  width: auto;
+  flex-grow: 1; 
+  order: 2;
 }
 
 .search-container .filter-container {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 5px;
-  justify-content: space-between;
-  width: 100%;
-  font-size: 12px;
-}
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 5px;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 12px;
+    align-content: stretch;
 
+}
+  
 .search-container .filter-container label {
-  margin: 0 5px 0 0;
-  flex-grow: 1;
+    margin: 0 5px 0 0;
+    flex-grow: 1;
 }
 
 .search-container:hover {
@@ -100,11 +101,12 @@ header {
   display: flex;
   align-items: center;
   white-space: nowrap;
-  order: 2;
+  margin: 5px 0 10px;
   width: 100%;
   justify-content: center;
-  margin: 0;
+  order: 1;
 }
+
 
 .filter-container label {
   margin-right: 10px;
@@ -117,15 +119,14 @@ header {
   margin-right: 5px;
 }
 
+
 /* Main Content Styles */
 main {
   flex-grow: 1;
   padding: 15px;
-  margin-top: 60px;
+  margin-top: 60px; 
   margin-right: 20px;
-  
 }
-
 /* Section Titles */
 .section-title {
   color: #e5e5e5;
@@ -342,19 +343,21 @@ footer {
   margin-top: 10px;
   transition: background-color 0.2s;
   display: flex;
-  justify-content: center;
+  justify-content: center; /* Added this line */
   align-items: center;
+}
+
+.load-more-button p {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0; /*Added this line to remove default p margin*/
+  text-align: center; /* Added this line */
 }
 
 .load-more-button:hover {
   background-color: #555;
 }
 
-.load-more-button p {
-  font-size: 14px;
-  font-weight: bold;
-  margin: 0;
-}
 
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
@@ -365,15 +368,17 @@ footer {
     flex-direction: column;
     align-items: flex-start;
   }
-  #logo {
-    margin-bottom: 5px;
-    margin-right: 0;
+
+  .search-container {
+      width: 100%;
+      margin: 10px 0;
+      order: 2;
   }
-  .search-container,
   .filter-container {
-    width: 100%;
-    margin-bottom: 5px;
     justify-content: flex-start;
+    margin: 5px 0;
+    width: 100%;
+    order: 1;
   }
   .filter-container {
     width: calc(100% - 20px);
