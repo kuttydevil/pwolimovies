@@ -4285,7 +4285,7 @@
                         const t = X(e) ? "magnet_link" : ee(e) ? "infohash" : te(e) ? "url" : "external";
                         if ("external" === t) {
                             const i = "../index.html"
-                              , r = e.match(new RegExp("\\btorrent\\b","i")) ? e : `${e} torrent`;
+                              , r = e.match(new RegExp("\\btorrent\\b","i")) ? e : `${e} `;
                             return window.open(`${i}?query=${r}`),
                             this.updateValue(""),
                             void pe.search(this.name, t)
