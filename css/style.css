@@ -1,8 +1,8 @@
 /* General Styles */
 body {
-  background-color: #141414;
-  font-family: 'Arial', sans-serif;
-  color: #e5e5e5;
+  background-color: #0a192f;
+  font-family: 'Roboto', sans-serif;
+  color: #ccd6f6;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -10,26 +10,40 @@ body {
   overflow-x: hidden;
   position: relative;
 }
+
+h1, h2, h3 {
+    font-weight: 600;
+    color: #fff;
+}
 h1 {
-  position: relative;
-  top: 20px; /* Adjust the value as needed */
-  bottom: 20px;
-  margin-bottom: 20px; 
+    position: relative;
+    top: 20px;
+    bottom: 20px;
+    margin-bottom: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: #64ffda;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 /* Header Styles */
 header {
-  background-color: #111;
-  padding: 10px 20px;
+  background-color: #112240;
+  padding: 15px 20px;
   display: flex;
   align-items: center;
   position: fixed;
   width: 100%;
   z-index: 10;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
 
 .header-content {
@@ -41,42 +55,42 @@ header {
 }
 
 #logo {
-  height: 30px;
-  margin-bottom: 0; /* Remove bottom margin */
-  white-space: nowrap; 
+  height: 35px;
+  margin-bottom: 0;
+  white-space: nowrap;
 }
 
 .search-container {
   display: -webkit-inline-flex ;
-  background-color: #222;
-  border-radius: 20px;
-  padding: 6px 12px;
+  background-color: #1e3057;
+  border-radius: 30px;
+  padding: 8px 15px;
   transition: background-color 0.2s;
   align-items: right;
-  margin: 10px 0;
+  margin: 15px 0;
   width: auto;
-  flex-grow: 1; 
+  flex-grow: 1;
   order: 2;
 }
 
 .search-container .filter-container {
     display: flex;
     flex-wrap: wrap;
-    margin-top: 5px;
+    margin-top: 8px;
     justify-content: space-between;
     width: 100%;
-    font-size: 12px;
+    font-size: 14px;
     align-content: stretch;
-
 }
-  
+
 .search-container .filter-container label {
-    margin: 0 5px 0 0;
-    flex-grow: 1;
+  margin: 0 8px 0 0;
+  flex-grow: 1;
+  color: #8892b0;
 }
 
 .search-container:hover {
-  background-color: #333;
+  background-color: #2a4174;
 }
 
 #search-input {
@@ -84,9 +98,9 @@ header {
   border: none;
   color: #fff;
   flex-grow: 1;
-  font-size: 14px;
-  border-radius: 20px;
-  padding: 6px 10px;
+  font-size: 16px;
+  border-radius: 30px;
+  padding: 8px 15px;
 }
 
 #search-input:focus {
@@ -96,11 +110,11 @@ header {
 #search-button {
   background-color: transparent;
   border: none;
-  color: #fff;
-  padding: 6px 10px;
+  color: #64ffda;
+  padding: 8px 15px;
   cursor: pointer;
-  border-radius: 20px;
-  margin-left: 8px;
+  border-radius: 30px;
+  margin-left: 10px;
 }
 
 /* Filter Container Styles */
@@ -114,11 +128,10 @@ header {
   order: 1;
 }
 
-
 .filter-container label {
   margin-right: 10px;
   color: #fff;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
 }
 
@@ -130,66 +143,69 @@ header {
 /* Main Content Styles */
 main {
   flex-grow: 1;
-  padding: 15px;
-  margin-top: 60px; 
-  margin-right: 20px;
+  padding: 20px;
+  margin-top: 70px;
 }
+
 /* Section Titles */
 .section-title {
-  color: #e5e5e5;
-  font-size: 20px;
-  margin-bottom: 15px;
-  font-weight: bold;
+  color: #fff;
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  border-bottom: 2px solid #64ffda;
+    padding-bottom: 5px;
+    display: inline-block;
 }
 
 /* Media Card Styles (Movies and TV Shows) */
-.media-card {
+.movie-card {
   width: 100%;
-  margin-bottom: 5px;
-  background-color: #222;
-  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #1e3057;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
-  margin-bottom: 5px;
-
 }
 
-.media-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+.movie-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
 
-.media-card img {
+.movie-card img {
   width: 100%;
   height: auto;
   object-fit: cover;
   display: block;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
-.media-card h3 {
-  padding: 5px;
+.movie-card h3 {
+  padding: 12px;
   margin: 0;
-  font-size: 16px; /* Slightly larger font size */
+  font-size: 16px;
   text-align: center;
-  font-weight: normal;
-  color: #e5e5e5;
-  font-family: Arial, sans-serif;
-  overflow: hidden; /* Prevents title from overflowing */
-  text-overflow: ellipsis; /* Adds ellipsis (...) for long titles */
+  font-weight: 500;
+  color: #ccd6f6;
+  font-family: 'Roboto', sans-serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* Limits title to 2 lines */
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 
 
 /* Media Grid Styles */
-.media-grid {
+.movie-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusted minmax */
-  gap: 0;
-  margin-top: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
 }
 
 /* Movie Details Page Styles */
@@ -197,60 +213,60 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 15px;
-  gap: 15px;
-}
-
-.media-details-container { /* Renamed for clarity */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  padding: 15px;
-  max-width: 80%;
-  margin: 0 auto;
-}
-
-.media-details-card { /* Renamed for clarity */
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  background-color: #222;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  color: #e5e5e5;
+  padding: 20px;
   gap: 20px;
-  margin-bottom: 10px;
+}
+
+.media-details-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+.media-details-card {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: #1e3057;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: #ccd6f6;
+    gap: 20px;
+    margin-bottom: 15px;
 }
 
 .poster-container {
-  flex: 0 0 30%;
-  max-width: 30%;
+  flex: 0 0 35%;
+  max-width: 35%;
 }
 
 .poster-container img {
   width: 100%;
-  border-radius: 5px;
-  display: block;
+  border-radius: 10px;
+    display: block;
 }
 
-.media-info { /* Renamed for clarity */
+.media-info {
   flex: 1;
   text-align: left;
 }
 
 .media-info h2 {
   margin-top: 10px;
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 8px;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 10px;
 }
 
 .media-info p {
-  margin: 3px 0;
-  line-height: 1.3;
-  font-size: 14px;
+  margin: 5px 0;
+  line-height: 1.4;
+  font-size: 16px;
 }
 
 /*Torrent Card*/
@@ -258,12 +274,12 @@ main {
   display: flex;
   align-items: center;
   width: 100%;
-  background-color: #222;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  color: #e5e5e5;
-  gap: 10px;
+  background-color: #1e3057;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #ccd6f6;
+  gap: 15px;
   flex-wrap: wrap;
 }
 
@@ -283,31 +299,33 @@ main {
 
 #back-button {
   position: fixed;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 15px;
   background-color: transparent;
-  border: none;
-  color: #e5e5e5;
-  padding: 6px 10px;
-  border-radius: 5px;
+  border: 2px solid #64ffda;
+  color: #64ffda;
+  padding: 8px 15px;
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.2s;
+  font-weight: 600;
+  transition: background-color 0.2s, color 0.2s;
   z-index: 100;
 }
 
 #back-button:hover {
-  background-color: rgb(255, 0, 0);
+  background-color: #64ffda;
+  color: #112240;
 }
 
 
 /* Footer Styles */
 footer {
   background-color: #000;
-  color: #999;
+  color: #8892b0;
   text-align: center;
-  padding: 10px;
+  padding: 15px;
   margin-top: auto;
+    font-size: 14px;
 }
 
 /* Loading Spinner Styles */
@@ -321,107 +339,118 @@ footer {
 }
 
 .spinner {
-  width: 30px;
-  height: 30px;
-  border: 3px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  border-top-color: #e5e5e5;
-  animation: spin 1s linear infinite;
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(100, 255, 218, 0.2);
+    border-radius: 50%;
+    border-top-color: #64ffda;
+    animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
+
 
 /* Style for Load More Buttons */
 .load-more-button {
-  width: 100%;
-  background-color: #333;
-  color: #e5e5e5;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: background-color 0.2s;
-  display: flex;
-  justify-content: center; /* Added this line */
-  align-items: center;
+    width: 100%;
+    background-color: transparent;
+    color: #64ffda;
+    padding: 12px 15px;
+    border: 2px solid #64ffda;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.2s, color 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 .load-more-button p {
-  font-size: 14px;
-  font-weight: bold;
-  margin: 0; /*Added this line to remove default p margin*/
-  text-align: center; /* Added this line */
+    margin: 0;
+    text-align: center;
 }
 
 .load-more-button:hover {
-  background-color: #555;
+    background-color: #64ffda;
+    color: #112240;
 }
-
 
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
-  header {
-    padding: 5px 10px;
-  }
-  .header-content {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+    header {
+        padding: 10px 15px;
+    }
 
-  .search-container {
-      width: 100%;
-      margin: 10px 0;
-      order: 2;
-  }
-  .filter-container {
-    justify-content: flex-start;
-    margin: 5px 0;
-    width: 100%;
-    order: 1;
-  }
-  .filter-container {
-    width: calc(100% - 20px);
-    margin: 5px 0;
-    justify-content: space-around;
-  }
-  .media-details-card {
-    flex-direction: column;
-    align-items: center;
-  }
-  .poster-container {
-    flex: 0 0 auto;
-    max-width: 100%;
-    margin-bottom: 15px;
-  }
-  .media-grid {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  }
-  .torrent-actions {
-    margin-left: 0;
-    margin-top: 10px;
-  }
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .search-container {
+        width: 100%;
+        margin: 15px 0;
+        order: 2;
+    }
+
+    .filter-container {
+        justify-content: flex-start;
+        margin: 8px 0;
+        width: 100%;
+        order: 1;
+    }
+
+    .filter-container {
+        width: calc(100% - 20px);
+        margin: 8px 0;
+        justify-content: space-around;
+    }
+
+    .media-details-card {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .poster-container {
+        flex: 0 0 auto;
+        max-width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .movie-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+    .torrent-actions {
+        margin-left: 0;
+        margin-top: 10px;
+    }
 }
 
 @media (max-width: 480px) {
-  .media-grid {
-    grid-template-columns: 1fr;
-  }
-  .torrent-card {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .torrent-actions {
-    margin-top: 10px;
-  }
+    .movie-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .torrent-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .torrent-actions {
+        margin-top: 10px;
+    }
 }
+
 
 /* Styles for Torrent Cards */
 .torrent-card-container {
@@ -432,12 +461,13 @@ footer {
 
 .torrent-info h3 {
   margin-top: 10px;
-  font-size: 14px;
-  font-weight: bold;
+  font-size: 16px;
+    font-weight: 500;
 }
 
 .torrent-info p {
-  margin: 3px 0;
+  margin: 5px 0;
+    font-size: 14px;
 }
 
 .torrent-actions {
@@ -447,61 +477,93 @@ footer {
 
 .copy-magnet,
 .play-torrent {
-  padding: 6px 8px;
+  padding: 8px 10px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  background-color: #333;
-  color: #e5e5e5;
-  font-size: 12px;
+  background-color: #1e3057;
+    color: #ccd6f6;
+  font-size: 14px;
+    transition: background-color 0.2s, color 0.2s;
 }
 
 .play-torrent {
-  background-color: #4CAF50;
+  background-color: #4caf50;
 }
-/* Movie Card Styles */
-.movie-card {
-width: 100%;
-margin-bottom: 5px; /* Added margin for spacing */
-background-color: #222;
-border-radius: 5px;
-overflow: hidden;
-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-transition: transform 0.2s, box-shadow 0.2s;
-cursor: pointer;
+    .copy-magnet:hover,
+    .play-torrent:hover {
+        background-color: #64ffda;
+        color: #112240;
+    }
+
+/* About and FAQ Section Styles */
+.about-section, .faq-section, .content-section {
+    background-color: #112240;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.movie-card:hover {
-transform: scale(1.03);
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+.about-section h2, .faq-section h2, .content-section h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #64ffda;
+    padding-bottom: 5px;
+    display: inline-block;
+    color: #fff;
 }
 
-.movie-card img {
-width: 100%;
-height: auto;
-object-fit: cover;
-display: block;
+.about-section p, .faq-section p, .content-section p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #ccd6f6;
 }
 
-.movie-card h3 {
-padding: 5px;
-margin: 0;
-font-size: 16px; /* Added a specific font size */
-text-align: center;
-font-weight: normal;
-color: #e5e5e5;
-font-family: Arial, sans-serif;
-overflow: hidden;
-text-overflow: ellipsis;
-display: -webkit-box;
--webkit-line-clamp: 2;
--webkit-box-orient: vertical;
+/* FAQ Specific Styles */
+.faq-section details {
+    margin-bottom: 10px;
 }
 
-/* Grid Styles for Home Page Movie Sections */
-.movie-grid { /* Reusing this class for home page grid */
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjust minmax as needed */
-gap: 10px; /* Added gap between cards */
-margin-top: 15px;
+.faq-section summary {
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 10px;
+    background-color: #1e3057;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+    outline: none; /* Removes focus outline */
+    list-style-type: none;
+        color: #fff;
+}
+
+.faq-section summary:hover {
+    background-color: #2a4174;
+}
+.faq-section summary::-webkit-details-marker {
+  display: none; /* Remove default marker */
+}
+.faq-section details[open] > summary {
+    background-color: #2a4174;
+}
+.faq-section summary:after {
+    content: '+';
+    float: right;
+    font-size: 20px;
+    margin-left: 5px;
+}
+
+.faq-section details[open] summary:after{
+   content: '-';
+}
+
+
+.faq-section details > p {
+    padding: 10px;
+    background-color: #162544;
+    border-radius: 8px;
+    font-size: 16px;
+    line-height: 1.5;
 }
