@@ -1,8 +1,0 @@
-User-agent: Googlebot
-Allow: /
-Allow: /img/
-Allow: https://googleads.g.doubleclick.net/
-Allow: https://image.tmdb.org/
-
-User-agent: *
-Disallow: /
