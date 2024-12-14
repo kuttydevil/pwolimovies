@@ -245,9 +245,13 @@ async function searchMovies() {
     const movieList = document.getElementById('popular-movies');
     const tvSeriesList = document.getElementById('popular-tv-shows');
     const malayalamMovieList = document.getElementById('malayalam-movies');
+     const searchResultsContainer = document.getElementById('search-results');
     const moviesLoadMore = document.getElementById('load-more-popular-movies-link');
     const tvShowsLoadMore = document.getElementById('load-more-popular-tv-shows-link');
     const resultsTitle = document.getElementById('resultsTitle');
+      const popularMoviesSection = document.getElementById('popular-movies-section');
+    const popularTVShowsSection = document.getElementById('popular-tv-shows-section');
+    const malayalamMoviesSection = document.getElementById('malayalam-movies-section');
    // Show loading spinners only if the elements exist
     if (movieList) showLoading(document.getElementById('popular-movies-spinner'));
     if (tvSeriesList) showLoading(document.getElementById('popular-tv-shows-spinner'));
@@ -259,23 +263,34 @@ async function searchMovies() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        movieList.innerHTML = ''; // Clear previous results
-        tvSeriesList.innerHTML = ''; // Clear previous results
-        malayalamMovieList.innerHTML = ''; // Clear previous results
-        resultsTitle.textContent = `Search Results for "${decodeURIComponent(query)}"`; // Update the title
+        searchResultsContainer.innerHTML = '';
         if (data.results && data.results.length > 0) {
+              searchResultsContainer.style.display = 'grid';
+           popularMoviesSection.style.display = 'none';
+            popularTVShowsSection.style.display = 'none';
+            malayalamMoviesSection.style.display = 'none';
+            resultsTitle.textContent = `Search Results for "${decodeURIComponent(query)}"`; // Update the title
             if (searchType === 'movie') {
                 data.results.forEach(movie => {
                     const movieCard = createMovieCard(movie);
-                    movieList.appendChild(movieCard);
+                    searchResultsContainer.appendChild(movieCard);
+                  
                 });
+               
             } else if (searchType === 'tv') {
+              
                 data.results.forEach(tvSeries => {
                     const tvSeriesCard = createMovieCard(tvSeries);
-                    tvSeriesList.appendChild(tvSeriesCard);
+                     searchResultsContainer.appendChild(tvSeriesCard);
+                   
                 });
+                
             }
         } else {
+              searchResultsContainer.style.display = 'none';
+              popularMoviesSection.style.display = 'block';
+            popularTVShowsSection.style.display = 'block';
+            malayalamMoviesSection.style.display = 'block';
             resultsTitle.textContent = `No results found for "${decodeURIComponent(query)}"`; // Update the title
         }
 
@@ -380,6 +395,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const query = urlParams.get('query');
     const titleElement = document.getElementById('dynamicTitle');
+    const searchResultsContainer = document.getElementById('search-results');
+      const popularMoviesSection = document.getElementById('popular-movies-section');
+    const popularTVShowsSection = document.getElementById('popular-tv-shows-section');
+    const malayalamMoviesSection = document.getElementById('malayalam-movies-section');
+
 
     function updateTitle() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -393,18 +413,23 @@ document.addEventListener('DOMContentLoaded', () => {
             titleElement.textContent = `PwoliMovies - Watch Free Movies & TV Shows Online`;
         }
     }
-  updateTitle();
+    updateTitle();
 
     if (query) {
         //Remove any spaces from query before setting input value
         const processedQuery = decodeURIComponent(query).replace(/\s+/g, "");
         document.getElementById('search-input').value = processedQuery;
+       
         searchMovies(); // Trigger search with the query from the URL
     } else {
            const movieListSpinner = document.getElementById('popular-movies-spinner');
            const malayalamMoviesSpinner = document.getElementById('malayalam-movies-spinner');
            const tvShowsSpinner = document.getElementById('popular-tv-shows-spinner');
           // Load default content if no query parameter
+            searchResultsContainer.style.display = 'none';
+            popularMoviesSection.style.display = 'block';
+            popularTVShowsSection.style.display = 'block';
+            malayalamMoviesSection.style.display = 'block';
         Promise.all([
              getPopularMovies(1, true),
             getMalayalamMovies(1, true),
