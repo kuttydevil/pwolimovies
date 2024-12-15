@@ -1,7 +1,7 @@
 /* ==========================================================================
    General Styles
    ========================================================================== */
-:root {
+   :root {
     /* Define your main color scheme using CSS variables */
     --background-color: #0a192f;       /* Dark background */
     --text-color: #ccd6f6;           /* Light text color */
@@ -203,6 +203,7 @@ main {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     transition: opacity 0.4s ease; /* Transition for loading placeholder*/
+    opacity: 0; /* Initially hide the image */
 }
 
 .movie-card h3 {
