@@ -12,11 +12,16 @@ let isInitialLoad = true;
  * Shows the loading spinner within a specified HTML element.
  * @param {HTMLElement} element - The HTML element to display the loading spinner within.
  */
-function showLoading(element) {
-    if (element) {
-        element.style.display = 'flex'; // Changed to flex for centering
+function showLoading(container) {
+    if (container) {
+        const spinner = container.querySelector('.loading-spinner');
+        if (spinner) {
+            spinner.style.display = 'flex'; // Show spinner
+        } else {
+            console.error("Error: .loading-spinner not found within the container:", container);
+        }
     } else {
-        console.error("Error: loading-spinner not found within the element provided to showLoading(). Check your HTML structure.");
+        console.error("Error: Container element is null or undefined.");
     }
 }
 
@@ -62,7 +67,7 @@ async function getPopularMovies(page = 1, append = false) {
     const movieListSpinner = document.getElementById('popular-movies-spinner');
 
     if (movieList) {
-        showLoading(movieListSpinner);
+        showLoading(movieList); // Pass the container
         try {
             if (!append) {
                 movieList.innerHTML = '';
@@ -114,7 +119,7 @@ async function getMalayalamMovies(page = 1, append = false) {
     const malayalamMoviesSpinner = document.getElementById('malayalam-movies-spinner');
 
     if (malayalamMovieList) {
-        showLoading(malayalamMoviesSpinner);
+        showLoading(malayalamMovieList); // Pass the container
         try {
             if (!append) {
                 malayalamMovieList.innerHTML = '';
@@ -167,7 +172,7 @@ async function getPopularTVSeries(page = 1, append = false) {
     const tvShowsSpinner = document.getElementById('popular-tv-shows-spinner');
 
     if (tvSeriesList) {
-        showLoading(tvShowsSpinner);
+        showLoading(tvSeriesList); // Pass the container
         try {
             if (!append) {
                 tvSeriesList.innerHTML = '';
@@ -277,9 +282,9 @@ async function searchMovies() {
     const popularTVShowsSection = document.getElementById('popular-tv-shows-section');
     const malayalamMoviesSection = document.getElementById('malayalam-movies-section');
     // Show loading spinners only if the elements exist
-    if (movieList) showLoading(document.getElementById('popular-movies-spinner'));
-    if (tvSeriesList) showLoading(document.getElementById('popular-tv-shows-spinner'));
-    if (malayalamMovieList) showLoading(document.getElementById('malayalam-movies-spinner'));
+    if (movieList) showLoading(movieList);
+    if (tvSeriesList) showLoading(tvSeriesList);
+    if (malayalamMovieList) showLoading(malayalamMovieList);
 
     try {
         const response = await fetch(searchUrl);
@@ -371,8 +376,7 @@ document.getElementById('load-more-popular-movies-link').addEventListener('click
     event.preventDefault();
     if (document.getElementById('load-more-popular-movies-link').style.display !== 'none') {
         const movieListSpinner = document.getElementById('popular-movies-spinner');
-        showLoading(movieListSpinner);
-
+        showLoading(document.getElementById('popular-movies')); // Pass the container
         const nextPage = currentPageMovies + 1; // Calculate next page
         currentPageMovies = nextPage; // Update the current page
 
@@ -386,7 +390,7 @@ document.getElementById('load-more-malayalam-movies-link').addEventListener('cli
     event.preventDefault();
     if (document.getElementById('load-more-malayalam-movies-link').style.display !== 'none') {
         const malayalamMoviesSpinner = document.getElementById('malayalam-movies-spinner');
-        showLoading(malayalamMoviesSpinner);
+        showLoading(document.getElementById('malayalam-movies')); // Pass the container
 
         const nextPage = currentPageMalayalam + 1;
         currentPageMalayalam = nextPage;
@@ -401,7 +405,7 @@ document.getElementById('load-more-popular-tv-shows-link').addEventListener('cli
     event.preventDefault();
     if (document.getElementById('load-more-popular-tv-shows-link').style.display !== 'none') {
         const tvShowsSpinner = document.getElementById('popular-tv-shows-spinner');
-        showLoading(tvShowsSpinner);
+        showLoading(document.getElementById('popular-tv-shows')); // Pass the container
 
         const nextPage = currentPageTVShows + 1;
         currentPageTVShows = nextPage;
