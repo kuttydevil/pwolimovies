@@ -6,7 +6,6 @@ let currentPageMalayalam = 1;
 let currentPageTVShows = 1;
 let isInitialLoad = true;
 
-
 // --------------------- Utility Functions ---------------------
 
 /**
@@ -223,7 +222,7 @@ function createMovieCard(media) {
         <div class="placeholder">
             <div class="spinner"></div>
         </div>
-        <img src="https://image.tmdb.org/t/p/w300${media.poster_path}" alt="${media.title || media.name}" onerror="this.src='/img/404.jpg';" loading="lazy">
+        <img src="https://image.tmdb.org/t/p/w300${media.poster_path}" alt="${media.title || media.name}" onerror="this.src='/img/404.jpg';" loading="lazy" data-src="https://image.tmdb.org/t/p/w300${media.poster_path}">
         <h3>${media.title || media.name}</h3>
     `;
 
@@ -239,6 +238,11 @@ function createMovieCard(media) {
         img.classList.add('loaded');
         placeholder.classList.add('loaded');
     };
+
+    // Lazy load images
+    if (img.dataset.src) {
+        img.src = img.dataset.src;
+    }
 
     return movieCardLink;
 }
@@ -515,4 +519,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
     scrollToTop(); // Scroll to top on initial load
+});
+
+// Example of lazy loading images
+const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const image = entry.target;
+            image.src = image.dataset.src;
+            observer.unobserve(image);
+        }
+    });
+});
+
+document.querySelectorAll('img[loading="lazy"]').forEach(image => {
+    observer.observe(image);
 });
