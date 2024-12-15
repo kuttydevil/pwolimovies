@@ -15,7 +15,7 @@ let isInitialLoad = true;
  */
 function showLoading(element) {
     if (element) {
-        element.style.display = 'block';
+        element.style.display = 'flex'; // Changed to flex for centering
     } else {
         console.error("Error: loading-spinner not found within the element provided to showLoading(). Check your HTML structure.");
     }
@@ -220,9 +220,26 @@ function createMovieCard(media) {
     movieCardLink.href = `movie-details.html?id=${media.id}&title=${encodeURIComponent(media.title || media.name)}&type=${media.title ? 'movie' : 'tv'}`;
     movieCardLink.classList.add('movie-card');
     movieCardLink.innerHTML = `
-        <img src="https://image.tmdb.org/t/p/w300${media.poster_path}" alt="${media.title || media.name}" onerror="this.src='/img/404.jpg';">
+        <div class="placeholder">
+            <div class="spinner"></div>
+        </div>
+        <img src="https://image.tmdb.org/t/p/w300${media.poster_path}" alt="${media.title || media.name}" onerror="this.src='/img/404.jpg';" loading="lazy">
         <h3>${media.title || media.name}</h3>
     `;
+
+    const img = movieCardLink.querySelector('img');
+    const placeholder = movieCardLink.querySelector('.placeholder');
+
+    img.onload = () => {
+        img.classList.add('loaded');
+        placeholder.classList.add('loaded');
+    };
+
+    img.onerror = () => {
+        img.classList.add('loaded');
+        placeholder.classList.add('loaded');
+    };
+
     return movieCardLink;
 }
 
