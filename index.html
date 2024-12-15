@@ -44,7 +44,9 @@
 
     <!-- Preload LCP Image -->
     <link rel="preload" as="image" href="https://image.tmdb.org/t/p/w300/aosm8NMQ3UyoBVpSxyimorCQykC.jpg">
-
+    
+    <!-- Remove loading = "lazy" from the first movie image, and move it to other movie images -->
+     <img src="https://image.tmdb.org/t/p/w300/aosm8NMQ3UyoBVpSxyimorCQykC.jpg"  alt="" onerror="this.src='/img/404.jpg';"  data-src="https://image.tmdb.org/t/p/w300/aosm8NMQ3UyoBVpSxyimorCQykC.jpg" width="300" height="450" style="display: none;">
     <!-- Defer non-critical CSS -->
     <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
