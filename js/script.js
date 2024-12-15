@@ -16,7 +16,6 @@ function showLoading(element) {
     if (element) {
         element.style.display = 'flex';
     }
-    // Removed the else block, which logged the error
 }
 
 
@@ -222,7 +221,7 @@ function createMovieCard(media) {
         <div class="placeholder">
             <div class="spinner"></div>
         </div>
-        <img src="https://image.tmdb.org/t/p/w300${media.poster_path}" alt="${media.title || media.name}" onerror="this.src='/img/404.jpg';" loading="lazy" data-src="https://image.tmdb.org/t/p/w300${media.poster_path}">
+        <img src="https://image.tmdb.org/t/p/w300${media.poster_path}" alt="${media.title || media.name}" onerror="this.src='/img/404.jpg';" data-src="https://image.tmdb.org/t/p/w300${media.poster_path}" width="300" height="450">
         <h3>${media.title || media.name}</h3>
     `;
 
@@ -241,7 +240,7 @@ function createMovieCard(media) {
 
     // Lazy load images
     if (img.dataset.src) {
-        img.src = img.dataset.src;
+       observer.observe(img)
     }
 
     return movieCardLink;
@@ -527,11 +526,17 @@ const observer = new IntersectionObserver((entries, observer) => {
         if (entry.isIntersecting) {
             const image = entry.target;
             image.src = image.dataset.src;
+             image.onload = () => {
+             image.classList.add('loaded');
+            };
+             image.onerror = () => {
+            image.classList.add('loaded');
+        };
             observer.unobserve(image);
         }
     });
 });
 
-document.querySelectorAll('img[loading="lazy"]').forEach(image => {
+document.querySelectorAll('img[data-src]').forEach(image => {
     observer.observe(image);
 });
