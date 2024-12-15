@@ -44,9 +44,7 @@
 
     <!-- Preload LCP Image -->
     <link rel="preload" as="image" href="https://image.tmdb.org/t/p/w300/aosm8NMQ3UyoBVpSxyimorCQykC.jpg">
-    
-    <!-- Remove loading = "lazy" from the first movie image, and move it to other movie images -->
-     <img src="https://image.tmdb.org/t/p/w300/aosm8NMQ3UyoBVpSxyimorCQykC.jpg"  alt="" onerror="this.src='/img/404.jpg';"  data-src="https://image.tmdb.org/t/p/w300/aosm8NMQ3UyoBVpSxyimorCQykC.jpg" width="300" height="450" style="display: none;">
+
     <!-- Defer non-critical CSS -->
     <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -102,36 +100,37 @@
 
         <!-- Popular Movies Section -->
         <section id="popular-movies-section">
+            <!-- Loading Spinner -->
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+            </div>
             <h2 class="section-title" id="popularMoviesTitle">Popular Movies</h2>
             <div id="popular-movies" class="movie-grid">
-                <!-- Loading Spinner -->
-                <div class="loading-spinner" id="popular-movies-spinner">
-                    <div class="spinner"></div>
-                </div>
+             <!-- Movies get appended here  -->
             </div>
-            <a id="load-more-popular-movies-link" href="#" class="movie-card load-more-button" style="display: none;">Load More Movies</a>
+             <a id="load-more-popular-movies-link" href="#" class="movie-card load-more-button" style="display: none;">Load More Movies</a>
         </section>
 
         <!-- Popular TV Shows Section -->
         <section id="popular-tv-shows-section">
+            <!-- Loading Spinner -->
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+            </div>
             <h2 class="section-title" id="popularTVShowsTitle">Popular TV Shows</h2>
             <div id="popular-tv-shows" class="movie-grid">
-                <!-- Loading Spinner -->
-                <div class="loading-spinner" id="popular-tv-shows-spinner">
-                    <div class="spinner"></div>
-                </div>
             </div>
             <a id="load-more-popular-tv-shows-link" href="#" class="movie-card load-more-button" style="display: none;">Load More TV Shows</a>
         </section>
 
         <!-- Latest Malayalam Movies Section -->
         <section id="malayalam-movies-section">
+            <!-- Loading Spinner -->
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+            </div>
             <h2 class="section-title" id="malayalamMoviesTitle">Latest Malayalam Movies</h2>
             <div id="malayalam-movies" class="movie-grid">
-                <!-- Loading Spinner -->
-                <div class="loading-spinner" id="malayalam-movies-spinner">
-                    <div class="spinner"></div>
-                </div>
             </div>
             <a id="load-more-malayalam-movies-link" href="#" class="movie-card load-more-button" style="display: none;">Load More Malayalam Movies</a>
         </section>

@@ -40,7 +40,8 @@ a {
     transition: color 0.3s ease, text-decoration 0.3s ease; /* Transition for link hover */
 }
 
-a:hover {
+a:hover,
+a:focus {
     text-decoration: underline;
     color: #c0f202; /* Slightly darker neon yellow on hover */
 }
@@ -118,7 +119,8 @@ header {
     font-size: 1rem;
 }
 
-#search-button:hover {
+#search-button:hover,
+#search-button:focus {
     color: #c0f202; /* Slightly darker neon yellow on hover */
 }
 
@@ -205,6 +207,7 @@ main {
     border-top-right-radius: 10px;
     transition: opacity 0.4s ease; /* Transition for loading placeholder*/
     opacity: 0; /* Initially hide the image */
+    loading: lazy; /* Native lazy loading */
 }
 
 .movie-card h3 {
@@ -249,7 +252,7 @@ main {
 /* Movie Grid Styles */
 .movie-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusted minmax for smaller screens */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Adjusted minmax for smaller screens */
     gap: 15px;
     margin-top: 20px;
 }
@@ -364,7 +367,8 @@ main {
   z-index: 100;
 }
 
-#back-button:hover {
+#back-button:hover,
+#back-button:focus {
   background-color: var(--primary-color);
   color: var(--secondary-background);
 }
@@ -435,7 +439,8 @@ footer {
     width: 100%;
 }
 
-.load-more-button:hover {
+.load-more-button:hover,
+.load-more-button:focus {
     background-color: var(--primary-color);
     color: var(--secondary-background);
 }
@@ -443,7 +448,7 @@ footer {
 /* ==========================================================================
    About & FAQ Styles
    ========================================================================== */
-.about-section, .faq-section, .content-section {
+.content-section {
     background-color: var(--secondary-background);
     border-radius: 10px;
     padding: 2rem;
@@ -451,7 +456,7 @@ footer {
     box-shadow: 0 2px 4px var(--shadow-color);
 }
 
-.about-section h2, .faq-section h2, .content-section h2 {
+.content-section h2 {
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 1rem;
@@ -461,7 +466,7 @@ footer {
     color: #fff;
 }
 
-.about-section p, .faq-section p, .content-section p {
+.content-section p {
     font-size: 1rem;
     line-height: 1.6;
     color: var(--text-color);
@@ -487,7 +492,8 @@ footer {
     align-items: center; /* Align items vertically */
 }
 
-.faq-section summary:hover {
+.faq-section summary:hover,
+.faq-section summary:focus {
     background-color: var(--hover-color);
 }
 .faq-section summary::-webkit-details-marker {
@@ -540,7 +546,7 @@ footer {
         width: 100%;
     }
     .movie-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusted minmax for smaller screens */
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Adjusted minmax for smaller screens */
     }
     main {
         padding: 1rem 0.5rem 4rem;
@@ -561,7 +567,7 @@ footer {
 
 @media (max-width: 480px) {
     .movie-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Adjusted minmax for smaller screens */
     }
     .section-title {
         font-size: 1.3rem;
@@ -569,8 +575,14 @@ footer {
     .faq-section summary {
         font-size: 1rem;
     }
-    .about-section h2, .faq-section h2, .content-section h2 {
+    .content-section h2 {
        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .movie-grid {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Adjusted minmax for smaller screens */
     }
 }
 
@@ -615,7 +627,9 @@ footer {
   background-color: #4caf50;
 }
     .copy-magnet:hover,
-    .play-torrent:hover {
+    .play-torrent:hover,
+    .copy-magnet:focus,
+    .play-torrent:focus {
         background-color: var(--primary-color);
         color: var(--secondary-background);
     }
