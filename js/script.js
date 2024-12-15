@@ -6,6 +6,7 @@ let currentPageMalayalam = 1;
 let currentPageTVShows = 1;
 let isInitialLoad = true;
 
+
 // --------------------- Utility Functions ---------------------
 
 /**
@@ -14,14 +15,9 @@ let isInitialLoad = true;
  */
 function showLoading(element) {
     if (element) {
-        const spinner = element.querySelector('.loading-spinner');
-        if (spinner) {
-            spinner.style.display = 'flex';
-        } else {
-            console.error("Error: loading-spinner not found within the element provided to showLoading(). Check your HTML structure.");
-        }
+        element.style.display = 'block';
     } else {
-        console.error("Error: Element passed to showLoading() is null or undefined.");
+        console.error("Error: loading-spinner not found within the element provided to showLoading(). Check your HTML structure.");
     }
 }
 
@@ -31,10 +27,7 @@ function showLoading(element) {
  */
 function hideLoading(element) {
     if (element) {
-        const spinner = element.querySelector('.loading-spinner');
-        if (spinner) {
-            spinner.style.display = 'none';
-        }
+        element.style.display = 'none';
     }
 }
 
@@ -67,47 +60,47 @@ async function getMovieDetails(movieId) {
 async function getPopularMovies(page = 1, append = false) {
     const movieList = document.getElementById('popular-movies');
     const loadMoreLink = document.getElementById('load-more-popular-movies-link');
-    const movieListSpinner = document.getElementById('popular-movies-section'); // Correctly getting the section
-    if (movieListSpinner) {  // add the null check
-        showLoading(movieListSpinner);
-    }
-    try {
-        if (!append) {
-            movieList.innerHTML = '';
-        }
-        const response = await fetch(`${apiLocation}/movie/popular?api_key=${apiKey}&page=${page}`);
-        if (!response.ok) {
-            throw new Error(`HTTP error fetching popular movies! status: ${response.status}`);
-        }
-        const data = await response.json();
-        if (data && data.results) {
-            data.results.forEach(movie => {
-                const movieCard = createMovieCard(movie);
-                movieList.appendChild(movieCard);
-            });
+    const movieListSpinner = document.getElementById('popular-movies-spinner');
 
-            if (data.page < data.total_pages) {
-                loadMoreLink.style.display = 'block';
-                // Update Load More Link URL
-                const newUrl = new URL(window.location.href);
-                newUrl.searchParams.set('moviePage', page + 1);
-                loadMoreLink.href = newUrl.toString();
+    if (movieList) {
+        showLoading(movieListSpinner);
+        try {
+            if (!append) {
+                movieList.innerHTML = '';
+            }
+            const response = await fetch(`${apiLocation}/movie/popular?api_key=${apiKey}&page=${page}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error fetching popular movies! status: ${response.status}`);
+            }
+            const data = await response.json();
+            if (data && data.results) {
+                data.results.forEach(movie => {
+                    const movieCard = createMovieCard(movie);
+                    movieList.appendChild(movieCard);
+                });
+
+                if (data.page < data.total_pages) {
+                    loadMoreLink.style.display = 'block';
+                    // Update Load More Link URL
+                    const newUrl = new URL(window.location.href);
+                    newUrl.searchParams.set('moviePage', page + 1);
+                    loadMoreLink.href = newUrl.toString();
+                } else {
+                    loadMoreLink.style.display = 'none';
+                }
+
             } else {
                 loadMoreLink.style.display = 'none';
             }
-
-        } else {
-            loadMoreLink.style.display = 'none';
-        }
-    } catch (error) {
-        console.error("Error fetching popular movies:", error);
-        movieList.innerHTML += `<p>Error fetching movies: ${error.message}</p>`;
-    } finally {
-        if (movieListSpinner) { // add the null check
+        } catch (error) {
+            console.error("Error fetching popular movies:", error);
+            movieList.innerHTML += `<p>Error fetching movies: ${error.message}</p>`;
+        } finally {
             hideLoading(movieListSpinner);
         }
+    } else {
+        console.error('Error: popular-movies element not found.');
     }
-
 }
 
 /**
@@ -119,46 +112,47 @@ async function getPopularMovies(page = 1, append = false) {
 async function getMalayalamMovies(page = 1, append = false) {
     const malayalamMovieList = document.getElementById('malayalam-movies');
     const loadMoreLink = document.getElementById('load-more-malayalam-movies-link');
-    const malayalamMoviesSpinner = document.getElementById('malayalam-movies-section');
-    if (malayalamMoviesSpinner) {
+    const malayalamMoviesSpinner = document.getElementById('malayalam-movies-spinner');
+
+    if (malayalamMovieList) {
         showLoading(malayalamMoviesSpinner);
-    }
-    try {
-        if (!append) {
-            malayalamMovieList.innerHTML = '';
-        }
-        const response = await fetch(`${apiLocation}/discover/movie?api_key=${apiKey}&with_original_language=ml&sort_by=release_date.desc&release_date.gte=${new Date().getFullYear()}-01-01&page=${page}`);
-        if (!response.ok) {
-            throw new Error(`HTTP error fetching Malayalam movies! status: ${response.status}`);
-        }
-        const data = await response.json();
+        try {
+            if (!append) {
+                malayalamMovieList.innerHTML = '';
+            }
+            const response = await fetch(`${apiLocation}/discover/movie?api_key=${apiKey}&with_original_language=ml&sort_by=release_date.desc&release_date.gte=${new Date().getFullYear()}-01-01&page=${page}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error fetching Malayalam movies! status: ${response.status}`);
+            }
+            const data = await response.json();
 
-        if (data && data.results) {
-            data.results.forEach(movie => {
-                const movieCard = createMovieCard(movie);
-                malayalamMovieList.appendChild(movieCard);
-            });
+            if (data && data.results) {
+                data.results.forEach(movie => {
+                    const movieCard = createMovieCard(movie);
+                    malayalamMovieList.appendChild(movieCard);
+                });
 
-            if (data.page < data.total_pages) {
-                loadMoreLink.style.display = 'block';
-                // Update Load More Link URL
-                const newUrl = new URL(window.location.href);
-                newUrl.searchParams.set('malayalamPage', page + 1);
-                loadMoreLink.href = newUrl.toString();
+                if (data.page < data.total_pages) {
+                    loadMoreLink.style.display = 'block';
+                    // Update Load More Link URL
+                    const newUrl = new URL(window.location.href);
+                    newUrl.searchParams.set('malayalamPage', page + 1);
+                    loadMoreLink.href = newUrl.toString();
+                } else {
+                    loadMoreLink.style.display = 'none';
+                }
+
             } else {
                 loadMoreLink.style.display = 'none';
             }
-
-        } else {
-            loadMoreLink.style.display = 'none';
-        }
-    } catch (error) {
-        console.error("Error fetching Malayalam movies:", error);
-        malayalamMovieList.innerHTML += `<p>Error fetching Malayalam movies: ${error.message}</p>`;
-    } finally {
-        if (malayalamMoviesSpinner) {
+        } catch (error) {
+            console.error("Error fetching Malayalam movies:", error);
+            malayalamMovieList.innerHTML += `<p>Error fetching Malayalam movies: ${error.message}</p>`;
+        } finally {
             hideLoading(malayalamMoviesSpinner);
         }
+    } else {
+        console.error('Error: malayalam-movies element not found.');
     }
 }
 
@@ -171,45 +165,46 @@ async function getMalayalamMovies(page = 1, append = false) {
 async function getPopularTVSeries(page = 1, append = false) {
     const tvSeriesList = document.getElementById('popular-tv-shows');
     const loadMoreLink = document.getElementById('load-more-popular-tv-shows-link');
-    const tvShowsSpinner = document.getElementById('popular-tv-shows-section');
-    if (tvShowsSpinner) {
-        showLoading(tvShowsSpinner);
-    }
-    try {
-        if (!append) {
-            tvSeriesList.innerHTML = '';
-        }
+    const tvShowsSpinner = document.getElementById('popular-tv-shows-spinner');
 
-        const response = await fetch(`${apiLocation}/tv/top_rated?api_key=${apiKey}&page=${page}`);
-        if (!response.ok) {
-            throw new Error(`HTTP error fetching popular TV series! status: ${response.status}`);
-        }
-        const data = await response.json();
-        if (data && data.results) {
-            data.results.forEach(tvSeries => {
-                const tvSeriesCard = createMovieCard(tvSeries);
-                tvSeriesList.appendChild(tvSeriesCard);
-            });
-            if (data.page < data.total_pages) {
-                loadMoreLink.style.display = 'block';
-                // Update Load More Link URL
-                const newUrl = new URL(window.location.href);
-                newUrl.searchParams.set('tvPage', page + 1);
-                loadMoreLink.href = newUrl.toString();
+    if (tvSeriesList) {
+        showLoading(tvShowsSpinner);
+        try {
+            if (!append) {
+                tvSeriesList.innerHTML = '';
+            }
+
+            const response = await fetch(`${apiLocation}/tv/top_rated?api_key=${apiKey}&page=${page}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error fetching popular TV series! status: ${response.status}`);
+            }
+            const data = await response.json();
+            if (data && data.results) {
+                data.results.forEach(tvSeries => {
+                    const tvSeriesCard = createMovieCard(tvSeries);
+                    tvSeriesList.appendChild(tvSeriesCard);
+                });
+                if (data.page < data.total_pages) {
+                    loadMoreLink.style.display = 'block';
+                    // Update Load More Link URL
+                    const newUrl = new URL(window.location.href);
+                    newUrl.searchParams.set('tvPage', page + 1);
+                    loadMoreLink.href = newUrl.toString();
+                } else {
+                    loadMoreLink.style.display = 'none';
+                }
+
             } else {
                 loadMoreLink.style.display = 'none';
             }
-
-        } else {
-            loadMoreLink.style.display = 'none';
-        }
-    } catch (error) {
-        console.error("Error fetching popular TV series:", error);
-        tvSeriesList.innerHTML += `<p>Error fetching TV series: ${error.message}</p>`;
-    } finally {
-        if (tvShowsSpinner) {
+        } catch (error) {
+            console.error("Error fetching popular TV series:", error);
+            tvSeriesList.innerHTML += `<p>Error fetching TV series: ${error.message}</p>`;
+        } finally {
             hideLoading(tvShowsSpinner);
         }
+    } else {
+        console.error('Error: popular-tv-shows element not found.');
     }
 }
 
@@ -225,34 +220,11 @@ function createMovieCard(media) {
     movieCardLink.href = `movie-details.html?id=${media.id}&title=${encodeURIComponent(media.title || media.name)}&type=${media.title ? 'movie' : 'tv'}`;
     movieCardLink.classList.add('movie-card');
     movieCardLink.innerHTML = `
-        <div class="placeholder" style="width: 300px; height: 450px;">
-            <div class="spinner"></div>
-        </div>
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 450'%3E%3C/svg%3E" data-src="https://image.tmdb.org/t/p/w300${media.poster_path}" alt="${media.title || media.name}" onerror="this.src='/img/404.jpg';" loading="lazy" style="width: 300px; height: 450px;">
+        <img src="https://image.tmdb.org/t/p/w300${media.poster_path}" alt="${media.title || media.name}" onerror="this.src='/img/404.jpg';">
         <h3>${media.title || media.name}</h3>
     `;
-
-    const img = movieCardLink.querySelector('img');
-    const placeholder = movieCardLink.querySelector('.placeholder');
-
-    img.onload = () => {
-        img.classList.add('loaded');
-        placeholder.classList.add('loaded');
-    };
-
-    img.onerror = () => {
-        img.classList.add('loaded');
-        placeholder.classList.add('loaded');
-    };
-
-
-    // Lazy load images if they have a data-src attribute
-    if (img.dataset.src) {
-      observer.observe(img);
-    }
     return movieCardLink;
 }
-
 
 // --------------------- Search Functionality ---------------------
 
@@ -284,9 +256,9 @@ async function searchMovies() {
     const popularTVShowsSection = document.getElementById('popular-tv-shows-section');
     const malayalamMoviesSection = document.getElementById('malayalam-movies-section');
     // Show loading spinners only if the elements exist
-    if (popularMoviesSection) showLoading(popularMoviesSection);
-    if (popularTVShowsSection) showLoading(popularTVShowsSection);
-    if (malayalamMoviesSection) showLoading(malayalamMoviesSection);
+    if (movieList) showLoading(document.getElementById('popular-movies-spinner'));
+    if (tvSeriesList) showLoading(document.getElementById('popular-tv-shows-spinner'));
+    if (malayalamMovieList) showLoading(document.getElementById('malayalam-movies-spinner'));
 
     try {
         const response = await fetch(searchUrl);
@@ -334,9 +306,9 @@ async function searchMovies() {
         if (malayalamMovieList) malayalamMovieList.innerHTML = `<p>Error searching Malayalam movies: ${error.message}</p>`;
     } finally {
         // Hide loading spinners after API call
-        if (popularMoviesSection) hideLoading(popularMoviesSection);
-        if (popularTVShowsSection) hideLoading(popularTVShowsSection);
-        if (malayalamMoviesSection) hideLoading(malayalamMoviesSection);
+        if (movieList) hideLoading(document.getElementById('popular-movies-spinner'));
+        if (tvSeriesList) hideLoading(document.getElementById('popular-tv-shows-spinner'));
+        if (malayalamMovieList) hideLoading(document.getElementById('malayalam-movies-spinner'));
     }
 }
 
@@ -377,7 +349,7 @@ document.getElementById('search-input').addEventListener('keypress', function (e
 document.getElementById('load-more-popular-movies-link').addEventListener('click', (event) => {
     event.preventDefault();
     if (document.getElementById('load-more-popular-movies-link').style.display !== 'none') {
-        const movieListSpinner = document.getElementById('popular-movies-section');
+        const movieListSpinner = document.getElementById('popular-movies-spinner');
         showLoading(movieListSpinner);
 
         const nextPage = currentPageMovies + 1; // Calculate next page
@@ -392,7 +364,7 @@ document.getElementById('load-more-popular-movies-link').addEventListener('click
 document.getElementById('load-more-malayalam-movies-link').addEventListener('click', (event) => {
     event.preventDefault();
     if (document.getElementById('load-more-malayalam-movies-link').style.display !== 'none') {
-        const malayalamMoviesSpinner = document.getElementById('malayalam-movies-section');
+        const malayalamMoviesSpinner = document.getElementById('malayalam-movies-spinner');
         showLoading(malayalamMoviesSpinner);
 
         const nextPage = currentPageMalayalam + 1;
@@ -407,7 +379,7 @@ document.getElementById('load-more-malayalam-movies-link').addEventListener('cli
 document.getElementById('load-more-popular-tv-shows-link').addEventListener('click', (event) => {
     event.preventDefault();
     if (document.getElementById('load-more-popular-tv-shows-link').style.display !== 'none') {
-        const tvShowsSpinner = document.getElementById('popular-tv-shows-section');
+        const tvShowsSpinner = document.getElementById('popular-tv-shows-spinner');
         showLoading(tvShowsSpinner);
 
         const nextPage = currentPageTVShows + 1;
@@ -476,6 +448,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         searchMovies(); // Trigger search with the query from the URL
     } else {
+        const movieListSpinner = document.getElementById('popular-movies-spinner');
+        const malayalamMoviesSpinner = document.getElementById('malayalam-movies-spinner');
+        const tvShowsSpinner = document.getElementById('popular-tv-shows-spinner');
         // Load default content if no query parameter
         searchResultsContainer.style.display = 'none';
         popularMoviesSection.style.display = 'block';
@@ -516,24 +491,11 @@ document.addEventListener('DOMContentLoaded', () => {
             isInitialLoad = false;
             scrollToTop(); // Scroll to top after initial load
         }).finally(() => {
-            if (popularMoviesSection) hideLoading(popularMoviesSection)
-            if (malayalamMoviesSection) hideLoading(malayalamMoviesSection)
-            if (popularTVShowsSection) hideLoading(popularTVShowsSection)
+            hideLoading(movieListSpinner)
+            hideLoading(malayalamMoviesSpinner)
+            hideLoading(tvShowsSpinner)
         });
 
     }
     scrollToTop(); // Scroll to top on initial load
-});
-
-// Lazy load images with intersection observer
-const observer = new IntersectionObserver((entries, observer) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const image = entry.target;
-      if (image.dataset.src){
-           image.src = image.dataset.src;
-           observer.unobserve(image);
-        }
-    }
-  });
 });
