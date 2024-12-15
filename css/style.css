@@ -247,7 +247,7 @@ main {
 /* Movie Grid Styles */
 .movie-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusted minmax for smaller screens */
     gap: 15px;
     margin-top: 20px;
 }
@@ -538,7 +538,7 @@ footer {
         width: 100%;
     }
     .movie-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusted minmax for smaller screens */
     }
     main {
         padding: 1rem 0.5rem 4rem;
