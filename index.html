@@ -73,10 +73,8 @@
 
 <body>
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W42VJDLX" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W42VJDLX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-
 
     <header>
         <nav>
@@ -88,50 +86,55 @@
                         <label><input type="radio" name="search_type" value="movie" checked> Movies</label>
                         <label><input type="radio" name="search_type" value="tv"> TV Shows</label>
                     </div>
-                    <button id="search-button" onclick="searchMovies()" aria-label="Search"><i
-                            class="fas fa-search"></i></button>
+                    <button id="search-button" onclick="searchMovies()" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
                 </div>
             </div>
         </nav>
     </header>
 
     <main>
-         <h1 class="section-title" id="resultsTitle"></h1>
-          <section id="search-results" class="movie-grid">
-         </section>
+        <h1 class="section-title" id="resultsTitle"></h1>
+        <section id="search-results" class="movie-grid"></section>
+
+        <!-- Popular Movies Section -->
         <section id="popular-movies-section">
             <h2 class="section-title" id="popularMoviesTitle">Popular Movies</h2>
             <div id="popular-movies" class="movie-grid">
+                <!-- Loading Spinner -->
                 <div class="loading-spinner" id="popular-movies-spinner">
                     <div class="spinner"></div>
                 </div>
             </div>
-            <a id="load-more-popular-movies-link" href="#" class="movie-card load-more-button"
-                style="display: none;">Load More Movies</a>
+            <a id="load-more-popular-movies-link" href="#" class="movie-card load-more-button" style="display: none;">Load More Movies</a>
         </section>
 
+        <!-- Popular TV Shows Section -->
         <section id="popular-tv-shows-section">
             <h2 class="section-title" id="popularTVShowsTitle">Popular TV Shows</h2>
             <div id="popular-tv-shows" class="movie-grid">
+                <!-- Loading Spinner -->
                 <div class="loading-spinner" id="popular-tv-shows-spinner">
                     <div class="spinner"></div>
                 </div>
             </div>
-            <a id="load-more-popular-tv-shows-link" href="#" class="movie-card load-more-button"
-                style="display: none;">Load More TV Shows</a>
+            <a id="load-more-popular-tv-shows-link" href="#" class="movie-card load-more-button" style="display: none;">Load More TV Shows</a>
         </section>
 
+        <!-- Latest Malayalam Movies Section -->
         <section id="malayalam-movies-section">
             <h2 class="section-title" id="malayalamMoviesTitle">Latest Malayalam Movies</h2>
             <div id="malayalam-movies" class="movie-grid">
+                <!-- Loading Spinner -->
                 <div class="loading-spinner" id="malayalam-movies-spinner">
                     <div class="spinner"></div>
                 </div>
             </div>
-            <a id="load-more-malayalam-movies-link" href="#" class="movie-card load-more-button"
-                style="display: none;">Load More Malayalam Movies</a>
+            <a id="load-more-malayalam-movies-link" href="#" class="movie-card load-more-button" style="display: none;">Load More Malayalam Movies</a>
         </section>
 
+        <!-- About Section -->
         <section class="about-section">
             <h2 >About Pwolimovies</h2>
             <p> Pwolimovies is the best place to <b>watch free movies</b> and <b>free series</b> online. We have a massive
