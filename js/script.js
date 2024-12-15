@@ -14,7 +14,7 @@ let isInitialLoad = true;
  */
 function showLoading(element) {
     if (element) {
-        const spinner = element.querySelector('.loading-spinner'); // Find the spinner within the parent
+        const spinner = element.querySelector('.loading-spinner');
         if (spinner) {
             spinner.style.display = 'flex';
         } else {
@@ -31,7 +31,7 @@ function showLoading(element) {
  */
 function hideLoading(element) {
     if (element) {
-        const spinner = element.querySelector('.loading-spinner'); // Find the spinner within the parent
+        const spinner = element.querySelector('.loading-spinner');
         if (spinner) {
             spinner.style.display = 'none';
         }
@@ -224,14 +224,11 @@ function createMovieCard(media) {
     // Correct URL construction - Encode only ONCE:
     movieCardLink.href = `movie-details.html?id=${media.id}&title=${encodeURIComponent(media.title || media.name)}&type=${media.title ? 'movie' : 'tv'}`;
     movieCardLink.classList.add('movie-card');
-  
-     const aspectRatio = 2/3;
-
     movieCardLink.innerHTML = `
-        <div class="placeholder" style="padding-bottom: ${aspectRatio * 100}%;">
+        <div class="placeholder" style="width: 300px; height: 450px;">
             <div class="spinner"></div>
         </div>
-        <img src="https://image.tmdb.org/t/p/w300${media.poster_path}" alt="${media.title || media.name}" onerror="this.src='/img/404.jpg';" loading="lazy" data-src="https://image.tmdb.org/t/p/w300${media.poster_path}" width="300" height="450">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 450'%3E%3C/svg%3E" data-src="https://image.tmdb.org/t/p/w300${media.poster_path}" alt="${media.title || media.name}" onerror="this.src='/img/404.jpg';" loading="lazy" style="width: 300px; height: 450px;">
         <h3>${media.title || media.name}</h3>
     `;
 
@@ -248,13 +245,14 @@ function createMovieCard(media) {
         placeholder.classList.add('loaded');
     };
 
-    // Lazy load images
-    if (img.dataset.src) {
-        img.src = img.dataset.src;
-    }
 
+    // Lazy load images if they have a data-src attribute
+    if (img.dataset.src) {
+      observer.observe(img);
+    }
     return movieCardLink;
 }
+
 
 // --------------------- Search Functionality ---------------------
 
@@ -527,17 +525,15 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollToTop(); // Scroll to top on initial load
 });
 
-// Example of lazy loading images
+// Lazy load images with intersection observer
 const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const image = entry.target;
-            image.src = image.dataset.src;
-            observer.unobserve(image);
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const image = entry.target;
+      if (image.dataset.src){
+           image.src = image.dataset.src;
+           observer.unobserve(image);
         }
-    });
-});
-
-document.querySelectorAll('img[loading="lazy"]').forEach(image => {
-    observer.observe(image);
+    }
+  });
 });
