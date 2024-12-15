@@ -1,9 +1,9 @@
 const apiLocation = 'https://api.themoviedb.org/3';
 const apiKey = 'e51447e837048930952e694908564da1'; // Replace with your actual TMDb API key
 const initialPagesToLoad = 3; // Number of initial pages to load
-let currentPageMovies = parseInt(localStorage.getItem('currentPageMovies')) || initialPagesToLoad;
-let currentPageMalayalam = parseInt(localStorage.getItem('currentPageMalayalam')) || initialPagesToLoad;
-let currentPageTVShows = parseInt(localStorage.getItem('currentPageTVShows')) || initialPagesToLoad;
+let currentPageMovies = 1;
+let currentPageMalayalam = 1;
+let currentPageTVShows = 1;
 let isInitialLoad = true;
 
 
@@ -54,10 +54,10 @@ async function getMovieDetails(movieId) {
 /**
  * Fetches and displays popular movies from the TMDb API.
  * @param {number} [page=1] - The page number to fetch. Defaults to 1.
- * @param {boolean} [resetPage=false] - If true, resets the page counter and clears existing movies.
+ * @param {boolean} [append=false] - If true, appends the new movies to the existing list.
  */
 
-async function getPopularMovies(page = 1, resetPage = false, append = false) {
+async function getPopularMovies(page = 1, append = false) {
     const movieList = document.getElementById('popular-movies');
     const loadMoreLink = document.getElementById('load-more-popular-movies-link');
     const movieListSpinner = document.getElementById('popular-movies-spinner');
@@ -65,11 +65,8 @@ async function getPopularMovies(page = 1, resetPage = false, append = false) {
     if (movieList) {
         showLoading(movieListSpinner);
         try {
-            if (resetPage) {
-                currentPageMovies = initialPagesToLoad;
-                if (!append) {
-                    movieList.innerHTML = '';
-                }
+            if (!append) {
+                movieList.innerHTML = '';
             }
             const response = await fetch(`${apiLocation}/movie/popular?api_key=${apiKey}&page=${page}`);
             if (!response.ok) {
@@ -109,10 +106,10 @@ async function getPopularMovies(page = 1, resetPage = false, append = false) {
 /**
  * Fetches and displays the latest Malayalam movies from the TMDb API.
  * @param {number} [page=1] - The page number to fetch. Defaults to 1.
- * @param {boolean} [resetPage=false] - If true, resets the page counter and clears existing movies.
+ * @param {boolean} [append=false] - If true, appends the new movies to the existing list.
  */
 
-async function getMalayalamMovies(page = 1, resetPage = false, append = false) {
+async function getMalayalamMovies(page = 1, append = false) {
     const malayalamMovieList = document.getElementById('malayalam-movies');
     const loadMoreLink = document.getElementById('load-more-malayalam-movies-link');
     const malayalamMoviesSpinner = document.getElementById('malayalam-movies-spinner');
@@ -120,11 +117,8 @@ async function getMalayalamMovies(page = 1, resetPage = false, append = false) {
     if (malayalamMovieList) {
         showLoading(malayalamMoviesSpinner);
         try {
-            if (resetPage) {
-                currentPageMalayalam = initialPagesToLoad;
-                if (!append) {
-                    malayalamMovieList.innerHTML = '';
-                }
+            if (!append) {
+                malayalamMovieList.innerHTML = '';
             }
             const response = await fetch(`${apiLocation}/discover/movie?api_key=${apiKey}&with_original_language=ml&sort_by=release_date.desc&release_date.gte=${new Date().getFullYear()}-01-01&page=${page}`);
             if (!response.ok) {
@@ -165,10 +159,10 @@ async function getMalayalamMovies(page = 1, resetPage = false, append = false) {
 /**
  * Fetches and displays popular TV series from the TMDb API.
  * @param {number} [page=1] - The page number to fetch. Defaults to 1.
- * @param {boolean} [resetPage=false] - If true, resets the page counter and clears existing series.
+ * @param {boolean} [append=false] - If true, appends the new series to the existing list.
  */
 
-async function getPopularTVSeries(page = 1, resetPage = false, append = false) {
+async function getPopularTVSeries(page = 1, append = false) {
     const tvSeriesList = document.getElementById('popular-tv-shows');
     const loadMoreLink = document.getElementById('load-more-popular-tv-shows-link');
     const tvShowsSpinner = document.getElementById('popular-tv-shows-spinner');
@@ -176,11 +170,8 @@ async function getPopularTVSeries(page = 1, resetPage = false, append = false) {
     if (tvSeriesList) {
         showLoading(tvShowsSpinner);
         try {
-            if (resetPage) {
-                currentPageTVShows = initialPagesToLoad;
-                if (!append) {
-                    tvSeriesList.innerHTML = '';
-                }
+            if (!append) {
+                tvSeriesList.innerHTML = '';
             }
 
             const response = await fetch(`${apiLocation}/tv/top_rated?api_key=${apiKey}&page=${page}`);
@@ -307,7 +298,7 @@ async function searchMovies() {
         }
 
         handleLoadMoreVisibilityAfterSearch(searchType, data.total_pages, moviesLoadMore, tvShowsLoadMore);
-
+        scrollToTop(); // Scroll to top after search
     } catch (error) {
         resultsTitle.textContent = `Error searching: ${error.message}`; // Update the title
         if (movieList) movieList.innerHTML = `<p>Error searching movies: ${error.message}</p>`;
@@ -337,10 +328,10 @@ function handleLoadMoreVisibilityAfterSearch(searchType, totalPages, moviesLoadM
     if (totalPages > 1) {
         if (searchType === 'movie') {
             moviesLoadMore.style.display = 'block';
-            currentPageMovies = initialPagesToLoad;
+            currentPageMovies = 1;
         } else if (searchType === 'tv') {
             tvShowsLoadMore.style.display = 'block';
-            currentPageTVShows = initialPagesToLoad;
+            currentPageTVShows = 1;
         }
     }
 }
@@ -361,12 +352,12 @@ document.getElementById('load-more-popular-movies-link').addEventListener('click
         const movieListSpinner = document.getElementById('popular-movies-spinner');
         showLoading(movieListSpinner);
 
-        currentPageMovies++; // Increment the page number
-        localStorage.setItem('currentPageMovies', currentPageMovies); // Save the updated page number
+        const nextPage = currentPageMovies + 1; // Calculate next page
+        currentPageMovies = nextPage; // Update the current page
 
-        getPopularMovies(currentPageMovies, false, true).finally(() => hideLoading(movieListSpinner));
-        history.pushState({}, "", `?moviePage=${currentPageMovies}`); // Update URL
-        console.log("Load more movies clicked. Current page:", currentPageMovies);
+        getPopularMovies(nextPage, true).finally(() => hideLoading(movieListSpinner));
+        history.pushState({}, "", `?moviePage=${nextPage}`); // Update URL
+        console.log("Load more movies clicked. Current page:", nextPage);
     }
 });
 
@@ -376,12 +367,12 @@ document.getElementById('load-more-malayalam-movies-link').addEventListener('cli
         const malayalamMoviesSpinner = document.getElementById('malayalam-movies-spinner');
         showLoading(malayalamMoviesSpinner);
 
-        currentPageMalayalam++;
-        localStorage.setItem('currentPageMalayalam', currentPageMalayalam);
+        const nextPage = currentPageMalayalam + 1;
+        currentPageMalayalam = nextPage;
 
-        getMalayalamMovies(currentPageMalayalam, false, true).finally(() => hideLoading(malayalamMoviesSpinner));
-        history.pushState({}, "", `?malayalamPage=${currentPageMalayalam}`);
-        console.log("Load more Malayalam movies clicked. Current page:", currentPageMalayalam);
+        getMalayalamMovies(nextPage, true).finally(() => hideLoading(malayalamMoviesSpinner));
+        history.pushState({}, "", `?malayalamPage=${nextPage}`);
+        console.log("Load more Malayalam movies clicked. Current page:", nextPage);
     }
 });
 
@@ -391,12 +382,12 @@ document.getElementById('load-more-popular-tv-shows-link').addEventListener('cli
         const tvShowsSpinner = document.getElementById('popular-tv-shows-spinner');
         showLoading(tvShowsSpinner);
 
-        currentPageTVShows++;
-        localStorage.setItem('currentPageTVShows', currentPageTVShows);
+        const nextPage = currentPageTVShows + 1;
+        currentPageTVShows = nextPage;
 
-        getPopularTVSeries(currentPageTVShows, false, true).finally(() => hideLoading(tvShowsSpinner));
-        history.pushState({}, "", `?tvPage=${currentPageTVShows}`);
-        console.log("Load more TV shows clicked. Current page:", currentPageTVShows);
+        getPopularTVSeries(nextPage, true).finally(() => hideLoading(tvShowsSpinner));
+        history.pushState({}, "", `?tvPage=${nextPage}`);
+        console.log("Load more TV shows clicked. Current page:", nextPage);
     }
 });
 
@@ -404,6 +395,17 @@ document.getElementById('load-more-popular-tv-shows-link').addEventListener('cli
 function dispatchAPILoadedEvent() {
     const event = new Event('apiDataLoaded');
     document.dispatchEvent(event);
+}
+
+// --------------------- Auto Scroll to Top Function ---------------------
+/**
+ * Scrolls the window to the top of the page.
+ */
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Optional: for smooth scrolling
+    });
 }
 
 // --------------------- Initial Page Load & Infinite Scroll ---------------------
@@ -455,25 +457,39 @@ document.addEventListener('DOMContentLoaded', () => {
         popularTVShowsSection.style.display = 'block';
         malayalamMoviesSection.style.display = 'block';
 
-        // Use URL parameters for initial page load if available, otherwise use default page 1
-        const initialMoviePage = moviePage ? parseInt(moviePage) : 1;
-        const initialMalayalamPage = malayalamPage ? parseInt(malayalamPage) : 1;
-        const initialTVPage = tvPage ? parseInt(tvPage) : 1;
+        // Reset page counters to 1 on initial load without a search query
+        currentPageMovies = 1;
+        currentPageMalayalam = 1;
+        currentPageTVShows = 1;
+
+        // Remove URL parameters after initial load
+        const newUrl = new URL(window.location.href);
+        newUrl.searchParams.delete('moviePage');
+        newUrl.searchParams.delete('malayalamPage');
+        newUrl.searchParams.delete('tvPage');
+        history.replaceState({}, '', newUrl.toString());
 
         Promise.all([
-            getPopularMovies(initialMoviePage, true),
-            getMalayalamMovies(initialMalayalamPage, true),
-            getPopularTVSeries(initialTVPage, true),
+            getPopularMovies(1),
+            getMalayalamMovies(1),
+            getPopularTVSeries(1),
         ]).then(() => {
             dispatchAPILoadedEvent();
-            if (isInitialLoad) {
-                for (let i = 2; i <= initialPagesToLoad; i++) {
-                    getPopularMovies(i, false, true);
-                    getMalayalamMovies(i, false, true);
-                    getPopularTVSeries(i, false, true);
-                }
+            // Load initial pages 2 and 3
+            for (let i = 2; i <= initialPagesToLoad; i++) {
+                Promise.all([
+                    getPopularMovies(i, true),
+                    getMalayalamMovies(i, true),
+                    getPopularTVSeries(i, true)
+                ]).then(() => {
+                    // Update current page after initial load
+                    currentPageMovies = i;
+                    currentPageMalayalam = i;
+                    currentPageTVShows = i;
+                });
             }
             isInitialLoad = false;
+            scrollToTop(); // Scroll to top after initial load
         }).finally(() => {
             hideLoading(movieListSpinner)
             hideLoading(malayalamMoviesSpinner)
@@ -481,5 +497,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     }
-
+    scrollToTop(); // Scroll to top on initial load
 });
