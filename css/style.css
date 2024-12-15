@@ -198,6 +198,7 @@ main {
 .movie-card img {
     width: 100%;
     height: auto;
+    aspect-ratio: 3 / 2; /* Example aspect ratio */
     object-fit: cover;
     display: block;
     border-top-left-radius: 10px;
