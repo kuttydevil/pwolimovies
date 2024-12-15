@@ -208,7 +208,6 @@ main {
     transition: opacity 0.4s ease; /* Transition for loading placeholder*/
     opacity: 0; /* Initially hide the image */
     loading: lazy; /* Native lazy loading */
-    contain-intrinsic-size: 300px 450px; /* Setting the intrinsic size of the image */
 }
 
 .movie-card h3 {
@@ -223,9 +222,7 @@ main {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     text-align: center;
-    min-height: 4.8rem; /* Added min-height for 2 lines of text */
 }
-
 
 .movie-card .placeholder {
     position: absolute;
