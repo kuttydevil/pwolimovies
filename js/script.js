@@ -14,11 +14,11 @@ let isInitialLoad = true;
  */
 function showLoading(element) {
     if (element) {
-        element.style.display = 'flex'; // Changed to flex for centering
-    } else {
-        console.error("Error: loading-spinner not found within the element provided to showLoading(). Check your HTML structure.");
+        element.style.display = 'flex';
     }
+    // Removed the else block, which logged the error
 }
+
 
 /**
  * Hides the loading spinner within a specified HTML element.
