@@ -41,8 +41,12 @@
     <link rel="canonical" href="https://pwolimovies.vercel.app/" />
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
-    <link rel="preload" href="/css/style.css" as="style">
-    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Preload LCP Image -->
+    <link rel="preload" as="image" href="URL_OF_YOUR_LCP_IMAGE">
+
+    <!-- Defer non-critical CSS -->
+    <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
         media="print" onload="this.media='all'"
         integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
@@ -96,7 +100,7 @@
           <section id="search-results" class="movie-grid">
          </section>
         <section id="popular-movies-section">
-            <h1 class="section-title" id="popularMoviesTitle">Popular Movies</h1>
+            <h2 class="section-title" id="popularMoviesTitle">Popular Movies</h2>
             <div id="popular-movies" class="movie-grid">
                 <div class="loading-spinner" id="popular-movies-spinner">
                     <div class="spinner"></div>
@@ -107,7 +111,7 @@
         </section>
 
         <section id="popular-tv-shows-section">
-            <h1 class="section-title" id="popularTVShowsTitle">Popular TV Shows</h1>
+            <h2 class="section-title" id="popularTVShowsTitle">Popular TV Shows</h2>
             <div id="popular-tv-shows" class="movie-grid">
                 <div class="loading-spinner" id="popular-tv-shows-spinner">
                     <div class="spinner"></div>
@@ -118,7 +122,7 @@
         </section>
 
         <section id="malayalam-movies-section">
-            <h1 class="section-title" id="malayalamMoviesTitle">Latest Malayalam Movies</h1>
+            <h2 class="section-title" id="malayalamMoviesTitle">Latest Malayalam Movies</h2>
             <div id="malayalam-movies" class="movie-grid">
                 <div class="loading-spinner" id="malayalam-movies-spinner">
                     <div class="spinner"></div>
@@ -129,7 +133,7 @@
         </section>
 
         <section class="about-section">
-            <h2>About Pwolimovies</h2>
+            <h2 >About Pwolimovies</h2>
             <p> Pwolimovies is the best place to <b>watch free movies</b> and <b>free series</b> online. We have a massive
                 library of content, including the latest releases, classics, and hidden gems. Stream free movies and TV
                 shows in HD and 1080p, without any registration or sign-up. Watch movies online free and without
@@ -365,7 +369,7 @@
         </section>
         <section class="content-section">
             <h2>Watch Movies Without Registration: Privacy and Simplicity Combined</h2>
-            <p>We value your privacy and believe that enjoying <b>free movies online</b> should be simple and
+            <p>At PwoliMovies, we value your privacy and believe that enjoying <b>free movies online</b> should be simple and
                 straightforward. That's why PwoliMovies allows you to watch movies without registration. Browse our
                 collection anonymously and enjoy uninterrupted entertainment without the need to provide personal
                 information. Experience the perfect blend of privacy and simplicity with PwoliMovies.</p>
