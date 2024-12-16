@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-HK" itemscope itemtype="http://schema.org/WebSite">
+
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-W42VJDLX');</script>
+    <!-- End Google Tag Manager -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Dynamic Title Tag -->
+    <title id="dynamicTitle">PwoliMovies - 免費線上睇戲煲劇</title>
+    <meta name="description"
+        content="PwoliMovies：免費線上睇高質素電影同電視劇。任睇新片、熱門片，仲有更多精彩內容！用 WebTorrent 技術，P2P 串流超順暢。即刻免費線上睇戲同電視劇！">
+    <meta name="keywords"
+        content="PwoliMovies, pwolimovies, 免費電影, 免費劇集, 免費電視劇, 線上睇, 串流, 新片, 熱門, 類型, 馬拉也林電影, torrent, p2p, 網頁種子, 加密串流, 快速串流, 冇緩衝, 睇戲, 煲劇, 免費網站, 高清電影, 電影線上睇, 电视剧线上睇, 最新电影, 热门电视剧">
+
+    <!-- Open Graph tags -->
+    <meta property="og:title" content="PwoliMovies" />
+    <meta property="og:description"
+        content="PwoliMovies：免費線上睇高質素電影同電視劇。任睇新片、熱門片，仲有更多精彩內容！用 WebTorrent 技術，P2P 串流超順暢。即刻免費線上睇戲同電視劇！" />
+    <meta property="og:image"
+        content="https://raw.githubusercontent.com/kuttydevil/pwolimovies/refs/heads/main/favicon-32x32.png" />
+    <meta property="og:url" content="https://pwolimovies.vercel.app" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PwoliMovies" />
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@your_twitter_handle">
+    <meta name="twitter:title" content="PwoliMovies - 免費線上睇戲煲劇">
+    <meta name="twitter:description"
+        content="PwoliMovies：免費線上睇高質素電影同電視劇。任睇新片、熱門片，仲有更多精彩內容！用 WebTorrent 技術，P2P 串流超順暢。即刻免費線上睇戲同電視劇！">
+    <meta name="twitter:image"
+        content="https://raw.githubusercontent.com/kuttydevil/pwolimovies/refs/heads/main/favicon-32x32.png">
+
+    <link rel="canonical" href="https://pwolimovies.vercel.app/" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+
+    <!-- Hreflang Tags -->
+    <link rel="alternate" hreflang="ar" href="https://pwolimovies.vercel.app/multi/ar/" />
+    <link rel="alternate" hreflang="bn" href="https://pwolimovies.vercel.app/multi/bn/" />
+    <link rel="alternate" hreflang="de" href="https://pwolimovies.vercel.app/multi/de/" />
+    <link rel="alternate" hreflang="es" href="https://pwolimovies.vercel.app/multi/es/" />
+    <link rel="alternate" hreflang="hi" href="https://pwolimovies.vercel.app/multi/hi/" />
+    <link rel="alternate" hreflang="id" href="https://pwolimovies.vercel.app/multi/id/" />
+    <link rel="alternate" hreflang="ja" href="https://pwolimovies.vercel.app/multi/ja/" />
+    <link rel="alternate" hreflang="ko" href="https://pwolimovies.vercel.app/multi/ko/" />
+    <link rel="alternate" hreflang="lh" href="https://pwolimovies.vercel.app/multi/lh/" />
+    <link rel="alternate" hreflang="mr" href="https://pwolimovies.vercel.app/multi/mr/" />
+    <link rel="alternate" hreflang="ng" href="https://pwolimovies.vercel.app/multi/ng/" />
+    <link rel="alternate" hreflang="pt" href="https://pwolimovies.vercel.app/multi/pt/" />
+    <link rel="alternate" hreflang="ru" href="https://pwolimovies.vercel.app/multi/ru/" />
+    <link rel="alternate" hreflang="ta" href="https://pwolimovies.vercel.app/multi/ta/" />
+    <link rel="alternate" hreflang="te" href="https://pwolimovies.vercel.app/multi/te/" />
+    <link rel="alternate" hreflang="tr" href="https://pwolimovies.vercel.app/multi/tr/" />
+    <link rel="alternate" hreflang="vi" href="https://pwolimovies.vercel.app/multi/vi/" />
+    <link rel="alternate" hreflang="yue" href="https://pwolimovies.vercel.app/multi/yue/" />
+    <link rel="alternate" hreflang="zh" href="https://pwolimovies.vercel.app/multi/zh/" />
+    <!-- Include default language (English) -->
+    <link rel="alternate" hreflang="x-default" href="https://pwolimovies.vercel.app/" />
+
+    <!-- Preload LCP Image -->
+    <link rel="preload" as="image" href="https://image.tmdb.org/t/p/w300/aosm8NMQ3UyoBVpSxyimorCQykC.jpg">
+
+    <!-- Defer non-critical CSS -->
+    <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        media="print" onload="this.media='all'"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "PwoliMovies",
+        "url": "https://pwolimovies.vercel.app",
+        "description": "喺 PwoliMovies 免費線上睇戲同電視劇。新片、熱門片，全部有齊，用 WebTorrent 技術，P2P 串流勁快！即刻免費線上睇戲同電視劇。",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://pwolimovies.vercel.app/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5462048935840715"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W42VJDLX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <header>
+        <nav>
+            <div class="header-content">
+                <a href="/"><img src="/img/ut-lite-logo.svg" alt="PwoliMovies 標誌" id="logo" width="120" height="40"></a>
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="搜尋電影同電視劇">
+                    <div class="filter-container">
+                        <label><input type="radio" name="search_type" value="movie" checked> 電影</label>
+                        <label><input type="radio" name="search_type" value="tv"> 電視劇</label>
+                    </div>
+                    <button id="search-button" onclick="searchMovies()" aria-label="搜尋">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <h1 class="section-title" id="resultsTitle"></h1>
+        <section id="search-results" class="movie-grid"></section>
+
+        <!-- Popular Movies Section -->
+        <section id="popular-movies-section">
+            <!-- Loading Spinner -->
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+            </div>
+            <h2 class="section-title" id="popularMoviesTitle">熱門電影</h2>
+            <div id="popular-movies" class="movie-grid">
+             <!-- Movies get appended here  -->
+            </div>
+             <a id="load-more-popular-movies-link" href="#" class="movie-card load-more-button" style="display: none;">撳呢度睇更多戲</a>
+        </section>
+
+        <!-- Popular TV Shows Section -->
+        <section id="popular-tv-shows-section">
+            <!-- Loading Spinner -->
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+            </div>
+            <h2 class="section-title" id="popularTVShowsTitle">熱門電視劇</h2>
+            <div id="popular-tv-shows" class="movie-grid">
+            </div>
+            <a id="load-more-popular-tv-shows-link" href="#" class="movie-card load-more-button" style="display: none;">撳呢度睇更多劇集</a>
+        </section>
+
+        <!-- Latest Malayalam Movies Section -->
+        <section id="malayalam-movies-section">
+            <!-- Loading Spinner -->
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+            </div>
+            <h2 class="section-title" id="malayalamMoviesTitle">最新馬拉也林電影</h2>
+            <div id="malayalam-movies" class="movie-grid">
+            </div>
+            <a id="load-more-malayalam-movies-link" href="#" class="movie-card load-more-button" style="display: none;">撳呢度睇更多馬拉也林電影</a>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section">
+            <h2>關於 Pwolimovies</h2>
+            <p> Pwolimovies 係<b>線上睇免費電影</b>同<b>免費劇集</b>嘅最佳網站。我哋片庫勁多嘢睇，包括最新上畫、經典好戲同埋滄海遺珠。可以睇高清同 1080p 嘅免費電影同電視劇，唔使登記或註冊。即刻上嚟免費睇戲同電視劇，完全冇間斷。喺 Pwolimovies，我哋相信每個人都值得免費娛樂。用 Pwolimovies 享受無限串流！越多人加入，大家嘅串流速度就會越快，因為我哋用咗勁正嘅 P2P 技術。</p>
+            <p>聯絡我哋：<a href="mailto:pwolimovies@gmail.com">pwolimovies@gmail.com</a></p>
+            <p>喺 Instagram 關注我哋：<a href="https://www.instagram.com/pwolimovies/"
+                    target="_blank">pwolimovies</a></p>
+        </section>
+
+        <section class="faq-section">
+            <h2>常見問題 (FAQ)</h2>
+
+            <details>
+                <summary>點樣喺 Pwolimovies 睇戲？</summary>
+                <p>好簡單，喺我哋嘅目錄度揀你想睇嘅電影或電視劇，然後撳播放掣就得！</p>
+            </details>
+
+            <details>
+                <summary>Pwolimovies 係咪真係免費？</summary>
+                <p>冇錯！Pwolimovies 完全免費，冇隱藏收費，唔使訂閱，唔使註冊。<b>免費睇戲</b>同<b>免費煲劇</b>，一毫子都唔使畀！</p>
+            </details>
+
+            <details>
+                <summary>電影同電視劇嘅畫質係點㗎？</summary>
+                <p>我哋提供唔同畫質選擇，包括高清同 1080p，務求畀你最佳嘅觀賞體驗。</p>
+            </details>
+            <details>
+                <summary>Pwolimovies 嘅運作原理係點㗎？</summary>
+                <p>Pwolimovies 用 WebTorrent 技術，呢個係一種好似 Bitcoin 嘅對等 (P2P) 技術。即係話，越多人睇同一套戲或電視劇，大家嘅串流體驗就會越快越順。呢個係一個由大家一齊推動嘅串流平台！</p>
+            </details>
+            <details>
+                <summary>如果搵唔到想睇嘅戲或劇集點算？</summary>
+                <p>我哋嘅片庫會不斷更新。如果你搵唔到想睇嘅嘢，可以遲啲再嚟睇吓，或者<a
+                        href="mailto:pwolimovies@gmail.com">聯絡我哋</a>話畀我哋知你想睇乜。</p>
+            </details>
+            <details>
+                <summary>PwoliMovies 有冇廣告？</summary>
+                <p>冇，PwoliMovies 完全冇廣告！你可以無間斷咁睇戲，唔會有任何彈出式廣告或橫額廣告打擾你。</p>
+            </details>
+            <details>
+                <summary>係咪要用 torrent 客戶端先可以用 PwoliMovies？</summary>
+                <p>唔使，你唔需要另外安裝 torrent 客戶端。我哋嘅網站可以直接喺你嘅瀏覽器度串流電影同電視劇。</p>
+            </details>
+            <details>
+                <summary>可唔可以喺 PwoliMovies 下載電影同電視劇？</summary>
+                <p>PwoliMovies 主要提供串流服務。不過，由於我哋用 WebTorrent 技術，你嘅瀏覽器可能會喺你睇片嘅時候下載咗部分檔案。如果你想管理呢啲下載，請檢查你嘅瀏覽器設定。</p>
+            </details>
+            <details>
+                <summary>支援邊啲裝置？</summary>
+                <p>PwoliMovies 支援好多唔同嘅裝置，包括電腦、手提電腦、平板電腦同埋智能手機。隨時隨地享受免費娛樂！</p>
+            </details>
+
+        </section>
+
+        <section class="content-section">
+            <h2>探索我哋豐富嘅資源庫</h2>
+            <p>發掘各種類型嘅電影同電視劇，由動作連場嘅驚悚片到暖入心嘅愛情片，乜都有。<b>線上免費睇戲</b>，<b>免費睇電視劇</b>，探索無限可能。Pwolimovies 係你一站式娛樂中心，咩都有得你睇。體驗最好嘅線上電影串流，仲有高清同 1080p 畫質選擇。<b>免費線上睇電視劇</b>，追返你鍾意嘅劇集。Pwolimovies 有最新嘅電影 torrent、免費線上新片同埋<b>唔使註冊嘅免費電影</b>。喺免費電影網站度唔使註冊都可以睇戲。Pwolimovies - 你<b>線上免費睇戲</b>同<b>煲劇</b>嘅最佳網站！</p>
+        </section>
+
+        <section class="content-section">
+            <h2>PwoliMovies：你嘅免費電影同電視劇串流中心</h2>
+            <p>想搵個可靠嘅網站<b>線上免費睇戲</b>同<b>煲劇</b>？嚟 Pwolimovies 啦！我哋有大量影片，包括新片、經典電影同埋熱門電視劇，全部都可以免費串流。唔使註冊，即刻就可以享受你鍾意嘅娛樂。我哋個平台簡單易用，好易搵到你想睇嘅嘢，而且我哋嘅高質素串流確保你有個順暢嘅觀賞體驗。用 Pwolimovies 享受線上免費睇戲同電視劇嘅方便同自由。</p>
+        </section>
+        <section class="content-section">
+            <h2>免費線上電影：唔使註冊，超方便</h2>
+            <p>喺 Pwolimovies，我哋相信每個人都應該可以輕鬆享受娛樂。所以我哋提供完全免費嘅電影串流服務，冇任何隱藏收費或者訂閱。我哋嘅片庫定期更新最新上畫同埋經典好戲，確保你永遠有新嘢睇。唔使註冊，即刻就可以開始線上免費睇戲。只需瀏覽我哋嘅片庫，揀你鍾意嘅電影，就可以享受無間斷嘅娛樂。Pwolimovies：你<b>線上免費睇戲</b>嘅終極網站，勁方便。</p>
+        </section>
+        <section class="content-section">
+            <h2>免費線上電視劇：即刻煲你鍾意嘅劇</h2>
+            <p>用 Pwolimovies 嘅免費電視劇串流服務，追返你鍾意嘅電視劇或者發掘新劇。我哋有好多唔同類型嘅熱門電視劇，由劇情片、喜劇到動作片同驚悚片都有。定期加入新劇集，你永遠都有嘢可以睇。用 Pwolimovies <b>線上免費睇電視劇</b>，享受無限娛樂，唔使訂閱或者註冊。</p>
+        </section>
+        <section class="content-section">
+            <h2>睇高清同 1080p 電影同電視劇</h2>
+            <p>用 Pwolimovies 享受高質素串流。我哋提供高清同 1080p 嘅<b>電影</b>同<b>電視劇</b>，確保你睇得清晰。享受你鍾意嘅內容，每一個細節都睇得清清楚楚，而且唔窒機。Pwolimovies 提供最佳嘅免費線上串流，頂級畫質，畀你盡情享受。</p>
+        </section>
+        <section class="content-section">
+            <h2>支援磁力連結同 Torrent 播放器</h2>
+            <p>Pwolimovies 支援磁力連結同 torrent 播放器，畀你靈活選擇串流方式。用你鍾意嘅 torrent 客戶端，或者直接喺瀏覽器用我哋嘅內置播放器都得。我哋畀你自由選擇最啱你嘅觀賞方式。喺 Pwolimovies 享受磁力連結同 torrent 播放器支援帶嚟嘅順暢串流體驗。</p>
+        </section>
+        <section class="content-section">
+            <h2>無廣告串流：享受無間斷嘅娛樂</h2>
+            <p>用 Pwolimovies 同煩人嘅廣告同埋干擾講拜拜。我哋提供完全冇廣告嘅串流體驗，等你可以專心享受你鍾意嘅電影同電視劇，唔會分心。沉醉喺你鍾意嘅娛樂世界，唔會有任何彈出式廣告或橫額廣告打擾你。</p>
+        </section>
+        <section class="content-section">
+            <h2>Pwolimovies：免費線上串流嘅未來</h2>
+            <p>Pwolimovies 走喺免費線上串流嘅最前線，提供一個利用 P2P 技術嘅頂尖平台，帶嚟流暢高效嘅觀賞體驗。我哋致力於提供高質素內容、無廣告串流同埋靈活嘅觀賞選擇，令 Pwolimovies 成為電影同電視劇迷嘅首選。加入我哋，一齊體驗<b>免費線上串流</b>嘅未來。</p>
+        </section>
+        <section class="content-section">
+            <h2>用 Pwolimovies 開啟娛樂新世界</h2>
+            <p>喺 Pwolimovies 輕鬆探索廣闊嘅電影同電視劇世界。由荷里活大片到獨立製作，由經典電影到最新上畫，我哋豐富嘅片庫滿足唔同嘅口味。探索唔同類型，發掘新嘅喜好，享受無限娛樂，全部都係免費。用 Pwolimovies 開啟娛樂新世界，體驗最佳嘅免費線上串流。</p>
+        </section>
+        <section class="content-section">
+            <h2>隨時隨地串流免費電影同電視劇</h2>
+            <p>用 Pwolimovies，你可以隨時隨地串流<b>免費電影</b>同<b>免費電視劇</b>。我哋嘅平台支援好多唔同嘅裝置，包括電腦、手提電腦、平板電腦同埋智能手機。無論你喺屋企定係出咗街，都可以用 Pwolimovies 享受順暢嘅串流，睇到你鍾意嘅娛樂內容。</p>
+        </section>
+        <section class="content-section">
+            <h2>加入 Pwolimovies 社群</h2>
+            <p>成為 Pwolimovies 社群嘅一份子，體驗 P2P 串流嘅威力。越多人加入，大家嘅串流速度就會越快越順。為一個充滿活力嘅電影同電視劇愛好者社群出一分力，並使用 Pwolimovies 享受更優質嘅串流。喺 <a href="https://www.instagram.com/pwolimovies/" target="_blank">Instagram</a> 上追蹤我哋，獲取最新資訊並與其他用戶交流。即刻加入我哋，成為 Pwolimovies 嘅一份子。</p>
+        </section>
+        <section class="content-section">
+            <h2>線上串流免費新片</h2>
+            <p>用 Pwolimovies 緊貼最新電影。我哋會定期更新我哋嘅片庫，加入新上畫嘅電影，確保你第一時間睇到最新最 হিট 嘅電影。用 Pwolimovies 線上串流免費新片，唔會錯過任何最新大片同埋備受讚譽嘅電影。享受最新嘅內容，唔使畀錢訂閱或者註冊。</p>
+        </section>
+        <section class="content-section">
+            <h2>免費電影，唔使註冊：即刻享受娛樂</h2>
+            <p>體驗免費電影嘅終極便利，唔使註冊。Pwolimovies 畀你即刻睇到大量電影，唔使註冊或者開帳戶。只需訪問我哋嘅網站，瀏覽我哋嘅片庫，然後即刻開始串流。用 Pwolimovies 享受輕鬆無憂嘅娛樂，係你<b>線上免費睇戲</b>嘅首選，唔使註冊。</p>
+        </section>
+        <section class="content-section">
+            <h2>唔使註冊睇戲：順暢又安全</h2>
+            <p>喺 Pwolimovies，我哋重視你嘅私隱，並認為享受<b>免費線上電影</b>應該係簡單直接。所以 Pwolimovies 畀你唔使註冊就可以睇戲。你可以匿名瀏覽我哋嘅片庫，享受無間斷嘅娛樂，唔使提供個人資料。用 Pwolimovies 體驗私隱同簡便嘅完美結合。</p>
+        </section>
+        <section class="content-section">
+            <h2>免費電影網站：睇免費戲嘅最佳選擇</h2>
+            <p>想搵提供高質素串流同埋大量內容嘅免費電影網站？Pwolimovies 係一個領先嘅免費電影串流平台。我哋提供無廣告體驗、多元化嘅片庫同埋簡單易用嘅介面，Pwolimovies 係電影迷嘅終極目的地。用 Pwolimovies 體驗最佳嘅免費電影串流，係你線上免費睇戲嘅首選。</p>
+        </section>
+        <section class="content-section">
+            <h2>電影 Torrent：快速可靠嘅下載</h2>
+            <p>雖然 Pwolimovies 專注於串流，但我哋利用 torrent 技術嚟提供快速可靠嘅串流速度。我哋嘅 P2P 網絡確保有效咁傳送內容，即使喺繁忙時間都唔窒。用 Pwolimovies 體驗由 torrent 技術驅動嘅順暢串流，享受無間斷嘅娛樂。</p>
+        </section>
+        <section class="content-section">
+            <h2>免費電影下載：探索離線觀賞選項</h2>
+            <p>雖然 Pwolimovies 主要提供串流服務，但由於我哋用 WebTorrent 技術，你嘅瀏覽器可能會喺你睇片嘅時候下載咗部分電影檔案。呢個可能會畀你離線觀賞，具體取決於你嘅瀏覽器設定同配置。用 Pwolimovies 探索離線觀賞選項，享受更靈活嘅娛樂方式。</p>
+        </section>
+        <section class="content-section">
+            <h2>免費電視劇 Torrent：發掘你下一套要煲嘅劇</h2>
+            <p>用 Pwolimovies 探索電視劇世界，發掘你下一套要煲嘅劇。雖然我哋主要專注於串流，但我哋嘅 torrent 驅動平台確保快速高效咁傳送你揀嘅電視劇。瀏覽我哋豐富嘅片庫，搵到你感興趣嘅劇集，享受由 torrent 技術驅動嘅順暢串流。Pwolimovies – 你<b>免費電視劇串流</b>嘅門戶。</p>
+        </section>
+        <section class="content-section">
+            <h2>下載免費電視劇：擴展你嘅娛樂庫</h2>
+            <p>同我哋嘅電影一樣，由於用咗 WebTorrent 技術，Pwolimovies 喺串流嘅時候可能會畀你下載部分電視劇檔案。雖然主要係為咗線上串流而設計，但呢個功能可能會根據你嘅瀏覽器設定，畀你離線觀賞。用 Pwolimovies 增強你嘅娛樂靈活性，探索下載免費電視劇嘅可能性。</p>
+        </section>
+        <section class="content-section">
+            <h2>最新電影上畫：用 Pwolimovies 掌握最新資訊</h2>
+            <p>用 Pwolimovies 永遠唔會錯過最新電影。我哋嘅片庫會不斷更新最新上畫嘅電影，確保你可以睇到最新嘅內容。由熱門大片到獨立佳作，我哋為你帶嚟最新嘅電影，令你保持娛樂。用 Pwolimovies 掌握電影界嘅最新動態，係你最新電影上畫資訊嘅來源。</p>
+        </section>
+        <section class="content-section">
+            <h2>線上睇免費新片：最佳免費娛樂</h2>
+            <p>用 Pwolimovies 享受最佳<b>免費娛樂</b>。線上睇免費新片，唔使訂閱或者註冊。我哋致力於免費提供最新電影，令 Pwolimovies 成為電影愛好者嘅終極目的地。只喺 Pwolimovies，唔使畀一毫子就可以體驗新片嘅刺激。</p>
+        </section>
+        <section class="content-section">
+            <h2>免費電影，唔使註冊：極致方便</h2>
+            <p>Pwolimovies 提供<b>免費電影</b>，唔使註冊，極致方便。唔使註冊，即刻可以睇到我哋豐富嘅內容。即刻享受你鍾意嘅電影，發掘新嘅好戲，全部都唔使開帳戶。只喺 Pwolimovies，體驗免費電影嘅方便同自由，唔使註冊。</p>
+        </section>
+        <section class="content-section">
+             <h2>唔使註冊睇戲：私隱同簡便兼備</h2>
+            <p>喺 Pwolimovies，我哋重視你嘅私隱，並認為享受<b>免費線上電影</b>應該係簡單直接。所以 Pwolimovies 畀你唔使註冊就可以睇戲。你可以匿名瀏覽我哋嘅片庫，享受無間斷嘅娛樂，唔使提供個人資料。用 Pwolimovies 體驗私隱同簡便嘅完美結合。</p>
+        </section>
+        <section class="content-section">
+            <h2>免費電影網站：你嘅無限娛樂門戶</h2>
+            <p>喺眾多<b>免費電影網站</b>中，Pwolimovies 以其豐富嘅片庫、無廣告嘅串流同埋簡單易用嘅介面脫穎而出。輕鬆探索娛樂世界，無縫咁睇到各種類型嘅電影。Pwolimovies – 你嘅無限娛樂門戶。</p>
+        </section>
+        <section class="content-section">
+            <h2>Pwolimovies：由 WebTorrent 驅動，提供卓越嘅串流體驗</h2>
+            <p>Pwolimovies 利用 torrent 技術，為你提供快速高效嘅電影串流體驗。透過 P2P 共享嘅威力，享受順暢播放同埋最少嘅緩衝。只喺 Pwolimovies，唔使另外安裝 torrent 客戶端，都可以享受 torrent 電影。</p>
+        </section>
+        <section class="content-section">
+            <h2>馬拉也林電影：欣賞地區電影</h2>
+            <p>Pwolimovies 精選一系列馬拉也林電影，讓你欣賞呢個地區嘅電影。探索馬拉也林電影嘅豐富內容，由經典電影到新上畫嘅都有。發掘滄海遺珠，享受多元化嘅故事，全部都係免費。Pwolimovies – 你嘅馬拉也林電影同埋更多精彩內容嘅集中地。</p>
+        </section>
+        <section class="content-section">
+            <h2>免費馬拉也林電影：體驗最佳莫萊塢</h2>
+            <p>喺 Pwolimovies 嘅<b>免費馬拉也林電影</b>系列中，沉浸喺莫萊塢嘅世界。由溫馨嘅劇情片到刺激嘅動作片，探索馬拉也林電影提供嘅唔同類型同埋引人入勝嘅故事。只喺 Pwolimovies，唔使畀一毫子就可以體驗最佳莫萊塢。</p>
+        </section>
+        <section class="content-section">
+            <h2>線上睇馬拉也林電影：隨時隨地</h2>
+            <p>用 Pwolimovies <b>線上睇馬拉也林電影</b>，隨時隨地。我哋嘅平台支援多種裝置，所以無論你喺邊度，都可以欣賞你鍾意嘅馬拉也林電影。無論你喺屋企定係出咗街，Pwolimovies 都可以將莫萊塢嘅世界帶到你嘅指尖。</p>
+        </section>
+        <section class="content-section">
+            <h2>最新馬拉也林電影：掌握莫萊塢嘅最新資訊</h2>
+            <p>喺 Pwolimovies 上掌握最新馬拉也林電影資訊。我哋會定期更新我哋嘅片庫，加入新上畫嘅電影，確保你可以睇到莫萊塢嘅最新內容。唔會錯過任何新上畫嘅電影，用 Pwolimovies 掌握馬拉也林電影嘅脈搏。</p>
+        </section>
+        <section class="content-section">
+            <h2>Pwolimovies：你嘅一站式免費娛樂中心</h2>
+            <p>Pwolimovies 係你所有<b>免費娛樂</b>需求嘅一站式中心。由荷里活大片到地區佳作，由經典電影到最新電視劇，我哋提供豐富嘅內容，令你保持娛樂。只喺 Pwolimovies，發掘<b>電影</b>同<b>電視劇</b>嘅世界，全部都係免費。</p>
+        </section>
+        <section class="content-section">
+           <h2>免費高清電影：體驗震撼嘅視覺質素</h2>
+            <p>喺 Pwolimovies 嘅<b>免費高清電影</b>系列中，體驗震撼嘅視覺質素。享受清晰嘅畫面，令你鍾意嘅電影栩栩如生。喺 Pwolimovies 上體驗最佳嘅免費線上串流，只需點擊一下，就可以享受高清娛樂。</p>
+        </section>
+        <section class="content-section">
+            <h2>免費 1080p 電影：線上串流嘅巔峰之作</h2>
+             <p>用 Pwolimovies 嘅<b>免費 1080p 電影</b>選項，體驗線上串流嘅巔峰之作。享受無與倫比嘅視覺清晰度同埋細節，將電影體驗帶到你嘅屋企。只喺 Pwolimovies，盡情享受最高質素嘅串流，唔使畀訂閱費或者任何隱藏費用。</p>
+        </section>
+        <section class="content-section">
+            <h2>免費線上電視劇：煲盡你鍾意嘅劇</h2>
+            <p>用 Pwolimovies <b>線上煲盡你鍾意嘅劇</b>。我哋豐富嘅免費電視劇庫提供無數個鐘頭嘅娛樂。由經典劇集到最新熱門劇集，用 Pwolimovies 發掘你下一套要煲嘅劇。</p>
+        </section>
+        <section class="content-section">
+            <h2>睇免費電視劇：唔使註冊，超方便</h2>
+            <p>喺 Pwolimovies 上<b>睇免費電視劇</b>，唔使註冊，超方便。唔使註冊或者開帳戶，即刻就可以睇你鍾意嘅劇。用 Pwolimovies 享受順暢嘅串流同埋無間斷嘅娛樂，係你<b>線上免費睇電視劇</b>嘅終極目的地。</p>
+        </section>
+        <section class="content-section">
+            <h2>免費電視劇，唔使註冊：私隱同方便</h2>
+            <p>Pwolimovies 優先考慮你嘅私隱同方便。<b>睇免費電視劇</b>，唔使註冊，享受匿名瀏覽。探索我哋豐富嘅電視劇庫，唔使提供個人資料。只喺 Pwolimovies，體驗免費電視劇嘅自由同簡便，唔使註冊。</p>
+        </section>
+        <section class="content-section">
+            <h2>最佳免費電影網站：Pwolimovies 領先</h2>
+            <p>喺眾多最佳免費電影網站中，Pwolimovies 以其對優質內容、無廣告串流同埋簡單易用嘅介面嘅承諾脫穎而出。用 Pwolimovies 體驗卓越嘅串流體驗，係你<b>線上免費睇戲</b>嘅首選目的地。</p>
+        </section>
+        <section class="content-section">
+            <h2>Torrent 電影：快速高效嘅串流</h2>
+            <p>Pwolimovies 利用 torrent 技術，為你提供快速高效嘅電影串流體驗。透過 P2P 共享嘅威力，享受順暢播放同埋最少嘅緩衝。只喺 Pwolimovies，唔使另外安裝 torrent 客戶端，都可以享受 torrent 電影。</p>
+        </section>
+        <section class="content-section">
+            <h2>磁力連結電影：靈活串流</h2>
+            <p>喺 Pwolimovies 上使用磁力連結靈活咁串流電影。選擇你鍾意嘅 torrent 客戶端，或者直接喺你嘅瀏覽器用我哋嘅內置播放器串流。用 Pwolimovies 嘅磁力連結電影，享受選擇如何獲取娛樂嘅自由。</p>
+        </section>
+        <section class="content-section">
+            <h2>Torrent 播放器：無縫整合，流暢播放</h2>
+            <p>Pwolimovies 提供同 torrent 播放器嘅無縫整合，令你可以流暢、無間斷咁播放你揀嘅電影同電視劇。使用你鍾意嘅 torrent 客戶端，或者直接喺你嘅瀏覽器用我哋嘅內置播放器串流。用 Pwolimovies 嘅 torrent 播放器支援，體驗無憂嘅串流。</p>
+        </section>
+        <section class="content-section">
+            <h2>磁力連結播放器：直接喺你嘅瀏覽器串流</h2>
+            <p>用 Pwolimovies 嘅內置磁力連結播放器，直接喺你嘅瀏覽器串流磁力連結內容。享受無憂嘅串流，唔使另外安裝 torrent 客戶端。喺 Pwolimovies 上體驗磁力連結播放器支援嘅便利同簡單。</p>
+        </section>
+        <section class="content-section">
+            <h2>無廣告電影：享受無間斷嘅娛樂</h2>
+            <p>用 Pwolimovies 享受無廣告電影，享受無間斷嘅娛樂。同煩人嘅彈出式廣告同橫額廣告講拜拜，呢啲廣告會打斷你嘅觀賞體驗。只喺 Pwolimovies，沉醉喺你鍾意嘅電影中，唔會受到任何干擾。</p>
+        </section>
+        <section class="content-section">
+            <h2>免費電影同電視劇：終極娛樂目的地</h2>
+            <p>Pwolimovies 係<b>免費電影</b>同<b>免費電視劇</b>嘅終極娛樂目的地。我哋有大量嘅內容、無廣告嘅串流同埋簡單易用嘅介面，為電影同電視劇愛好者提供卓越嘅觀賞體驗。喺 Pwolimovies 上發掘你下一套鍾意嘅電影或電視劇。</p>
+        </section>
+        <section class="content-section">
+            <h2>Pwolimovies：你嘅免費線上串流來源</h2>
+            <p>Pwolimovies 係你值得信賴嘅<b>免費線上串流</b>電影同電視劇嘅來源。我哋致力於提供高質素嘅內容、順暢嘅觀賞體驗同埋靈活嘅串流選擇，令 Pwolimovies 成為免費娛樂嘅首選。</p>
+        </section>
+        <section class="content-section">
+            <h2>線上睇免費電影同電視劇：Pwolimovies 令呢一切成為可能</h2>
+            <p><b>線上睇免費電影</b>同<b>免費電視劇</b>，輕鬆又方便，全靠 Pwolimovies。我哋嘅平台畀你輕鬆咁睇到大量嘅娛樂內容，全部都係免費。用 Pwolimovies 體驗線上串流嘅未來。</p>
+        </section>
+
+        <div id="movie-popup" class="popup">
+            <span class="close-button" id="close-popup">×</span>
+            <div class="popup-content" id="popup-content"></div>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <p>© 2024 Pwolimovies. 版權所有。線上睇免費電影同電視劇。<a
+                href="mailto:pwolimovies@gmail.com">聯絡我哋</a> | <a
+                href="https://www.instagram.com/pwolimovies/" target="_blank">喺 Instagram 上追蹤我哋</a></p>
+    </footer>
+
+    <script src="/js/script.js" defer></script>
+</body>
+
+</html>

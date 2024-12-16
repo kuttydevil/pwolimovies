@@ -1,9 +1,9 @@
 const apiLocation = 'https://api.themoviedb.org/3';
-const apiKey = 'e51447e837048930952e694908564da1'; // **REPLACE WITH YOUR ACTUAL TMDB API KEY**
+const apiKey = '9b92d50baa23664db9f1455d0bbc74fc'; // **REPLACE WITH YOUR ACTUAL TMDB API KEY**
 const torrentSearchAPIs = {
-  piratebay: 'https://itorrentsearch.vercel.app/api/piratebay/',
-  torlock: 'https://itorrentsearch.vercel.app/api/torlock/',
-  yts: 'https://itorrentsearch.vercel.app/api/yts/',
+  piratebay: 'https://pwolisearch.vercel.app/api/piratebay/',
+  torlock: 'https://pwolisearch.vercel.app/api/torlock/',
+  yts: 'https://pwolisearch.vercel.app/api/yts/',
 };
 
 // Reusable fetch function with error handling

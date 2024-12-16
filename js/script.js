@@ -1,5 +1,5 @@
 const apiLocation = 'https://api.themoviedb.org/3';
-const apiKey = 'e51447e837048930952e694908564da1'; // Replace with your actual TMDb API key
+const apiKey = '9b92d50baa23664db9f1455d0bbc74fc'; // Replace with your actual TMDb API key
 const initialPagesToLoad = 3; // Number of initial pages to load
 let currentPageMovies = 1;
 let currentPageMalayalam = 1;
@@ -54,7 +54,6 @@ async function getMovieDetails(movieId) {
     }
     return await response.json();
 }
-
 
 // --------------------- Fetching Content Functions (Movies, TV Series, Malayalam Movies) ---------------------
 
@@ -221,8 +220,20 @@ async function getPopularTVSeries(page = 1, append = false) {
  */
 function createMovieCard(media) {
     const movieCardLink = document.createElement('a');
-    // Correct URL construction - Encode only ONCE:
-    movieCardLink.href = `movie-details.html?id=${media.id}&title=${encodeURIComponent(media.title || media.name)}&type=${media.title ? 'movie' : 'tv'}`;
+    
+    // Get the current path of the page and construct the URL
+    let basePath = window.location.pathname;
+    
+    // If the page is in a language subdirectory, adjust the base path
+    if (basePath.startsWith('/multi/')) {
+        basePath = basePath.substring(0, basePath.lastIndexOf('/multi/') + 1);
+    } else {
+        basePath = '/'; // Root path for English and directly accessed pages
+    }
+
+    const movieDetailsUrl = `${basePath}movie-details.html?id=${media.id}&title=${encodeURIComponent(media.title || media.name)}&type=${media.title ? 'movie' : 'tv'}`;
+    
+    movieCardLink.href = movieDetailsUrl;
     movieCardLink.classList.add('movie-card');
     movieCardLink.innerHTML = `
         <div class="placeholder">
@@ -339,7 +350,6 @@ async function searchMovies() {
     }
 }
 
-
 // --------------------- Load More Management Function ---------------------
 /**
  * Manages the visibility of Load More buttons after a search.
@@ -452,7 +462,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const popularMoviesSection = document.getElementById('popular-movies-section');
     const popularTVShowsSection = document.getElementById('popular-tv-shows-section');
     const malayalamMoviesSection = document.getElementById('malayalam-movies-section');
-
 
     function updateTitle() {
         const urlParams = new URLSearchParams(window.location.search);

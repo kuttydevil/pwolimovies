@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="tr" itemscope itemtype="http://schema.org/WebSite">
+
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-W42VJDLX');</script>
+    <!-- End Google Tag Manager -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Dynamic Title Tag -->
+    <title id="dynamicTitle">PwoliMovies - Ücretsiz Film ve Dizi İzle</title>
+    <meta name="description"
+        content="PwoliMovies: Yüksek kaliteli filmleri ve dizileri ücretsiz izleyin. Yeni çıkanlar, popüler içerikler ve daha fazlasını sınırsızca izleyin! Sorunsuz bir P2P yayın deneyimi için WebTorrent tarafından desteklenmektedir. Şimdi ücretsiz film ve dizi izle!">
+    <meta name="keywords"
+        content="PwoliMovies, pwolimovies, ücretsiz film izle, ücretsiz dizi izle, film izle, dizi izle, online film izle, online dizi izle, yeni filmler, popüler filmler, popüler diziler, Malayalam filmleri, torrent, p2p, web torrent, şifreli yayın, hızlı yayın, donmadan izle, bedava film izle, bedava dizi izle, HD film izle, 1080p film izle, film seyret">
+
+    <!-- Open Graph tags -->
+    <meta property="og:title" content="PwoliMovies" />
+    <meta property="og:description"
+        content="PwoliMovies: Yüksek kaliteli filmleri ve dizileri ücretsiz izleyin. Yeni çıkanlar ve popüler içerikler sınırsız! Sorunsuz bir P2P yayın deneyimi için WebTorrent tarafından desteklenmektedir. Ücretsiz film ve dizi izle." />
+    <meta property="og:image"
+        content="https://raw.githubusercontent.com/kuttydevil/pwolimovies/refs/heads/main/favicon-32x32.png" />
+    <meta property="og:url" content="https://pwolimovies.vercel.app" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PwoliMovies" />
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@your_twitter_handle">
+    <meta name="twitter:title" content="PwoliMovies - Ücretsiz Film ve Dizi İzle">
+    <meta name="twitter:description"
+        content="PwoliMovies: Yüksek kaliteli filmleri ve dizileri ücretsiz izleyin. Yeni çıkanlar ve popüler içerikler sınırsız! Sorunsuz bir P2P yayın deneyimi için WebTorrent tarafından desteklenmektedir. Ücretsiz film ve dizi izle.">
+    <meta name="twitter:image"
+        content="https://raw.githubusercontent.com/kuttydevil/pwolimovies/refs/heads/main/favicon-32x32.png">
+
+    <link rel="canonical" href="https://pwolimovies.vercel.app/" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+
+    <!-- Hreflang Tags -->
+    <link rel="alternate" hreflang="ar" href="https://pwolimovies.vercel.app/multi/ar/" />
+    <link rel="alternate" hreflang="bn" href="https://pwolimovies.vercel.app/multi/bn/" />
+    <link rel="alternate" hreflang="de" href="https://pwolimovies.vercel.app/multi/de/" />
+    <link rel="alternate" hreflang="es" href="https://pwolimovies.vercel.app/multi/es/" />
+    <link rel="alternate" hreflang="hi" href="https://pwolimovies.vercel.app/multi/hi/" />
+    <link rel="alternate" hreflang="id" href="https://pwolimovies.vercel.app/multi/id/" />
+    <link rel="alternate" hreflang="ja" href="https://pwolimovies.vercel.app/multi/ja/" />
+    <link rel="alternate" hreflang="ko" href="https://pwolimovies.vercel.app/multi/ko/" />
+    <link rel="alternate" hreflang="lh" href="https://pwolimovies.vercel.app/multi/lh/" />
+    <link rel="alternate" hreflang="mr" href="https://pwolimovies.vercel.app/multi/mr/" />
+    <link rel="alternate" hreflang="ng" href="https://pwolimovies.vercel.app/multi/ng/" />
+    <link rel="alternate" hreflang="pt" href="https://pwolimovies.vercel.app/multi/pt/" />
+    <link rel="alternate" hreflang="ru" href="https://pwolimovies.vercel.app/multi/ru/" />
+    <link rel="alternate" hreflang="ta" href="https://pwolimovies.vercel.app/multi/ta/" />
+    <link rel="alternate" hreflang="te" href="https://pwolimovies.vercel.app/multi/te/" />
+    <link rel="alternate" hreflang="tr" href="https://pwolimovies.vercel.app/multi/tr/" />
+    <link rel="alternate" hreflang="vi" href="https://pwolimovies.vercel.app/multi/vi/" />
+    <link rel="alternate" hreflang="yue" href="https://pwolimovies.vercel.app/multi/yue/" />
+    <link rel="alternate" hreflang="zh" href="https://pwolimovies.vercel.app/multi/zh/" />
+    <!-- Include default language (English) -->
+    <link rel="alternate" hreflang="x-default" href="https://pwolimovies.vercel.app/" />
+
+    <!-- Preload LCP Image -->
+    <link rel="preload" as="image" href="https://image.tmdb.org/t/p/w300/aosm8NMQ3UyoBVpSxyimorCQykC.jpg">
+
+    <!-- Defer non-critical CSS -->
+    <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        media="print" onload="this.media='all'"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "PwoliMovies",
+        "url": "https://pwolimovies.vercel.app",
+        "description": "PwoliMovies'te ücretsiz film ve dizi izleyin. Hızlı, P2P yayın deneyimi için WebTorrent tarafından desteklenen yeni çıkanlar ve popüler içerikler kaynağınız! Ücretsiz film ve dizi izle.",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://pwolimovies.vercel.app/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5462048935840715"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W42VJDLX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <header>
+        <nav>
+            <div class="header-content">
+                <a href="/"><img src="/img/ut-lite-logo.svg" alt="PwoliMovies Logo" id="logo" width="120" height="40"></a>
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Film ve Dizi Ara">
+                    <div class="filter-container">
+                        <label><input type="radio" name="search_type" value="movie" checked> Filmler</label>
+                        <label><input type="radio" name="search_type" value="tv"> Diziler</label>
+                    </div>
+                    <button id="search-button" onclick="searchMovies()" aria-label="Ara">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <h1 class="section-title" id="resultsTitle"></h1>
+        <section id="search-results" class="movie-grid"></section>
+
+        <!-- Popular Movies Section -->
+        <section id="popular-movies-section">
+            <!-- Loading Spinner -->
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+            </div>
+            <h2 class="section-title" id="popularMoviesTitle">Popüler Filmler</h2>
+            <div id="popular-movies" class="movie-grid">
+             <!-- Movies get appended here  -->
+            </div>
+             <a id="load-more-popular-movies-link" href="#" class="movie-card load-more-button" style="display: none;">Daha Fazla Film Yükle</a>
+        </section>
+
+        <!-- Popular TV Shows Section -->
+        <section id="popular-tv-shows-section">
+            <!-- Loading Spinner -->
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+            </div>
+            <h2 class="section-title" id="popularTVShowsTitle">Popüler Diziler</h2>
+            <div id="popular-tv-shows" class="movie-grid">
+            </div>
+            <a id="load-more-popular-tv-shows-link" href="#" class="movie-card load-more-button" style="display: none;">Daha Fazla Dizi Yükle</a>
+        </section>
+
+        <!-- Latest Malayalam Movies Section -->
+        <section id="malayalam-movies-section">
+            <!-- Loading Spinner -->
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+            </div>
+            <h2 class="section-title" id="malayalamMoviesTitle">En Yeni Malayalam Filmleri</h2>
+            <div id="malayalam-movies" class="movie-grid">
+            </div>
+            <a id="load-more-malayalam-movies-link" href="#" class="movie-card load-more-button" style="display: none;">Daha Fazla Malayalam Filmi Yükle</a>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section">
+            <h2>Pwolimovies Hakkında</h2>
+            <p> Pwolimovies, <b>ücretsiz film izlemek</b> ve <b>ücretsiz dizi izlemek</b> için en iyi yerdir. En son
+                çıkanlar, klasikler ve gizli cevherler de dahil olmak üzere devasa bir içerik kütüphanemiz var. HD ve
+                1080p kalitesinde ücretsiz film ve dizi izleyin, üstelik kayıt veya üyelik gerektirmeden. Pwolimovies'te
+                herkesin ücretsiz eğlenceyi hak ettiğine inanıyoruz. Pwolimovies ile sınırsız yayın keyfini çıkarın!
+                Güçlü P2P teknolojisi kullandığımız için ne kadar çok kişi katılırsa, yayın herkes için o kadar hızlı
+                hale gelir.</p>
+            <p>Bize ulaşın: <a href="mailto:pwolimovies@gmail.com">pwolimovies@gmail.com</a></p>
+            <p>Bizi Instagram'da takip edin: <a href="https://www.instagram.com/pwolimovies/"
+                    target="_blank">pwolimovies</a></p>
+        </section>
+
+        <section class="faq-section">
+            <h2>Sıkça Sorulan Sorular (SSS)</h2>
+
+            <details>
+                <summary>Pwolimovies'te nasıl film izleyebilirim?</summary>
+                <p>Kataloğumuza göz atın ve izlemek istediğiniz filme veya diziye tıklayın. Hemen izlemeye başlayın!
+                </p>
+            </details>
+
+            <details>
+                <summary>Pwolimovies gerçekten ücretsiz mi?</summary>
+                <p>Kesinlikle! Pwolimovies'i kullanmak tamamen ücretsizdir. Gizli ücretler, abonelikler veya üyelik
+                    yok. Herhangi bir ödeme yapmadan <b>ücretsiz film</b> ve <b>ücretsiz dizi</b> keyfini çıkarın!</p>
+            </details>
+
+            <details>
+                <summary>Filmler ve diziler hangi kalitede?</summary>
+                <p>En iyi izleme deneyimini sağlamak için HD ve 1080p dahil olmak üzere çeşitli kalite seçenekleri
+                    sunuyoruz.</p>
+            </details>
+            <details>
+                <summary>Pwolimovies nasıl çalışıyor?</summary>
+                <p>Pwolimovies, Bitcoin'e benzer bir eşler arası (P2P) teknoloji olan WebTorrent'i kullanır. Bu, bir
+                    filmi veya diziyi ne kadar çok kullanıcı izlerse, yayın deneyiminin herkes için o kadar hızlı ve
+                    sorunsuz olacağı anlamına gelir. Bu, topluluk destekli bir yayın platformudur!</p>
+            </details>
+            <details>
+                <summary>Bir film veya dizi mevcut değilse ne olur?</summary>
+                <p>Kütüphanemiz sürekli genişliyor. Aradığınızı bulamıyorsanız, daha sonra tekrar kontrol edin veya <a
+                        href="mailto:pwolimovies@gmail.com">bizimle iletişime geçin</a> ve talebinizi iletin.</p>
+            </details>
+            <details>
+                <summary>PwoliMovies'te reklam var mı?</summary>
+                <p>Hayır, PwoliMovies tamamen reklamsızdır! Rahatsız edici pop-up'lar veya banner'lar olmadan kesintisiz
+                    yayının keyfini çıkarın.</p>
+            </details>
+            <details>
+                <summary>PwoliMovies'i kullanmak için bir torrent istemcisine ihtiyacım var mı?</summary>
+                <p>Hayır, ayrı bir torrent istemcisine ihtiyacınız yok. Web sitemiz filmleri ve dizileri doğrudan
+                    tarayıcınızda yayınlar.</p>
+            </details>
+            <details>
+                <summary>PwoliMovies'ten film ve dizi indirebilir miyim?</summary>
+                <p>PwoliMovies öncelikle yayına odaklanır. Ancak, WebTorrent kullandığımız için tarayıcınız siz
+                    yayınlarken dosyaların bir kısmını indirebilir. Bu indirmeleri yönetmek isterseniz tarayıcı
+                    ayarlarınızı kontrol edin.</p>
+            </details>
+            <details>
+                <summary>Hangi cihazlar destekleniyor?</summary>
+                <p>PwoliMovies, masaüstü bilgisayarlar, dizüstü bilgisayarlar, tabletler ve akıllı telefonlar dahil olmak
+                    üzere çok çeşitli cihazlarda çalışır. Nerede olursanız olun ücretsiz eğlencenin tadını çıkarın!</p>
+            </details>
+
+        </section>
+
+        <section class="content-section">
+            <h2>Geniş Kütüphanemizi Keşfedin</h2>
+            <p>Aksiyon dolu gerilim filmlerinden yürek ısıtan romantik filmlere kadar çeşitli türlerde filmler ve
+                dizilerden oluşan bir evreni keşfedin. <b>Ücretsiz film izle</b>, <b>ücretsiz dizi izle</b> ve sonsuz
+                olasılıkları keşfet. Pwolimovies, tüm eğlence ihtiyaçlarınız için tek adresiniz. HD ve 1080p kalite
+                seçenekleriyle en iyi çevrimiçi film izleme deneyimini yaşayın. <b>Ücretsiz dizi</b> izleyin, en
+                sevdiğiniz programları takip edin. Pwolimovies en yeni film torrentlerini, yeni çıkan filmleri çevrimiçi
+                ücretsiz izleme imkanı ve üyelik gerektirmeyen <b>ücretsiz filmler</b> sunar. Ücretsiz film sitelerinde
+                kayıt olmadan film izleyin. Pwolimovies - <b>ücretsiz film</b> ve <b>ücretsiz dizi</b> izlemek için
+                bir numaralı adresiniz!</p>
+        </section>
+
+        <section class="content-section">
+            <h2>PwoliMovies: Ücretsiz Film ve Dizi İzleme Merkeziniz</h2>
+            <p><b>Ücretsiz film izlemek</b> ve <b>ücretsiz dizi izlemek</b> için güvenilir bir kaynak mı arıyorsunuz?
+                PwoliMovies'ten başkasına bakmayın! Yeni çıkanlar, klasik filmler ve popüler diziler dahil olmak üzere
+                geniş bir içerik kütüphanesi sunuyoruz ve hepsi ücretsiz olarak izlenebiliyor. Kayıt veya üyelik
+                gerektirmeden, canınızın istediği eğlenceye hemen dalabilirsiniz. Kullanıcı dostu platformumuz,
+                aradığınızı bulmanızı kolaylaştırır ve yüksek kaliteli yayınımız sorunsuz bir izleme deneyimi sağlar.
+                PwoliMovies ile ücretsiz film ve dizi izlemenin rahatlığını ve özgürlüğünü yaşayın.</p>
+        </section>
+        <section class="content-section">
+            <h2>Ücretsiz Filmler: Kayıt Yok, Sorun Yok</h2>
+            <p>PwoliMovies'te eğlencenin herkes için erişilebilir olması gerektiğine inanıyoruz. Bu yüzden gizli
+                ücretler veya abonelikler olmadan tamamen ücretsiz bir film izleme hizmeti sunuyoruz. Kapsamlı
+                kütüphanemiz, her zaman keşfedilecek yeni bir şeyler olmasını sağlayarak, en son çıkanlar ve zamansız
+                klasiklerle düzenli olarak güncellenmektedir. Kayıt olmanıza gerek kalmadan, anında ücretsiz film
+                izlemeye başlayabilirsiniz. Sadece koleksiyonumuza göz atın, en sevdiğiniz filmi seçin ve kesintisiz
+                eğlencenin tadını çıkarın. PwoliMovies: Sorunsuz <b>ücretsiz film</b> izlemek için nihai hedefiniz.</p>
+        </section>
+        <section class="content-section">
+            <h2>Ücretsiz Diziler: En Sevdiğiniz Dizileri İzleyin</h2>
+            <p>PwoliMovies'in ücretsiz dizi izleme hizmetiyle en sevdiğiniz dizileri takip edin veya yenilerini keşfedin.
+                Dram ve komediden aksiyon ve gerilime kadar çeşitli türlerde çok çeşitli popüler diziler sunuyoruz.
+                Düzenli olarak eklenen yeni bölümlerle her zaman izleyecek bir şeyleriniz olacak. PwoliMovies ile
+                <b>ücretsiz dizi izle</b> ve herhangi bir abonelik veya kayıt olmadan sınırsız eğlencenin tadını
+                çıkarın.</p>
+        </section>
+        <section class="content-section">
+            <h2>HD ve 1080p Film ve Dizi İzle</h2>
+            <p>PwoliMovies ile yüksek kaliteli yayını deneyimleyin. Net ve temiz bir izleme deneyimi sağlayan HD ve 1080p
+                <b>film</b> ve <b>dizi</b> seçenekleri sunuyoruz. Herhangi bir donma veya kesinti olmadan en sevdiğiniz
+                içeriğin keyfini çıkarın. PwoliMovies, en üst düzeyde keyif almanız için birinci sınıf video kalitesiyle
+                en iyi ücretsiz çevrimiçi yayını sunar.</p>
+        </section>
+        <section class="content-section">
+            <h2>Magnet Link ve Torrent Oynatıcı Desteği</h2>
+            <p>PwoliMovies, size esnek yayın seçenekleri sunan magnet linkleri ve torrent oynatıcıları destekler. Tercih
+                ettiğiniz torrent istemcisini kullanın veya entegre oynatıcımızla doğrudan tarayıcınızda yayınlayın. Size
+                en uygun izleme deneyimini seçme yetkisi veriyoruz. PwoliMovies'te magnet link ve torrent oynatıcı
+                desteğiyle sorunsuz yayının keyfini çıkarın.</p>
+        </section>
+        <section class="content-section">
+            <h2>Reklamsız Yayın: Kesintisiz Eğlencenin Keyfini Çıkarın</h2>
+            <p>PwoliMovies ile can sıkıcı reklamlara ve kesintilere elveda deyin. Dikkatinizi dağıtmadan en sevdiğiniz
+                filmlerin ve dizilerin keyfini çıkarmanıza olanak tanıyan tamamen reklamsız bir yayın deneyimi sunuyoruz.
+                İzleme keyfinizi bozacak hiçbir pop-up veya banner olmadan kendinizi sevdiğiniz eğlenceye bırakın.</p>
+        </section>
+        <section class="content-section">
+            <h2>PwoliMovies: Ücretsiz Çevrimiçi Yayının Geleceği</h2>
+            <p>PwoliMovies, sorunsuz ve verimli bir izleme deneyimi için P2P teknolojisinden yararlanan son teknoloji
+                bir platform sunarak ücretsiz çevrimiçi yayının ön saflarında yer almaktadır. Yüksek kaliteli içerik,
+                reklamsız yayın ve esnek izleme seçenekleri sunma konusundaki kararlılığımız, PwoliMovies'i film ve dizi
+                tutkunları için önde gelen bir yer haline getiriyor. Bize katılın ve <b>ücretsiz çevrimiçi
+                    yayının</b> geleceğini deneyimleyin.</p>
+        </section>
+        <section class="content-section">
+            <h2>PwoliMovies ile Eğlence Dünyasının Kilidini Açın</h2>
+            <p>PwoliMovies ile parmaklarınızın ucunda geniş bir film ve dizi evrenini keşfedin. Hollywood
+                gişe rekorları kıran filmlerden bağımsız cevherlere, klasik filmlerden en son çıkanlara kadar kapsamlı
+                kütüphanemiz her zevke hitap ediyor. Farklı türleri keşfedin, yeni favoriler keşfedin ve hepsi ücretsiz
+                olarak sınırsız eğlencenin tadını çıkarın. PwoliMovies ile bir eğlence dünyasının kilidini açın ve
+                ücretsiz çevrimiçi yayında en iyisini deneyimleyin.</p>
+        </section>
+        <section class="content-section">
+            <h2>Her Zaman, Her Yerde Ücretsiz Film ve Dizi İzle</h2>
+            <p>PwoliMovies ile nerede olursanız olun, istediğiniz zaman <b>ücretsiz film</b> ve <b>ücretsiz dizi</b>
+                izleyebilirsiniz. Platformumuz masaüstü bilgisayarlar, dizüstü bilgisayarlar, tabletler ve akıllı
+                telefonlar dahil olmak üzere çok çeşitli cihazlardan erişilebilir. İster evde ister hareket halinde olun,
+                PwoliMovies ile sorunsuz yayının ve en sevdiğiniz eğlenceye erişimin keyfini çıkarın.</p>
+        </section>
+        <section class="content-section">
+            <h2>PwoliMovies Topluluğuna Katılın</h2>
+            <p>Büyüyen PwoliMovies topluluğunun bir parçası olun ve P2P yayınının gücünü deneyimleyin. Ne kadar çok
+                kullanıcı katılırsa, yayın herkes için o kadar hızlı ve sorunsuz olur. Canlı bir film ve dizi
+                tutkunları topluluğuna katkıda bulunun ve PwoliMovies ile gelişmiş yayın kalitesinin keyfini çıkarın.
+                Güncellemeler için bizi <a href="https://www.instagram.com/pwolimovies/" target="_blank">Instagram</a>'da
+                takip edin ve diğer kullanıcılarla bağlantı kurun. Bugün bize katılın ve PwoliMovies deneyiminin bir
+                parçası olun.</p>
+        </section>
+        <section class="content-section">
+            <h2>Yeni Çıkan Filmleri Ücretsiz Çevrimiçi İzle</h2>
+            <p>PwoliMovies ile en son filmlerden haberdar olun. Kütüphanemizi düzenli olarak yeni çıkanlarla
+                güncelliyoruz, böylece en yeni filmlere çıktıkları anda ulaşabilirsiniz. PwoliMovies ile yeni çıkan
+                filmleri çevrimiçi ücretsiz izleyin ve en son gişe rekorları kıran ve eleştirmenlerce beğenilen filmleri
+                asla kaçırmayın. Herhangi bir abonelik ücreti veya kayıt olmadan en yeni içeriğin keyfini çıkarın.</p>
+        </section>
+        <section class="content-section">
+            <h2>Ücretsiz Filmler Kayıt Yok: Eğlenceye Anında Erişim</h2>
+            <p>Kayıt gerektirmeyen ücretsiz filmlerin nihai rahatlığını yaşayın. PwoliMovies, herhangi bir kayıt veya
+                hesap oluşturmadan geniş bir film kütüphanesine anında erişim sağlar. Web sitemizi ziyaret edin,
+                koleksiyonumuza göz atın ve anında izlemeye başlayın. Kayıt gerektirmeyen <b>ücretsiz filmler</b> için
+                PwoliMovies ile sorunsuz eğlencenin tadını çıkarın.</p>
+        </section>
+        <section class="content-section">
+            <h2>Kayıt Olmadan Film İzle: Sorunsuz ve Güvenli</h2>
+            <p>PwoliMovies'te gizliliğinize değer veriyoruz ve <b>ücretsiz film izle</b>menin basit ve anlaşılır
+                olması gerektiğine inanıyoruz. Bu nedenle PwoliMovies, kayıt olmadan film izlemenize olanak tanır.
+                Koleksiyonumuza anonim olarak göz atın ve kişisel bilgilerinizi vermenize gerek kalmadan kesintisiz
+                eğlencenin tadını çıkarın. PwoliMovies ile gizlilik ve basitliğin mükemmel karışımını deneyimleyin.</p>
+        </section>
+        <section class="content-section">
+            <h2>Ücretsiz Film Siteleri: Ücretsiz Film İzlemek İçin En İyi Yer</h2>
+            <p>Yüksek kaliteli yayın ve geniş bir içerik yelpazesi sunan ücretsiz film siteleri mi arıyorsunuz?
+                PwoliMovies, ücretsiz film yayını için lider bir platform olarak öne çıkıyor. Reklamsız deneyimimiz,
+                çeşitli kütüphanemiz ve kullanıcı dostu arayüzümüzle PwoliMovies, film severler için nihai hedefi
+                sağlıyor. Ücretsiz filmler için önde gelen kaynağınız olan PwoliMovies ile ücretsiz film yayınında en
+                iyisini deneyimleyin.</p>
+        </section>
+        <section class="content-section">
+            <h2>Film Torrentleri: Hızlı ve Güvenilir İndirmeler</h2>
+            <p>PwoliMovies, yayına odaklanırken, hızlı ve güvenilir yayın hızları sağlamak için torrent
+                teknolojisinden yararlanır. P2P paylaşımının gücü sayesinde kesintisiz oynatma ve minimum arabelleğe alma
+                deneyimi yaşayın. Ayrı bir torrent istemcisine ihtiyaç duymadan PwoliMovies ile torrent filmlerinin
+                keyfini çıkarın ve kesintisiz eğlencenin tadını çıkarın.</p>
+        </section>
+        <section class="content-section">
+            <h2>Ücretsiz Film İndirme: Çevrimdışı İzleme Seçeneklerini Keşfedin</h2>
+            <p>PwoliMovies öncelikle yayın sunarken, WebTorrent teknolojisini kullanmamız tarayıcınızın siz izlerken
+                film dosyalarının bir kısmını indirmesine izin verebilir. Bu, tarayıcı ayarlarınıza ve yapılandırmanıza
+                bağlı olarak potansiyel olarak çevrimdışı görüntülemeyi etkinleştirebilir. PwoliMovies ile potansiyel
+                çevrimdışı izleme seçeneklerini keşfedin ve eğlencenize nasıl erişeceğiniz konusunda daha fazla
+                esnekliğin keyfini çıkarın.</p>
+        </section>
+        <section class="content-section">
+            <h2>Ücretsiz Dizi Torrentleri: Bir Sonraki Dizini Keşfet</h2>
+            <p>PwoliMovies ile televizyon dünyasını keşfedin ve bir sonraki favori dizinizi keşfedin. Öncelikle yayına
+                odaklanırken, torrent destekli platformumuz seçtiğiniz TV şovlarının hızlı ve verimli bir şekilde
+                sunulmasını sağlar. Kapsamlı kütüphanemize göz atın, ilginizi çeken dizileri bulun ve torrent
+                teknolojisiyle desteklenen sorunsuz yayının keyfini çıkarın. PwoliMovies - <b>ücretsiz dizi
+                    yayını</b>na açılan kapınız.</p>
+        </section>
+        <section class="content-section">
+            <h2>Ücretsiz Dizi İndir: Eğlence Kitaplığınızı Genişletin</h2>
+            <p>Film tekliflerimize benzer şekilde, PwoliMovies, WebTorrent teknolojisi sayesinde yayın sırasında dizi
+                dosyalarının kısmen indirilmesine izin verebilir. Öncelikle çevrimiçi yayın için tasarlanmış olsa da, bu
+                özellik tarayıcınızın ayarlarına bağlı olarak çevrimdışı görüntüleme fırsatları sunabilir. PwoliMovies ile
+                eğlence esnekliğinizi artırın ve ücretsiz dizi indirme olanaklarını keşfedin.</p>
+        </section>
+        <section class="content-section">
+            <h2>En Yeni Film Çıkanlar: PwoliMovies ile Güncel Kalın</h2>
+            <p>PwoliMovies ile en yeni filmleri asla kaçırmayın. Kitaplığımız, en yeni içeriğe erişmenizi sağlayarak
+                sürekli olarak en yeni film çıkanlarıyla güncellenmektedir. Gişe rekorları kıran filmlerden bağımsız
+                sevgililere kadar sizi eğlendirmek için en son filmleri getiriyoruz. En yeni film çıkanları için
+                kaynağınız olan PwoliMovies ile film dünyasından haberdar olun.</p>
+        </section>
+        <section class="content-section">
+            <h2>Yeni Çıkan Filmleri Ücretsiz Çevrimiçi İzle: Ücretsiz Eğlencede En İyisi</h2>
+            <p>PwoliMovies ile <b>ücretsiz eğlencede</b> en iyisinin tadını çıkarın. Herhangi bir abonelik veya kayıt
+                olmadan yeni çıkan filmleri çevrimiçi ücretsiz izleyin. En son filmlere ücretsiz erişim sağlama
+                konusundaki kararlılığımız, PwoliMovies'i film meraklıları için nihai hedef haline getiriyor. Sadece
+                PwoliMovies'te tek kuruş harcamadan yeni çıkanların heyecanını yaşayın.</p>
+        </section>
+        <section class="content-section">
+            <h2>Kayıt Olmadan Ücretsiz Filmler: Rahatlığın Zirvesi</h2>
+            <p>PwoliMovies, kayıt olmadan <b>ücretsiz filmlerle</b> rahatlığın zirvesini sunuyor. Herhangi bir kayıt
+                zorunluluğu olmadan doğrudan geniş içerik kütüphanemize dalın. Herhangi bir hesap oluşturmadan en
+                sevdiğiniz filmlere anında erişimin keyfini çıkarın ve yeni cevherleri keşfedin. Sadece PwoliMovies'te
+                kayıt olmadan ücretsiz filmlerin kolaylığını ve özgürlüğünü yaşayın.</p>
+        </section>
+        <section class="content-section">
+            <h2>Kayıt Olmadan Film İzle: Gizlilik ve Basitlik Bir Arada</h2>
+            <p>PwoliMovies'te gizliliğinize değer veriyoruz ve <b>ücretsiz film izle</b>menin basit ve anlaşılır
+                olması gerektiğine inanıyoruz. Bu nedenle PwoliMovies, kayıt olmadan film izlemenize olanak tanır.
+                Koleksiyonumuza anonim olarak göz atın ve kişisel bilgilerinizi vermenize gerek kalmadan kesintisiz
+                eğlencenin tadını çıkarın. PwoliMovies ile gizlilik ve basitliğin mükemmel karışımını deneyimleyin.</p>
+        </section>
+        <section class="content-section">
+            <h2>Ücretsiz Film Siteleri: Sınırsız Eğlenceye Açılan Kapınız</h2>
+            <p>Çevrimiçi olarak sunulan birçok <b>ücretsiz film sitesi</b> arasında PwoliMovies, geniş kütüphanesi,
+                reklamsız yayını ve kullanıcı dostu arayüzü ile öne çıkıyor. Çeşitli türlerde filmlere sorunsuz erişim
+                ile parmaklarınızın ucunda bir eğlence dünyasını keşfedin. PwoliMovies - sınırsız eğlenceye açılan
+                kapınız.</p>
+        </section>
+        <section class="content-section">
+            <h2>PwoliMovies: Üstün Yayın için WebTorrent Tarafından Desteklenmektedir</h2>
+            <p>PwoliMovies, en sevdiğiniz filmlerin hızlı ve verimli bir şekilde yayınlanmasını sağlamak için torrent
+                teknolojisinden yararlanır. P2P paylaşımının gücü sayesinde sorunsuz oynatma ve minimum arabelleğe alma
+                deneyimi yaşayın. Yalnızca PwoliMovies'te ayrı bir torrent istemcisine ihtiyaç duymadan torrent
+                filmlerinin keyfini çıkarın.</p>
+        </section>
+        <section class="content-section">
+            <h2>Malayalam Filmleri: Bölgesel Sinemayı Kutlayın</h2>
+            <p>PwoliMovies, özel bir Malayalam filmleri seçkisiyle bölgesel sinemayı kutluyor. Klasik filmlerden yeni
+                çıkanlara kadar Malayalam sinemasının zengin dokusunu keşfedin. Gizli mücevherleri keşfedin ve hepsi
+                ücretsiz olarak çeşitli hikaye anlatımının keyfini çıkarın. PwoliMovies - Malayalam filmleri ve daha
+                fazlası için eviniz.</p>
+        </section>
+        <section class="content-section">
+            <h2>Ücretsiz Malayalam Filmleri: Mollywood'un En İyisini Deneyimleyin</h2>
+            <p>PwoliMovies'in <b>ücretsiz Malayalam filmleri</b> koleksiyonuyla kendinizi Mollywood dünyasına bırakın.
+                Yürek ısıtan dramalardan aksiyon dolu gerilim filmlerine kadar Malayalam sinemasının sunduğu çeşitli
+                türleri ve büyüleyici anlatıları keşfedin. Yalnızca PwoliMovies'te tek kuruş harcamadan Mollywood'un en
+                iyisini deneyimleyin.</p>
+        </section>
+        <section class="content-section">
+            <h2>Malayalam Filmlerini Çevrimiçi İzle: Her Zaman, Her Yerde</h2>
+            <p>PwoliMovies ile Malayalam filmlerini çevrimiçi izleyin, istediğiniz zaman, istediğiniz yerde.
+                Platformumuz çeşitli cihazlardan erişilebilir, böylece nerede olursanız olun en sevdiğiniz Malayalam
+                filmlerinin keyfini çıkarabilirsiniz. İster evde ister hareket halinde olun, PwoliMovies Mollywood
+                dünyasını parmaklarınızın ucuna getiriyor.</p>
+        </section>
+        <section class="content-section">
+            <h2>En Yeni Malayalam Filmleri: Mollywood'dan Haberdar Olun</h2>
+            <p>PwoliMovies'teki en yeni Malayalam filmleriyle güncel kalın. Koleksiyonumuzu düzenli olarak yeni
+                çıkanlarla güncelliyoruz ve Mollywood'dan en yeni içeriğe erişmenizi sağlıyoruz. Yeni çıkanları asla
+                kaçırmayın ve PwoliMovies ile Malayalam sinemasının nabzını tutun.</p>
+        </section>
+        <section class="content-section">
+            <h2>PwoliMovies: Ücretsiz Eğlence İçin Tek Adresiniz</h2>
+            <p>PwoliMovies, tüm <b>ücretsiz eğlence</b> ihtiyaçlarınız için tek adresinizdir. Hollywood gişe
+                rekorları kıran filmlerden bölgesel cevherlere, klasik filmlerden en yeni TV dizilerine kadar sizi
+                eğlendirmek için geniş bir içerik kütüphanesi sunuyoruz. Hepsi ücretsiz olarak yalnızca PwoliMovies'te
+                <b>film</b> ve <b>dizi</b> dünyasını keşfedin.</p>
+        </section>
+        <section class="content-section">
+            <h2>Ücretsiz HD Filmler: Çarpıcı Görsel Kaliteyi Deneyimleyin</h2>
+            <p>PwoliMovies'in <b>ücretsiz HD film</b> koleksiyonuyla kendinizi çarpıcı görsel kaliteye bırakın. En
+                sevdiğiniz filmleri hayata geçiren net ve canlı görsellerin keyfini çıkarın. Yüksek çözünürlüklü
+                eğlencenin sadece bir tık uzağınızda olduğu PwoliMovies ile ücretsiz çevrimiçi yayında en iyisini
+                deneyimleyin.</p>
+        </section>
+        <section class="content-section">
+            <h2>1080p Ücretsiz Filmler: Çevrimiçi Yayının Zirvesi</h2>
+            <p>PwoliMovies'in <b>1080p ücretsiz film</b> seçkisiyle çevrimiçi yayının zirvesini deneyimleyin. Evinize
+                sinematik deneyimi getiren benzersiz görsel netliğin ve ayrıntıların keyfini çıkarın. Herhangi bir
+                abonelik ücreti veya gizli maliyet olmadan, yalnızca PwoliMovies'te mevcut olan en yüksek kalitede yayının
+                tadını çıkarın.</p>
+        </section>
+        <section class="content-section">
+            <h2>Ücretsiz Dizi: En Sevdiğiniz Dizileri Aralıksız İzleyin</h2>
+            <p>PwoliMovies ile en sevdiğiniz <b>dizileri</b> aralıksız izleyin. Kapsamlı ücretsiz dizi kütüphanemiz
+                sonsuz saatler süren eğlence sunuyor. Klasik dizilerden en yeni hitlere kadar, bir sonraki aralıksız
+                izleyeceğiniz diziyi PwoliMovies'te keşfedin.</p>
+        </section>
+        <section class="content-section">
+            <h2>Ücretsiz Dizi İzle: Kayıt Yok, Sorun Yok</h2>
+            <p>PwoliMovies'te herhangi bir kayıt veya sorun olmadan <b>ücretsiz dizi izle</b>. Herhangi bir kayıt veya
+                hesap oluşturmadan doğrudan en sevdiğiniz programlara dalın. <b>Ücretsiz dizi</b> için nihai
+                hedefiniz olan PwoliMovies ile sorunsuz yayının ve kesintisiz eğlencenin keyfini çıkarın.</p>
+        </section>
+        <section class="content-section">
+            <h2>Kayıt Olmadan Ücretsiz Diziler: Gizlilik ve Kolaylık</h2>
+            <p>PwoliMovies gizliliğinize ve rahatlığınıza öncelik verir. Kayıt olmadan <b>ücretsiz dizi izle</b> ve
+                anonim olarak gezinmenin keyfini çıkar. Kişisel bilgilerinizi vermenize gerek kalmadan kapsamlı dizi
+                kütüphanemizi keşfedin. Yalnızca PwoliMovies'te kayıt olmadan ücretsiz dizilerin özgürlüğünü ve
+                basitliğini yaşayın.</p>
+        </section>
+        <section class="content-section">
+            <h2>En İyi Ücretsiz Film Siteleri: PwoliMovies Öncülük Ediyor</h2>
+            <p>Mevcut en iyi ücretsiz film siteleri arasında PwoliMovies, kaliteli içeriğe, reklamsız yayına ve
+                kullanıcı dostu arayüze olan bağlılığıyla öne çıkıyor. <b>Ücretsiz film</b> için önde gelen
+                hedefiniz olan PwoliMovies ile üstün bir yayın deneyimi yaşayın.</p>
+        </section>
+        <section class="content-section">
+            <h2>Torrent Filmleri: Hızlı ve Verimli Yayın</h2>
+            <p>PwoliMovies, en sevdiğiniz filmlerin hızlı ve verimli bir şekilde yayınlanmasını sağlamak için torrent
+                teknolojisinden yararlanır. P2P paylaşımının gücü sayesinde sorunsuz oynatma ve minimum arabelleğe alma
+                deneyimi yaşayın. Yalnızca PwoliMovies'te ayrı bir torrent istemcisine ihtiyaç duymadan torrent
+                filmlerinin keyfini çıkarın.</p>
+        </section>
+        <section class="content-section">
+            <h2>Magnet Link Filmleri: Esneklikle Yayınlayın</h2>
+            <p>PwoliMovies'te magnet linkleri kullanarak esneklikle film yayınlayın. Tercih ettiğiniz torrent
+                istemcisini seçin veya entegre oynatıcımızla doğrudan tarayıcınızda yayınlayın. PwoliMovies'teki magnet
+                link filmleriyle eğlencenize nasıl erişeceğinizi seçme özgürlüğünün tadını çıkarın.</p>
+        </section>
+        <section class="content-section">
+            <h2>Torrent Oynatıcı: Sorunsuz Oynatma için Sorunsuz Entegrasyon</h2>
+            <p>PwoliMovies, torrent oynatıcılarla sorunsuz entegrasyon sunarak seçtiğiniz filmlerin ve dizilerin
+                sorunsuz ve kesintisiz oynatılmasını sağlar. Tercih ettiğiniz torrent istemcisini kullanın veya entegre
+                oynatıcımızla doğrudan tarayıcınızda yayınlayın. PwoliMovies'in torrent oynatıcı desteğiyle sorunsuz
+                yayının keyfini çıkarın.</p>
+        </section>
+        <section class="content-section">
+            <h2>Magnet Link Oynatıcı: Doğrudan Tarayıcınızda Yayınlayın</h2>
+            <p>PwoliMovies'in entegre magnet link oynatıcısıyla doğrudan tarayıcınızda magnet link içeriği yayınlayın.
+                Ayrı bir torrent istemcisine ihtiyaç duymadan sorunsuz yayının keyfini çıkarın. PwoliMovies'te magnet
+                link oynatıcı desteğinin rahatlığını ve basitliğini yaşayın.</p>
+        </section>
+        <section class="content-section">
+            <h2>Reklamsız Filmler: Kesintisiz Eğlencenin En İyisi</h2>
+            <p>PwoliMovies ile reklamsız filmlerin ve kesintisiz eğlencenin en iyisinin tadını çıkarın. İzleme
+                deneyiminizi bozan can sıkıcı pop-up'lara ve banner'lara elveda deyin. Yalnızca PwoliMovies'te
+                dikkatiniz dağılmadan en sevdiğiniz filmlere dalın.</p>
+        </section>
+        <section class="content-section">
+            <h2>Ücretsiz Film ve Diziler: Nihai Eğlence Hedefi</h2>
+            <p>PwoliMovies, <b>ücretsiz film</b> ve <b>ücretsiz dizi</b> için nihai eğlence hedefidir. Geniş içerik
+                kütüphanemiz, reklamsız yayınımız ve kullanıcı dostu arayüzümüzle film ve dizi meraklıları için üstün
+                bir izleme deneyimi sunuyoruz. PwoliMovies ile bir sonraki favori filminizi veya dizinizi keşfedin.</p>
+        </section>
+        <section class="content-section">
+            <h2>PwoliMovies: Ücretsiz Çevrimiçi Yayın Kaynağınız</h2>
+            <p>PwoliMovies, film ve dizilerin <b>ücretsiz çevrimiçi yayını</b> için güvenilir kaynağınızdır. Yüksek
+                kaliteli içerik, sorunsuz bir izleme deneyimi ve esnek yayın seçenekleri sunma konusundaki
+                kararlılığımız, PwoliMovies'i ücretsiz eğlence için en iyi seçim haline getiriyor.</p>
+        </section>
+        <section class="content-section">
+            <h2>Ücretsiz Film ve Dizi İzle: PwoliMovies Bunu Mümkün Kılıyor</h2>
+            <p>PwoliMovies sayesinde <b>ücretsiz film</b> ve <b>ücretsiz dizi</b> izlemek kolay ve rahat. Platformumuz,
+                tamamı ücretsiz olan geniş bir eğlence kütüphanesine sorunsuz erişim sağlar. PwoliMovies ile çevrimiçi
+                yayının geleceğini deneyimleyin.</p>
+        </section>
+
+        <div id="movie-popup" class="popup">
+            <span class="close-button" id="close-popup">×</span>
+            <div class="popup-content" id="popup-content"></div>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <p>© 2024 Pwolimovies. Tüm Hakları Saklıdır. Ücretsiz Film ve Dizi İzle. <a
+                href="mailto:pwolimovies@gmail.com">Bize Ulaşın</a> | <a
+                href="https://www.instagram.com/pwolimovies/" target="_blank">Bizi Instagram'da Takip Edin</a></p>
+    </footer>
+
+    <script src="/js/script.js" defer></script>
+</body>
+
+</html>
