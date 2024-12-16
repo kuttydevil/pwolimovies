@@ -220,26 +220,29 @@ async function getPopularTVSeries(page = 1, append = false) {
  */
 function createMovieCard(media) {
     const movieCardLink = document.createElement('a');
-    
-    // Get the current path of the page and construct the URL
     let basePath = window.location.pathname;
-    
-    // If the page is in a language subdirectory, adjust the base path
+
     if (basePath.startsWith('/multi/')) {
         basePath = basePath.substring(0, basePath.lastIndexOf('/multi/') + 1);
     } else {
-        basePath = '/'; // Root path for English and directly accessed pages
+        basePath = '/';
     }
 
     const movieDetailsUrl = `${basePath}movie-details.html?id=${media.id}&title=${encodeURIComponent(media.title || media.name)}&type=${media.title ? 'movie' : 'tv'}`;
     
     movieCardLink.href = movieDetailsUrl;
     movieCardLink.classList.add('movie-card');
+
+    // Construct the image URL, handling null poster_path
+    const posterUrl = media.poster_path 
+        ? `https://image.tmdb.org/t/p/w300${media.poster_path}`
+        : '/img/404.jpg'; // Use your 404 image as the default
+
     movieCardLink.innerHTML = `
         <div class="placeholder">
             <div class="spinner"></div>
         </div>
-        <img src="https://image.tmdb.org/t/p/w300${media.poster_path}" alt="${media.title || media.name}" onerror="this.src='/img/404.jpg';" loading="lazy" data-src="https://image.tmdb.org/t/p/w300${media.poster_path}">
+        <img src="${posterUrl}" alt="${media.title || media.name}" loading="lazy">
         <h3>${media.title || media.name}</h3>
     `;
 
@@ -251,15 +254,7 @@ function createMovieCard(media) {
         placeholder.classList.add('loaded');
     };
 
-    img.onerror = () => {
-        img.classList.add('loaded');
-        placeholder.classList.add('loaded');
-    };
-
-    // Lazy load images
-    if (img.dataset.src) {
-        img.src = img.dataset.src;
-    }
+    // No need for onerror, as we set a valid default src
 
     return movieCardLink;
 }
