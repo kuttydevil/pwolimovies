@@ -228,7 +228,7 @@ function createMovieCard(media) {
         .replace(/^-+|-+$/g, '');   // Remove leading/trailing hyphens
 
     // Construct the URL for the movie details page
-    const movieDetailsUrl = `watch-free-movie-${titleSlug}?id=${media.id}&type=${media.title ? 'movie' : 'tv'}`;
+    const movieDetailsUrl = `movie-details.html?id=${media.id}&type=${media.title ? 'movie' : 'tv'}&title=${encodeURIComponent(media.title || media.name)}`;
 
     movieCardLink.href = movieDetailsUrl;
     movieCardLink.classList.add('movie-card');
@@ -278,7 +278,7 @@ async function searchMovies() {
 
     // More SEO-friendly search URL structure
     const processedQuery = query.replace(/\s+/g, "-"); // Replace spaces with hyphens
-    const newURL = `search-free-${searchType}-${processedQuery}`; // Example structure
+    const newURL = `?search=${encodeURIComponent(processedQuery)}&type=${searchType}`;
     history.pushState({}, "", newURL); // Update URL
 
     const searchUrl = `${apiLocation}/search/${searchType}?api_key=${apiKey}&query=${encodeURIComponent(query)}`;
@@ -381,7 +381,7 @@ async function searchMovies() {
                 const newSearchType = document.querySelector('input[name="search_type"]:checked').value;
                 const currentQuery = searchInput.value.trim().replace(/\s+/g, "-"); // Current query with hyphens
                 const newURL = currentQuery
-                    ? `search-free-${newSearchType}-${processedQuery}`
+                    ? `?search=${encodeURIComponent(currentQuery)}&type=${newSearchType}`
                     : `?type=${newSearchType}`; // Handle both query and non-query cases
                 history.pushState({}, "", newURL);  // Update the URL in the address bar
 
