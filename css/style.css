@@ -1,8 +1,8 @@
 /* ==========================================================================
-   General Styles
+   Global Styles
    ========================================================================== */
 :root {
-    /* Define your main color scheme using CSS variables */
+    /* Color Scheme */
     --background-color: #0a192f;       /* Dark background */
     --text-color: #ccd6f6;           /* Light text color */
     --primary-color: #d3ff00;       /* Neon Yellow - Matching your logo */
@@ -11,6 +11,27 @@
     --shadow-color: rgba(0, 0, 0, 0.1);  /* Subtle shadow */
     --hover-color: #2a4174;          /* Hover background color */
     --font-family: 'Roboto', sans-serif;  /* Default Font Family */
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+
+    /* Border Radius */
+    --radius-sm: 5px;
+    --radius-md: 8px;
+    --radius-lg: 10px;
+
+    /*Transition*/
+    --transition-fast: 0.2s ease-in-out;
+    --transition-normal: 0.3s ease-in-out;
+    --transition-slow: 0.4s ease-in-out;
+}
+
+html{
+    scroll-behavior: smooth; /*Smooth scroll*/
 }
 
 body {
@@ -24,20 +45,23 @@ body {
     overflow-x: hidden;
     position: relative;
     line-height: 1.6;
-    -webkit-font-smoothing: antialiased; /* Font smoothing */
-    -moz-osx-font-smoothing: grayscale;   /* Font smoothing */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color var(--transition-normal), color var(--transition-normal);
 }
+
 
 h1, h2, h3 {
     font-weight: 600;
     color: #fff;
-    margin-bottom: 1rem;
+    margin-bottom: var(--spacing-md);
+    line-height: 1.3;
 }
 
 a {
     text-decoration: none;
     color: var(--primary-color);
-    transition: color 0.3s ease, text-decoration 0.3s ease; /* Transition for link hover */
+    transition: color var(--transition-normal), text-decoration var(--transition-normal);
 }
 
 a:hover,
@@ -46,13 +70,18 @@ a:focus {
     color: #c0f202; /* Slightly darker neon yellow on hover */
 }
 
+ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
 /* ==========================================================================
    Header Styles
    ========================================================================== */
 
 header {
     background-color: var(--secondary-background);
-    padding: 1rem 2rem;
+    padding: var(--spacing-md) var(--spacing-xl);
     position: fixed;
     top: 0;
     left: 0;
@@ -61,7 +90,8 @@ header {
     box-shadow: 0 2px 4px var(--shadow-color);
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Space content in the header */
+    justify-content: space-between;
+    transition: background-color var(--transition-normal);
 }
 
 .header-content {
@@ -81,11 +111,11 @@ header {
 .search-container {
     background-color: var(--card-background);
     border-radius: 30px;
-    padding: 0.5rem 1rem;
+    padding: var(--spacing-xs) var(--spacing-md);
     display: flex;
     align-items: center;
-    transition: background-color 0.3s ease;
-    margin-left: 1.5rem;
+    transition: background-color var(--transition-normal);
+    margin-left: var(--spacing-lg);
     width: auto;
     flex-grow: 1;
     order: 2;
@@ -102,7 +132,7 @@ header {
     color: var(--text-color);
     flex-grow: 1;
     font-size: 1rem;
-    padding: 0.5rem 0.75rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
 }
 
 #search-input:focus {
@@ -113,9 +143,9 @@ header {
     background-color: transparent;
     border: none;
     color: var(--primary-color);
-    padding: 0.5rem 1rem;
+    padding: var(--spacing-xs) var(--spacing-md);
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: color var(--transition-normal);
     font-size: 1rem;
 }
 
@@ -129,39 +159,55 @@ header {
     display: flex;
     align-items: center;
     white-space: nowrap;
-    margin: 0.5rem 0;
+    margin: var(--spacing-sm) 0;
     font-size: 0.9rem;
     justify-content: flex-start;
     flex-wrap: wrap;
-    /* position: absolute; */ /* Remove absolute positioning */
     top: 100%;
     left: 0;
     right: 0;
     background-color: var(--card-background);
-    padding: 0.5rem;
-    border-radius: 0 0 8px 8px;
-    /* display: none; */ /* Initially hidden */
+    padding: var(--spacing-xs);
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
     z-index: 2;
+    box-shadow: 0 2px 4px var(--shadow-color); /*Shadow to match the header*/
+    opacity: 0; /* Initially Hidden*/
+    transform: translateY(-10px); /* Start above its normal position*/
+    transition: opacity var(--transition-fast), transform var(--transition-fast);
+    pointer-events: none; /* Disable interactions */
 }
+
 
 /* Initially hide the filter container */
 .filter-container.hidden {
     display: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none; /* Disable interactions */
+}
+
+/* Show filter container on focus */
+.search-container:focus-within .filter-container {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto; /* Enable interactions */
 }
 
 /* Style for the labels (for better click area) */
 .filter-container label {
-    margin-right: 10px;
+    margin-right: var(--spacing-sm);
     color: #8892b0;
     cursor: pointer; /* Make the labels clickable */
     display: flex; /* Align label text and radio button */
     align-items: center; /* Center vertically */
-    padding: 5px 10px; /* Add some padding */
+    padding: var(--spacing-xs) var(--spacing-md); /* Add some padding */
     border-radius: 20px; /* Rounded corners for the label */
+    transition: background-color var(--transition-fast);
 }
 
 .filter-container label input[type="radio"] {
-    margin-right: 0.5rem;
+    margin-right: var(--spacing-xs);
     appearance: none; /* Remove default radio button style */
     -webkit-appearance: none;
     width: 16px;
@@ -170,7 +216,7 @@ header {
     border-radius: 50%; /* Make it round */
     outline: none; /* Remove focus outline */
     cursor: pointer;
-    transition: background-color 0.3s ease; /* Add transition */
+    transition: background-color var(--transition-fast); /* Add transition */
 }
 
 /* Style for the checked radio button */
@@ -206,35 +252,36 @@ header {
 
 main {
     flex: 1; /* Allow main to expand and push footer down */
-    padding: 2rem 1rem 4rem;
-    margin-top: 60px;
+    padding: calc(var(--spacing-xl) + 40px) var(--spacing-md) var(--spacing-xl);
+    margin-top: 60px; /*Adjust the header height*/
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
 }
 
+
 .section-title {
     color: #fff;
     font-size: 1.75rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-lg);
     font-weight: 600;
     border-bottom: 2px solid var(--primary-color);
-    padding-bottom: 0.5rem;
+    padding-bottom: var(--spacing-xs);
     display: inline-block;
 }
 
 /* Movie Card Styles */
 .movie-card {
     background-color: var(--card-background);
-    border-radius: 10px;
+    border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow: 0 4px 6px var(--shadow-color);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
     cursor: pointer;
     display: flex; /* make movie-card flex box */
     flex-direction: column; /* stack children vertically */
     text-align: center;
-    position: relative; /* For absolute positioning of placeholder */
+    position: relative;
 }
 
 .movie-card:hover {
@@ -248,15 +295,15 @@ main {
     aspect-ratio: 2 / 3; /* Example aspect ratio */
     object-fit: cover;
     display: block;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    transition: opacity 0.4s ease; /* Transition for loading placeholder*/
+    border-top-left-radius: var(--radius-lg);
+    border-top-right-radius: var(--radius-lg);
+    transition: opacity var(--transition-slow); /* Transition for loading placeholder*/
     opacity: 0; /* Initially hide the image */
     loading: lazy; /* Native lazy loading */
 }
 
 .movie-card h3 {
-    padding: 1rem;
+    padding: var(--spacing-md);
     margin: 0;
     font-size: 1rem;
     color: var(--text-color);
@@ -276,14 +323,14 @@ main {
     width: 100%;
     height: 100%;
     background-color: var(--hover-color);
-    border-radius: 10px;
+    border-radius: var(--radius-lg);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .movie-card .placeholder .spinner {
-  border-width: 3px;
+    border-width: 3px;
 }
 
 .movie-card .placeholder.loaded{
@@ -297,29 +344,30 @@ main {
 /* Movie Grid Styles */
 .movie-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Adjusted minmax for smaller screens */
-    gap: 15px;
-    margin-top: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusted minmax for smaller screens */
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
 }
+
 
 /* ==========================================================================
    Movie Details Styles
    ========================================================================== */
 
 #movie-details-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  gap: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-md);
+    gap: var(--spacing-lg);
 }
 
 .media-details-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    padding: 20px;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-md);
     max-width: 90%;
     margin: 0 auto;
 }
@@ -329,26 +377,31 @@ main {
     flex-direction: row;
     width: 100%;
     background-color: var(--card-background);
-    padding: 15px;
-    border-radius: 10px;
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
     box-shadow: 0 4px 6px var(--shadow-color);
     color: var(--text-color);
-    gap: 20px;
-    margin-bottom: 15px;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
     overflow: hidden;
     position: relative;
+    flex-wrap: wrap; /*Allow the card to wrap if needed on smaller screens*/
 }
 
 .poster-container {
   flex: 0 0 35%;
   max-width: 35%;
+  min-width: 200px; /*Added a min width to avoid too small posters*/
 }
 
 .poster-container img {
   width: 100%;
-  border-radius: 10px;
-    display: block;
+  border-radius: var(--radius-lg);
+  display: block;
+  aspect-ratio: 2 / 3;
+    object-fit: cover; /*Ensure the image covers the area*/
 }
+
 
 .media-info {
   flex: 1;
@@ -356,10 +409,10 @@ main {
 }
 
 .media-info h2 {
-  margin-top: 10px;
+  margin-top: var(--spacing-sm);
   font-size: 24px;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: var(--spacing-sm);
 }
 
 .media-info p {
@@ -374,11 +427,11 @@ main {
   align-items: center;
   width: 100%;
   background-color: var(--card-background);
-  padding: 15px;
-  border-radius: 10px;
+  padding: var(--spacing-md);
+  border-radius: var(--radius-lg);
   box-shadow: 0 4px 6px var(--shadow-color);
   color: var(--text-color);
-  gap: 15px;
+  gap: var(--spacing-md);
   flex-wrap: wrap;
 }
 
@@ -389,6 +442,7 @@ main {
 
 .torrent-actions {
   margin-left: auto;
+  white-space: nowrap;
 }
 
 /* Back Button Styles */
@@ -403,11 +457,11 @@ main {
   background-color: transparent;
   border: 2px solid var(--primary-color);
   color: var(--primary-color);
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--radius-md);
   cursor: pointer;
   font-weight: 600;
-  transition: background-color 0.2s, color 0.2s;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
   z-index: 100;
 }
 
@@ -425,7 +479,7 @@ footer {
   background-color: #000;
   color: #8892b0;
   text-align: center;
-  padding: 1rem;
+  padding: var(--spacing-md);
   margin-top: auto;
   font-size: 0.9rem;
 }
@@ -470,10 +524,10 @@ footer {
     color: var(--primary-color);
     padding: 0.75rem 1rem;
     border: 2px solid var(--primary-color);
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     cursor: pointer;
-    margin-top: 1.5rem;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-top: var(--spacing-xl);
+    transition: background-color var(--transition-normal), color var(--transition-normal);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -494,18 +548,18 @@ footer {
    ========================================================================== */
 .content-section {
     background-color: var(--secondary-background);
-    border-radius: 10px;
-    padding: 2rem;
-    margin-bottom: 1.5rem;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-lg);
     box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 .content-section h2 {
     font-size: 1.5rem;
     font-weight: 600;
-    margin-bottom: 1rem;
+    margin-bottom: var(--spacing-md);
     border-bottom: 2px solid var(--primary-color);
-    padding-bottom: 0.5rem;
+    padding-bottom: var(--spacing-xs);
     display: inline-block;
     color: #fff;
 }
@@ -527,8 +581,8 @@ footer {
     cursor: pointer;
     padding: 0.75rem 1rem;
     background-color: var(--card-background);
-    border-radius: 8px;
-    transition: background-color 0.2s;
+    border-radius: var(--radius-md);
+    transition: background-color var(--transition-fast);
     outline: none; /* Removes focus outline */
     list-style-type: none;
     color: #fff;
@@ -560,7 +614,7 @@ footer {
 .faq-section details > p {
     padding: 0.75rem 1rem;
     background-color: #162544;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     font-size: 1rem;
     line-height: 1.6;
 }
@@ -570,7 +624,7 @@ footer {
 
 @media (max-width: 768px) {
     header {
-        padding: 1rem;
+        padding: var(--spacing-sm);
     }
     .header-content {
         flex-direction: column;
@@ -585,15 +639,15 @@ footer {
         width: 100%;
     }
     .filter-container{
-       left: 0;
+        left: 0;
         right: 0;
         width: 100%;
     }
     .movie-grid {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Adjusted minmax for smaller screens */
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusted minmax for smaller screens */
     }
     main {
-        padding: 1rem 0.5rem 4rem;
+        padding: calc(var(--spacing-md) + 60px) var(--spacing-sm) var(--spacing-xl);
     }
     .section-title {
         font-size: 1.5rem;
@@ -603,15 +657,28 @@ footer {
         align-items: flex-start;
     }
     .poster-container {
-       flex: 0 0 auto;
+        flex: 0 0 auto;
         max-width: 100%;
         margin-bottom: 1rem;
+        min-width: 0;
+    }
+
+    .torrent-actions {
+        margin-left: 0;
+        width: 100%;
+        justify-content: flex-start;
+        margin-top: var(--spacing-sm);
+    }
+
+    #back-button {
+       top: 10px;
+       right: 10px;
     }
 }
 
 @media (max-width: 480px) {
     .movie-grid {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Adjusted minmax for smaller screens */
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Adjusted minmax for smaller screens */
     }
     .section-title {
         font-size: 1.3rem;
@@ -626,7 +693,7 @@ footer {
 
 @media (max-width: 320px) {
     .movie-grid {
-        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Adjusted minmax for smaller screens */
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Adjusted minmax for smaller screens */
     }
 }
 
@@ -636,18 +703,18 @@ footer {
 .torrent-card-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--spacing-sm);
 }
 
 .torrent-info h3 {
-  margin-top: 10px;
+  margin-top: var(--spacing-sm);
   font-size: 1rem;
   font-weight: 500;
 }
 
 .torrent-info p {
   margin: 5px 0;
-    font-size: 0.9rem;
+  font-size: 0.9rem;
 }
 
 .torrent-actions {
@@ -659,12 +726,12 @@ footer {
 .play-torrent {
   padding: 8px 10px;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   cursor: pointer;
   background-color: var(--card-background);
     color: var(--text-color);
   font-size: 0.9rem;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color var(--transition-normal), color var(--transition-normal);
 }
 
 .play-torrent {
