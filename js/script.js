@@ -238,12 +238,16 @@ function createMovieCard(media) {
         ? `https://image.tmdb.org/t/p/w300${media.poster_path}`
         : '/img/404.jpg'; // Use your 404 image as the default
 
+    // SEO: Use more descriptive alt text, including the year
+    const releaseYear = (media.release_date || media.first_air_date || "").substring(0, 4); // Get the year
+    const altText = `Watch ${media.title || media.name} (${releaseYear}) Free Online - PwoliMovies`;
+
     movieCardLink.innerHTML = `
         <div class="placeholder">
             <div class="spinner"></div>
         </div>
-        <img src="${posterUrl}" alt="Watch ${media.title || media.name} Free Online - PwoliMovies" loading="lazy">
-        <h3>${media.title || media.name}</h3>
+        <img src="${posterUrl}" alt="${altText}" loading="lazy" itemprop="image">
+        <h3 itemprop="name">${media.title || media.name}</h3>
     `;
 
     const img = movieCardLink.querySelector('img');
@@ -262,6 +266,7 @@ function createMovieCard(media) {
 /**
  * Searches for movies or TV shows based on user input.
  * Updates the UI with search results and handles API errors.
+ * Also dynamically updates SEO metadata.
  */
 async function searchMovies() {
     const query = document.getElementById('search-input').value.trim();
@@ -300,11 +305,37 @@ async function searchMovies() {
         }
         const data = await response.json();
         searchResultsContainer.innerHTML = '';
+
+        // --- DYNAMIC SEO UPDATES (Search Results) ---
         if (data.results && data.results.length > 0) {
             searchResultsContainer.style.display = 'grid';
             popularMoviesSection.style.display = 'none';
             popularTVShowsSection.style.display = 'none';
             malayalamMoviesSection.style.display = 'none';
+
+            // Update the title tag
+            const newTitle = `Search Results for "${query}" - Watch Free on PwoliMovies`;
+            document.title = newTitle;
+
+            // Update the meta description
+            const newMetaDescription = `Search results for "${query}" on PwoliMovies. Watch free movies and TV shows online. No sign up, no ads.`;
+            document.querySelector('meta[name="description"]').setAttribute("content", newMetaDescription);
+
+            // Update Open Graph title
+            document.querySelector('meta[property="og:title"]').setAttribute("content", newTitle);
+
+            // Update Open Graph description
+            document.querySelector('meta[property="og:description"]').setAttribute("content", newMetaDescription);
+
+            // Update Open Graph URL (be careful with canonicalization)
+            document.querySelector('meta[property="og:url"]').setAttribute("content", window.location.href);
+
+            // Update Twitter Card title 
+            document.querySelector('meta[name="twitter:title"]').setAttribute("content", newTitle);
+
+            // Update Twitter Card description
+            document.querySelector('meta[name="twitter:description"]').setAttribute("content", newMetaDescription);
+
             resultsTitle.textContent = `Search Results for "${decodeURIComponent(query)}" - Watch Free on PwoliMovies`; // Update title with keywords
             if (searchType === 'movie') {
                 data.results.forEach(movie => {
@@ -327,6 +358,14 @@ async function searchMovies() {
             popularMoviesSection.style.display = 'block';
             popularTVShowsSection.style.display = 'block';
             malayalamMoviesSection.style.display = 'block';
+
+            // Update title tag (No Results)
+            document.title = `No Results for "${query}" - PwoliMovies`;
+
+            // Update meta description (No Results)
+            const noResultsMetaDescription = `No search results found for "${query}" on PwoliMovies. Try a different search or explore our popular movies and TV shows.`;
+            document.querySelector('meta[name="description"]').setAttribute("content", noResultsMetaDescription);
+
             resultsTitle.textContent = `No results found for "${decodeURIComponent(query)}" - Try another search on PwoliMovies`; // Update title
         }
 
@@ -417,6 +456,12 @@ document.getElementById('load-more-popular-movies-link').addEventListener('click
 
         getPopularMovies(nextPage, true).finally(() => hideLoading(movieListSpinner));
         history.pushState({}, "", `?moviePage=${nextPage}`); // Update URL
+
+        // --- DYNAMIC SEO UPDATES ("Load More" - Popular Movies) ---
+        document.title = `Popular Free Movies Online - Page ${nextPage} - PwoliMovies`;
+        const newMetaDescription = `Page ${nextPage} of popular free movies online. Watch now on PwoliMovies - no sign up, no ads.`;
+        document.querySelector('meta[name="description"]').setAttribute("content", newMetaDescription);
+
         console.log("Load more movies clicked. Current page:", nextPage);
     }
 });
@@ -432,6 +477,12 @@ document.getElementById('load-more-malayalam-movies-link').addEventListener('cli
 
         getMalayalamMovies(nextPage, true).finally(() => hideLoading(malayalamMoviesSpinner));
         history.pushState({}, "", `?malayalamPage=${nextPage}`);
+
+        // --- DYNAMIC SEO UPDATES ("Load More" - Malayalam Movies) ---
+        document.title = `Latest Free Malayalam Movies Online - Page ${nextPage} - PwoliMovies`;
+        const newMetaDescription = `Page ${nextPage} of the latest free Malayalam movies online. Watch now on PwoliMovies.`;
+        document.querySelector('meta[name="description"]').setAttribute("content", newMetaDescription);
+
         console.log("Load more Malayalam movies clicked. Current page:", nextPage);
     }
 });
@@ -447,6 +498,12 @@ document.getElementById('load-more-popular-tv-shows-link').addEventListener('cli
 
         getPopularTVSeries(nextPage, true).finally(() => hideLoading(tvShowsSpinner));
         history.pushState({}, "", `?tvPage=${nextPage}`);
+
+        // --- DYNAMIC SEO UPDATES ("Load More" - Popular TV Shows) ---
+        document.title = `Popular Free TV Shows Online - Page ${nextPage} - PwoliMovies`;
+        const newMetaDescription = `Page ${nextPage} of popular free TV shows online. Stream now on PwoliMovies - no sign up required.`;
+        document.querySelector('meta[name="description"]').setAttribute("content", newMetaDescription);
+
         console.log("Load more TV shows clicked. Current page:", nextPage);
     }
 });
