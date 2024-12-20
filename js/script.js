@@ -227,8 +227,8 @@ function createMovieCard(media) {
         .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric characters with hyphens
         .replace(/^-+|-+$/g, '');   // Remove leading/trailing hyphens
 
-    // Construct the URL for the movie details page
-    const movieDetailsUrl = `movie-details.html?id=${media.id}&type=${media.title ? 'movie' : 'tv'}&title=${encodeURIComponent(media.title || media.name)}`;
+    // Construct the new URL for the movie details page
+    const movieDetailsUrl = `movie-details.html?${titleSlug}-${media.title ? 'movie' : 'tv'}-id=${media.id}`;
 
     movieCardLink.href = movieDetailsUrl;
     movieCardLink.classList.add('movie-card');
@@ -330,7 +330,7 @@ async function searchMovies() {
             // Update Open Graph URL (be careful with canonicalization)
             document.querySelector('meta[property="og:url"]').setAttribute("content", window.location.href);
 
-            // Update Twitter Card title 
+            // Update Twitter Card title
             document.querySelector('meta[name="twitter:title"]').setAttribute("content", newTitle);
 
             // Update Twitter Card description
@@ -370,7 +370,7 @@ async function searchMovies() {
         }
 
         handleLoadMoreVisibilityAfterSearch(searchType, data.total_pages, moviesLoadMore, tvShowsLoadMore);
-        
+
         // *** KEY CHANGE: Update URL on toggle change ***
         const searchInput = document.getElementById('search-input'); // Get search input
         const radioButtons = document.querySelectorAll('input[name="search_type"]'); // Get all radio buttons
@@ -533,7 +533,7 @@ function scrollToTop() {
  */
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const query = urlParams.get('query');
+    const query = urlParams.get('search');
     const moviePage = urlParams.get('moviePage');
     const malayalamPage = urlParams.get('malayalamPage');
     const tvPage = urlParams.get('tvPage');
@@ -546,12 +546,12 @@ document.addEventListener('DOMContentLoaded', () => {
      // Get the filter container
      const filterContainer = document.querySelector('.filter-container');
      const searchInput = document.getElementById('search-input');
- 
+
      // Toggle the filter container when the search input is focused
      searchInput.addEventListener('focus', () => {
          filterContainer.classList.remove('hidden');
      });
- 
+
      // Hide the filter container when the search input loses focus
      searchInput.addEventListener('blur', () => {
          filterContainer.classList.add('hidden');
@@ -559,12 +559,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateTitle() {
         const urlParams = new URLSearchParams(window.location.search);
-        const title = urlParams.get('title');
-        const type = urlParams.get('type');
-
-        if (title && type) {
-            const decodedTitle = decodeURIComponent(title);
-            titleElement.textContent = `Watch ${decodedTitle} Free Online - PwoliMovies`;
+        const combinedParam = urlParams.keys().next().value;
+        
+        if (combinedParam) {
+            const regex = /^(.*)-(movie|tv)-id=(\d+)$/;
+            const match = combinedParam.match(regex);
+            if(match){
+                const titleSlug = match[1];
+                const decodedTitle = titleSlug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '); //Decapitalize first letter and join all words to be used as a title
+                titleElement.textContent = `Watch ${decodedTitle} Free Online - PwoliMovies`;
+            }
         } else {
             titleElement.textContent = `Watch Free Movies Online & Stream TV Shows - PwoliMovies`;
         }
