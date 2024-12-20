@@ -534,39 +534,35 @@ function scrollToTop() {
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const query = urlParams.get('search');
-    const moviePage = urlParams.get('moviePage');
-    const malayalamPage = urlParams.get('malayalamPage');
-    const tvPage = urlParams.get('tvPage');
-    const titleElement = document.getElementById('resultsTitle'); // Update the selector to match your <h1 class="section-title" id="resultsTitle">
+    const moviePage = parseInt(urlParams.get('moviePage') || 1); // Default to 1 if no moviePage
+    const malayalamPage = parseInt(urlParams.get('malayalamPage') || 1); // Default to 1 if no malayalamPage
+    const tvPage = parseInt(urlParams.get('tvPage') || 1);  // Default to 1 if no tvPage
+    const titleElement = document.getElementById('resultsTitle');
     const searchResultsContainer = document.getElementById('search-results');
     const popularMoviesSection = document.getElementById('popular-movies-section');
     const popularTVShowsSection = document.getElementById('popular-tv-shows-section');
     const malayalamMoviesSection = document.getElementById('malayalam-movies-section');
+    const filterContainer = document.querySelector('.filter-container');
+    const searchInput = document.getElementById('search-input');
 
-     // Get the filter container
-     const filterContainer = document.querySelector('.filter-container');
-     const searchInput = document.getElementById('search-input');
+    searchInput.addEventListener('focus', () => {
+        filterContainer.classList.remove('hidden');
+    });
 
-     // Toggle the filter container when the search input is focused
-     searchInput.addEventListener('focus', () => {
-         filterContainer.classList.remove('hidden');
-     });
-
-     // Hide the filter container when the search input loses focus
-     searchInput.addEventListener('blur', () => {
-         filterContainer.classList.add('hidden');
-     });
+    searchInput.addEventListener('blur', () => {
+        filterContainer.classList.add('hidden');
+    });
 
     function updateTitle() {
         const urlParams = new URLSearchParams(window.location.search);
         const combinedParam = urlParams.keys().next().value;
-        
+
         if (combinedParam) {
             const regex = /^(.*)-(movie|tv)-id=(\d+)$/;
             const match = combinedParam.match(regex);
-            if(match){
+            if (match) {
                 const titleSlug = match[1];
-                const decodedTitle = titleSlug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '); //Decapitalize first letter and join all words to be used as a title
+                const decodedTitle = titleSlug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
                 titleElement.textContent = `Watch ${decodedTitle} Free Online - PwoliMovies`;
             }
         } else {
@@ -576,13 +572,54 @@ document.addEventListener('DOMContentLoaded', () => {
     updateTitle();
 
     if (query) {
-        //Remove any spaces from query before setting input value
         const processedQuery = decodeURIComponent(query).replace(/\s+/g, "-");
         document.getElementById('search-input').value = processedQuery;
+        searchMovies();
+        return; // If we have search we don't process further
+    }
+    // Check if there is query or moviePage, malayalamPage, tvPage
+    if (moviePage > 1 || malayalamPage > 1 || tvPage > 1 ) {
 
-        searchMovies(); // Trigger search with the query from the URL
+         searchResultsContainer.style.display = 'none';
+        popularMoviesSection.style.display = 'block';
+        popularTVShowsSection.style.display = 'block';
+        malayalamMoviesSection.style.display = 'block';
+
+        // Load content for specific page parameters
+        Promise.all([
+          moviePage > 1 ? getPopularMovies(moviePage) : getPopularMovies(1),
+          malayalamPage > 1 ? getMalayalamMovies(malayalamPage) : getMalayalamMovies(1),
+          tvPage > 1 ? getPopularTVSeries(tvPage): getPopularTVSeries(1)
+        ]).then(() => {
+          currentPageMovies = moviePage;
+          currentPageMalayalam = malayalamPage;
+          currentPageTVShows = tvPage;
+          dispatchAPILoadedEvent();
+           for (let i = 2; i <= initialPagesToLoad; i++) {
+             if(moviePage<=i && malayalamPage<=i && tvPage<=i){
+                Promise.all([
+                    getPopularMovies(i,true),
+                    getMalayalamMovies(i,true),
+                   getPopularTVSeries(i,true)
+               ]).then(() => {
+
+                    currentPageMovies = i;
+                    currentPageMalayalam = i;
+                    currentPageTVShows = i;
+
+               });
+             }
+           }
+           isInitialLoad = false;
+            scrollToTop(); // Scroll to top after initial load
+        }).finally(() => {
+            if (popularMoviesSection) hideLoading(popularMoviesSection)
+            if (malayalamMoviesSection) hideLoading(malayalamMoviesSection)
+            if (popularTVShowsSection) hideLoading(popularTVShowsSection)
+        });
     } else {
-        // Load default content if no query parameter
+        // Load default content if no query parameter and page parameter
+
         searchResultsContainer.style.display = 'none';
         popularMoviesSection.style.display = 'block';
         popularTVShowsSection.style.display = 'block';
@@ -600,33 +637,31 @@ document.addEventListener('DOMContentLoaded', () => {
         newUrl.searchParams.delete('tvPage');
         history.replaceState({}, '', newUrl.toString());
 
-        Promise.all([
-            getPopularMovies(1),
-            getMalayalamMovies(1),
-            getPopularTVSeries(1),
+
+         Promise.all([
+          getPopularMovies(1),
+          getMalayalamMovies(1),
+          getPopularTVSeries(1),
         ]).then(() => {
-            dispatchAPILoadedEvent();
-            // Load initial pages 2 and 3
+          dispatchAPILoadedEvent();
             for (let i = 2; i <= initialPagesToLoad; i++) {
                 Promise.all([
                     getPopularMovies(i, true),
                     getMalayalamMovies(i, true),
                     getPopularTVSeries(i, true)
                 ]).then(() => {
-                    // Update current page after initial load
-                    currentPageMovies = i;
-                    currentPageMalayalam = i;
-                    currentPageTVShows = i;
+                  currentPageMovies = i;
+                  currentPageMalayalam = i;
+                  currentPageTVShows = i;
                 });
-            }
-            isInitialLoad = false;
+              }
+          isInitialLoad = false;
             scrollToTop(); // Scroll to top after initial load
         }).finally(() => {
             if (popularMoviesSection) hideLoading(popularMoviesSection)
             if (malayalamMoviesSection) hideLoading(malayalamMoviesSection)
             if (popularTVShowsSection) hideLoading(popularTVShowsSection)
         });
-
     }
     scrollToTop(); // Scroll to top on initial load
 });
