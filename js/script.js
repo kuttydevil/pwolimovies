@@ -88,8 +88,12 @@ async function getPopularMovies(page = 1, append = false) {
             if (data.page < data.total_pages) {
                 loadMoreLink.style.display = 'block';
                 // Update Load More Link URL
-                const newUrl = new URL(window.location.href);
-                newUrl.searchParams.set('moviePage', page + 1);
+               const newUrl = new URL(window.location.href);
+                newUrl.searchParams.delete('moviePage');
+                newUrl.searchParams.delete('malayalamPage');
+                newUrl.searchParams.delete('tvPage');
+                const slug = `movie-page-${page+1}`;
+                newUrl.searchParams.set(slug, '');
                 loadMoreLink.href = newUrl.toString();
             } else {
                 loadMoreLink.style.display = 'none';
@@ -140,10 +144,14 @@ async function getMalayalamMovies(page = 1, append = false) {
 
             if (data.page < data.total_pages) {
                 loadMoreLink.style.display = 'block';
-                // Update Load More Link URL
-                const newUrl = new URL(window.location.href);
-                newUrl.searchParams.set('malayalamPage', page + 1);
-                loadMoreLink.href = newUrl.toString();
+                 // Update Load More Link URL
+                 const newUrl = new URL(window.location.href);
+                 newUrl.searchParams.delete('moviePage');
+                 newUrl.searchParams.delete('malayalamPage');
+                 newUrl.searchParams.delete('tvPage');
+                 const slug = `malayalam-page-${page+1}`;
+                  newUrl.searchParams.set(slug, '');
+                 loadMoreLink.href = newUrl.toString();
             } else {
                 loadMoreLink.style.display = 'none';
             }
@@ -191,10 +199,14 @@ async function getPopularTVSeries(page = 1, append = false) {
             });
             if (data.page < data.total_pages) {
                 loadMoreLink.style.display = 'block';
-                // Update Load More Link URL
-                const newUrl = new URL(window.location.href);
-                newUrl.searchParams.set('tvPage', page + 1);
-                loadMoreLink.href = newUrl.toString();
+                 // Update Load More Link URL
+                 const newUrl = new URL(window.location.href);
+                 newUrl.searchParams.delete('moviePage');
+                 newUrl.searchParams.delete('malayalamPage');
+                 newUrl.searchParams.delete('tvPage');
+                 const slug = `tv-page-${page+1}`;
+                  newUrl.searchParams.set(slug, '');
+                 loadMoreLink.href = newUrl.toString();
             } else {
                 loadMoreLink.style.display = 'none';
             }
@@ -455,7 +467,13 @@ document.getElementById('load-more-popular-movies-link').addEventListener('click
         currentPageMovies = nextPage; // Update the current page
 
         getPopularMovies(nextPage, true).finally(() => hideLoading(movieListSpinner));
-        history.pushState({}, "", `?moviePage=${nextPage}`); // Update URL
+          const newUrl = new URL(window.location.href);
+                newUrl.searchParams.delete('moviePage');
+                newUrl.searchParams.delete('malayalamPage');
+                newUrl.searchParams.delete('tvPage');
+                 const slug = `movie-page-${nextPage}`;
+                newUrl.searchParams.set(slug, '');
+                history.pushState({}, "", newUrl.toString());
 
         // --- DYNAMIC SEO UPDATES ("Load More" - Popular Movies) ---
         document.title = `Popular Free Movies Online - Page ${nextPage} - PwoliMovies`;
@@ -476,7 +494,13 @@ document.getElementById('load-more-malayalam-movies-link').addEventListener('cli
         currentPageMalayalam = nextPage;
 
         getMalayalamMovies(nextPage, true).finally(() => hideLoading(malayalamMoviesSpinner));
-        history.pushState({}, "", `?malayalamPage=${nextPage}`);
+          const newUrl = new URL(window.location.href);
+                newUrl.searchParams.delete('moviePage');
+                newUrl.searchParams.delete('malayalamPage');
+                newUrl.searchParams.delete('tvPage');
+                const slug = `malayalam-page-${nextPage}`;
+                 newUrl.searchParams.set(slug, '');
+                history.pushState({}, "",  newUrl.toString());
 
         // --- DYNAMIC SEO UPDATES ("Load More" - Malayalam Movies) ---
         document.title = `Latest Free Malayalam Movies Online - Page ${nextPage} - PwoliMovies`;
@@ -497,7 +521,13 @@ document.getElementById('load-more-popular-tv-shows-link').addEventListener('cli
         currentPageTVShows = nextPage;
 
         getPopularTVSeries(nextPage, true).finally(() => hideLoading(tvShowsSpinner));
-        history.pushState({}, "", `?tvPage=${nextPage}`);
+       const newUrl = new URL(window.location.href);
+                newUrl.searchParams.delete('moviePage');
+                newUrl.searchParams.delete('malayalamPage');
+                newUrl.searchParams.delete('tvPage');
+                 const slug = `tv-page-${nextPage}`;
+                  newUrl.searchParams.set(slug, '');
+                  history.pushState({}, "",  newUrl.toString());
 
         // --- DYNAMIC SEO UPDATES ("Load More" - Popular TV Shows) ---
         document.title = `Popular Free TV Shows Online - Page ${nextPage} - PwoliMovies`;
@@ -534,9 +564,24 @@ function scrollToTop() {
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const query = urlParams.get('search');
-    const moviePage = parseInt(urlParams.get('moviePage') || 1); // Default to 1 if no moviePage
-    const malayalamPage = parseInt(urlParams.get('malayalamPage') || 1); // Default to 1 if no malayalamPage
-    const tvPage = parseInt(urlParams.get('tvPage') || 1);  // Default to 1 if no tvPage
+  let moviePage = 1;
+  let malayalamPage = 1;
+  let tvPage = 1;
+    for (const [key, value] of urlParams) {
+    const moviePageMatch = key.match(/^movie-page-(\d+)$/);
+    const malayalamPageMatch = key.match(/^malayalam-page-(\d+)$/);
+    const tvPageMatch = key.match(/^tv-page-(\d+)$/);
+      if (moviePageMatch) {
+        moviePage = parseInt(moviePageMatch[1], 10);
+      }
+      if(malayalamPageMatch){
+        malayalamPage = parseInt(malayalamPageMatch[1], 10);
+      }
+      if(tvPageMatch){
+        tvPage = parseInt(tvPageMatch[1], 10)
+      }
+    }
+
     const titleElement = document.getElementById('resultsTitle');
     const searchResultsContainer = document.getElementById('search-results');
     const popularMoviesSection = document.getElementById('popular-movies-section');
@@ -635,7 +680,14 @@ document.addEventListener('DOMContentLoaded', () => {
         newUrl.searchParams.delete('moviePage');
         newUrl.searchParams.delete('malayalamPage');
         newUrl.searchParams.delete('tvPage');
-        history.replaceState({}, '', newUrl.toString());
+        for (const [key, value] of urlParams) {
+            const moviePageMatch = key.match(/^movie-page-(\d+)$/);
+           const malayalamPageMatch = key.match(/^malayalam-page-(\d+)$/);
+            const tvPageMatch = key.match(/^tv-page-(\d+)$/);
+            if(moviePageMatch || malayalamPageMatch || tvPageMatch)
+             newUrl.searchParams.delete(key)
+        }
+         history.replaceState({}, '', newUrl.toString());
 
 
          Promise.all([
