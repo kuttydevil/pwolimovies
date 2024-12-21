@@ -744,3 +744,9 @@ footer {
         background-color: var(--primary-color);
         color: var(--secondary-background);
     }
+/* ==========================================================================
+   Footer Link Styles
+   ========================================================================== */
+footer p a {
+    color: white;
+}
