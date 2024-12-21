@@ -331,34 +331,31 @@ main {
 .movie-card img {
     width: 100%;
     height: auto;
-    aspect-ratio: 2 / 3;
-    /* Example aspect ratio */
+    aspect-ratio: 2 / 3;  /* Added aspect ratio for CLS fix */
     object-fit: cover;
     display: block;
     border-top-left-radius: var(--radius-lg);
     border-top-right-radius: var(--radius-lg);
-    transition: opacity var(--transition-slow);
-    /* Transition for loading placeholder*/
-    opacity: 0;
-    /* Initially hide the image */
-    loading: lazy;
-    /* Native lazy loading */
+    transition: opacity var(--transition-slow); /* Transition for loading placeholder*/
+    opacity: 0; /* Initially hide the image */
+    loading: lazy; /* Native lazy loading */
 }
 
-.movie-card h3 {
+ .movie-card h3 {
     padding: var(--spacing-md);
-    margin: 0;
+     margin: 0;
     font-size: 1rem;
-    color: var(--text-color);
+     color: var(--text-color);
     font-weight: 500;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    text-align: center;
+     -webkit-box-orient: vertical;
+   text-align: center;
 }
 
+/* Placeholder Styles */
 .movie-card .placeholder {
     position: absolute;
     top: 0;
@@ -583,6 +580,7 @@ footer {
     font-weight: 600;
     text-align: center;
     width: 100%;
+    display: none; /*Initially hide load more button*/
 }
 
 .load-more-button:hover,
