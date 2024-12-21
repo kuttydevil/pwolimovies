@@ -60,14 +60,14 @@ h1, h2, h3 {
 
 a {
     text-decoration: none;
-    color: var(--primary-color);
+    color: #c0f202; /* Darker neon yellow for better contrast */
     transition: color var(--transition-normal), text-decoration var(--transition-normal);
 }
 
 a:hover,
 a:focus {
     text-decoration: underline;
-    color: #c0f202; /* Slightly darker neon yellow on hover */
+    color: #b0e002; /* Slightly darker neon yellow on hover */
 }
 
 ul{
@@ -744,9 +744,3 @@ footer {
         background-color: var(--primary-color);
         color: var(--secondary-background);
     }
-/* ==========================================================================
-   Footer Link Styles
-   ========================================================================== */
-footer p a {
-    color: white;
-}
