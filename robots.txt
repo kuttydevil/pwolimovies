@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://pwolimovies.vercel.app/sitemap.xml
