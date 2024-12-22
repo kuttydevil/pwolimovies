@@ -9,3 +9,4 @@ Sitemap: https://https://pwolimovies.vercel.app/pwolimovies_sitemap.xml
 Sitemap: https://https://pwolimovies.vercel.app/sitemap1.xml
 Sitemap: https://https://pwolimovies.vercel.app/sitemap.xml
 Sitemap: https://https://pwolimovies.vercel.app/sitemap.txt
+Sitemap: https://https://pwolimovies.vercel.app/kutty.xml
