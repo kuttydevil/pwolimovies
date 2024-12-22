@@ -1,0 +1,12 @@
+User-agent: Googlebot
+Disallow: /nogooglebot/
+
+User-agent: *
+Allow: /
+
+Sitemap: https://https://pwolimovies.vercel.app/map.xml
+Sitemap: https://https://pwolimovies.vercel.app/ogsitemap.xml
+Sitemap: https://https://pwolimovies.vercel.app/pwolimovies_sitemap.xml
+Sitemap: https://https://pwolimovies.vercel.app/sitemap1.xml
+Sitemap: https://https://pwolimovies.vercel.app/sitemap.xml
+Sitemap: https://https://pwolimovies.vercel.app/sitemap.txt
