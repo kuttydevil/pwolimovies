@@ -7,4 +7,5 @@ Allow: /
 Sitemap: https://pwolimovies.vercel.app/pwolimovies_sitemap.xml
 Sitemap: https://pwolimovies.vercel.app/sitemap.xml
 Sitemap: https://pwolimovies.vercel.app/ogsitemap.xml
+Sitemap: https://pwolimovies.vercel.app/map.xml
 
