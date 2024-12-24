@@ -707,3 +707,16 @@ const observer = new IntersectionObserver((entries, observer) => {
 document.querySelectorAll('img[loading="lazy"]').forEach(image => {
     observer.observe(image);
 });
+
+// Add event listener to filter labels
+document.querySelectorAll('.filter-container label').forEach(label => {
+    label.addEventListener('click', (event) => {
+        const radio = event.currentTarget.querySelector('input[type="radio"]');
+        if (radio) {
+            radio.checked = true;
+           // Trigger the change event if needed
+           const changeEvent = new Event('change', { bubbles: true });
+           radio.dispatchEvent(changeEvent)
+        }
+    });
+});
